@@ -86,3 +86,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave Q01+Q02 CLOSED (2026-09-27)
 - Coordinator-executed (MAIN lane, no workers). Q01 PARTIAL: anon surface verified live (all writes denied, public reads open, RPC revoked). Q02 BLOCKED: needs service_role key (owner step) for Edge deploy + live collision run.
 
+
+## Wave Q03+Q04 CLOSED (2026-09-27)
+- Coordinator-executed (MAIN lane). Q03 matrix labelled (4 PASS/EXEMPT rows, rest UNIT/BLOCKED/NOT TESTED, no blanket pass). Q04: CI green run 36307419959 on 0994746, APK SHA e77d14b7..local-match. Device install NOT TESTED (no phone attached).
+

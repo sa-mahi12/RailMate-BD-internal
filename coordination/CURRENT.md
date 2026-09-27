@@ -92,3 +92,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~15:20
 - Q01 PARTIAL (anon RLS live-verified), Q02 BLOCKED (service_role owner step). Next: Q03 (smoke) + Q04 (CI/APK).
 
+
+## Update 2026-09-27 ~16:00
+- Q03 DONE (matrix smoke labelled), Q04 DONE (CI green + APK proof, device pending owner). Next: R01 docs + R02 freeze.
+
