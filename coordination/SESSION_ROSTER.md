@@ -58,3 +58,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave B05+A05 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 64/64 tests, analyze clean, booking_atomic migration applied (8/8 sync). LIVE concurrency proof NOT TESTED — needs service-role execution path (Edge deploy + secrets, owner step; see Q02).
 
+
+## Wave B06+A06 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 70/70 tests, analyze clean. No new deps (qr/pdf deferred). No migrations. Device NOT TESTED.
+

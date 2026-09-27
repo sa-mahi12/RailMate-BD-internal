@@ -64,3 +64,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~13:30
 - B05 DONE (passenger form/review per ref-4), A05 DONE (atomic RPC + Edge fn source, migration applied). Tests 64/64. Concurrency proof deferred to Q02. Next: B06 (payment) + A06 (ticket).
 
+
+## Update 2026-09-27 ~13:45
+- B06 DONE (simulated payment state machine), A06 DONE (demo ticket + print-map, no new deps). Tests 70/70. Next: B07 (history/cancel) + A07 (Journey Board).
+
