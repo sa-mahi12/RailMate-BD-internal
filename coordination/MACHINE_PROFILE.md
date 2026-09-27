@@ -30,3 +30,11 @@
 1. Install `gh` + `flutter`/`dart` + Android SDK platform-tools/build-tools (owner approves disk/admin).
 2. Do NOT install Docker, PostgreSQL, local Supabase.
 3. Prefer physical phone via adb over emulator (RAM guardrail).
+
+## Update 2026-09-27 ~10:30 (+06:00)
+- gh 2.101 installed via winget; auth OK sa-mahi12 id 212235795 scopes gist/read:org/repo/workflow.
+- Flutter 3.47.5 stable installed at D:\Apps\flutter (from Downloads zip 3.47.5, 1.9GB); Dart 3.13.4; User PATH updated.
+- Android Studio 2026.1.4.7 installed via winget; SDK at %LOCALAPPDATA%\Android\Sdk (cmdline-tools latest + platform-tools + android-35/36 + build-tools 35/36/28.0.3); ANDROID_HOME set; licenses accepted; flutter doctor Android toolchain PASS (SDK 36.0.0).
+- adb resolves to SDK platform-tools; WinGet PlatformTools duplicate left on disk (uninstall access-denied) but off PATH — cosmetic only.
+- Visual Studio absent (Windows-desktop only, not needed for Android — accepted gap); cocoapods network check fails (iOS only — accepted gap).
+

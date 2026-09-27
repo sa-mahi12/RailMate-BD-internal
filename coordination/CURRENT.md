@@ -18,3 +18,14 @@ Date: 2026-09-27
   3. Supabase hosted project decision (no billing without approval)
   4. Prompt 2 model registry + route proof
   5. S08 Flutter skeleton + CI run
+
+## Update 2026-09-27 ~10:30
+- Remotes LIVE: https://github.com/sa-mahi12/RailMate-BD (PRIVATE, main only, 30a71fc) + RailMate-BD-internal (PRIVATE, main only, e869266). Local git identity set to noreply for future commits.
+- Flutter skeleton (railmate_bd, bd.railmate, android-only) created; pub get OK (27 deps); analyze NO ISSUES; test: skeleton ships zero test files (nothing to run).
+- CI workflow present, not yet run on push (next: commit skeleton triggers CI).
+- Supabase: still NOT CREATED — owner dashboard step next. DeepSeek route proof still pending.
+
+
+## Update 2026-09-27 ~10:40
+- Skeleton corrected: full lib/test/android trees committed (ae70e64, 45 tracked files); flutter test 1/1 PASS; analyze NO ISSUES; pushed, CI triggered.
+

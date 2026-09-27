@@ -1,3 +1,1 @@
-# heavy.lock protocol
-State: FREE (no heavy operation running)
-Rules: only ONE of flutter build / Gradle / full tests / large scans / dep resolve / archive ops at a time. Worker must create lock (write session+PID+start time) before starting, remove after. Coordinator arbitrates. Max 2 workers; 3rd only after RAM/CPU check.
+FREE (released 2026-09-27T10:36:06.8259434+06:00)
