@@ -17,3 +17,9 @@
 - agentrouter/deepseek-v4-flash: FAILED x2 (default + --variant low) with provider error 'Invalid input: expected object, received null'. Coordinator stays on opencode free models until owner checks AgentRouter dashboard/docs.
 - CI run 36294784667 on ae70e64: SUCCESS (artifact railmate-debug-apk). Prior run on fdd7a16: FAILURE (incomplete tree — superseded).
 
+
+## DeepSeek fix applied 2026-09-27 ~11:00 (transport change, tested)
+- Change: %USERPROFILE%\.config\opencode\opencode.jsonc gained provider.agentrouter = { npm: @ai-sdk/openai, options.baseURL: https://agentrouter.org/v1 }. Backups: opencode.jsonc.bak-20260927, bak2-20260927. models.json cache untouched.
+- Why: catalog default @ai-sdk/openai-compatible posts /v1/chat/completions where null-content tool-call turns trip agentrouter thinking validator; @ai-sdk/openai uses /v1/responses shape instead. Shape validated against live config schema (singular 'provider' + ProviderConfig.npm/options.baseURL).
+- Test: 'opencode run ... -m agentrouter/deepseek-v4-flash' x1 -> ROUTE_OK, no 400. Verdict: coordinator route PROVEN. Watch for empty-content loop failure mode on longer agentic runs.
+

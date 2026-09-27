@@ -34,3 +34,7 @@ Date: 2026-09-27
 - CI GREEN on ae70e64 (run 36294784667 success, artifact railmate-debug-apk). MiMo route proven. DeepSeek route FAILED (provider Invalid input) — coordinator = opencode models for now.
 - NEXT OWNER STEP: create hosted Supabase project in dashboard (region/billing/SMS decisions), then S03/S04 packets. No app feature work started.
 
+
+## Update 2026-09-27 ~11:00
+- DeepSeek coordinator route FIXED + PROVEN (ROUTE_OK). Coordinator may now use agentrouter/deepseek-v4-flash (cap 256K).
+
