@@ -78,3 +78,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave A10+B10 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 100/100 tests, analyze clean. tflite_flutter 0.12.1 + secure_storage 11.2.0 vendored; ranker.tflite asset declared. On-device two-vector proof NOT TESTED (needs minSdk 26 check + device, see Q03).
 
+
+## Wave B11+I01 CLOSED (2026-09-27)
+- Both sub-sessions DELETED (sequential: B11 then I01). Gate: disjoint OK, secrets clean, 108/108 tests, analyze clean. Skeleton widget_test removed (superseded by navigation test). Live OpenRouter + installed-APK journeys NOT TESTED.
+
