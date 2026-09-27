@@ -80,3 +80,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~14:30
 - B09 DONE (guide shell, embeds BLOCKED), A09 DONE (hosted training green, artifacts committed). Tests 90/90. Next: A10 (ML integrate) + B10 (BYOK).
 
+
+## Update 2026-09-27 ~15:00
+- A10 DONE (TripRanker + fallback, real interpreter path), B10 DONE (BYOK vault + stub + screen). Tests 100/100. Next: B11 (AI rewrite) + I01 (nav integrate).
+

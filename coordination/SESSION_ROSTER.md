@@ -74,3 +74,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave B09+A09 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 90/90 tests, analyze clean. B09: guide shell only, R-09/10/15/16 BLOCKED (no teacher approval). A09: hosted ml-train run 36304165531 SUCCESS, SHAs verified, ranker.tflite 1280B committed.
 
+
+## Wave A10+B10 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 100/100 tests, analyze clean. tflite_flutter 0.12.1 + secure_storage 11.2.0 vendored; ranker.tflite asset declared. On-device two-vector proof NOT TESTED (needs minSdk 26 check + device, see Q03).
+
