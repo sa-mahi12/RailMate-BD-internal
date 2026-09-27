@@ -38,3 +38,9 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~11:00
 - DeepSeek coordinator route FIXED + PROVEN (ROUTE_OK). Coordinator may now use agentrouter/deepseek-v4-flash (cap 256K).
 
+
+## Update 2026-09-27 ~11:30
+- Supabase project linked: psuzlyingfmstnyfvlnj (RailMateBD_samahi, Singapore).
+- Migrations applied via CLI (4 files): initial_schema, rls, booking_rpc, storage_policy. Remote DB up to date.
+- Docker not needed for hosted push; local dev shadow DB requires Docker (optional).
+
