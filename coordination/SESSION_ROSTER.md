@@ -66,3 +66,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave B07+A07 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 79/79 tests, analyze clean. cancel-booking Edge NOT DEPLOYED; post-media bucket existence NOT VERIFIED (policies applied); live proofs deferred to Q01/Q02.
 
+
+## Wave B08+A08 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 87/87 tests, analyze clean. Live two-client realtime proof NOT TESTED (deferred to Q03/device).
+

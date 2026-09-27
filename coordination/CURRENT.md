@@ -72,3 +72,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~14:00
 - B07 DONE (history + RPC-only cancel), A07 DONE (board posts + owned media). Tests 79/79. Next: B08 (comments) + A08 (likes/ratings).
 
+
+## Update 2026-09-27 ~14:15
+- B08 DONE (comments + 5-cursor + realtime lifecycle), A08 DONE (reactions + ratings). Tests 87/87. Next: B09 (Station Guide) + A09 (ML train).
+
