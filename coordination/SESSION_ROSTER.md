@@ -82,3 +82,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave B11+I01 CLOSED (2026-09-27)
 - Both sub-sessions DELETED (sequential: B11 then I01). Gate: disjoint OK, secrets clean, 108/108 tests, analyze clean. Skeleton widget_test removed (superseded by navigation test). Live OpenRouter + installed-APK journeys NOT TESTED.
 
+
+## Wave Q01+Q02 CLOSED (2026-09-27)
+- Coordinator-executed (MAIN lane, no workers). Q01 PARTIAL: anon surface verified live (all writes denied, public reads open, RPC revoked). Q02 BLOCKED: needs service_role key (owner step) for Edge deploy + live collision run.
+

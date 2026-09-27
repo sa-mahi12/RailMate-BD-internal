@@ -88,3 +88,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~15:15
 - B11 DONE (rewrite + accept/reject), I01 DONE (4-tab shell + routes, skeleton replaced). Tests 108/108. Next: Q01 (RLS verify) + Q02 (collision proof).
 
+
+## Update 2026-09-27 ~15:20
+- Q01 PARTIAL (anon RLS live-verified), Q02 BLOCKED (service_role owner step). Next: Q03 (smoke) + Q04 (CI/APK).
+
