@@ -11,3 +11,9 @@
 - Compaction: NOT yet configured in opencode.jsonc (file is minimal schema-only + backup taken). Needs limit.context per model + auto-compaction + ACP conservative if present.
 - Heavy lock: coordination/heavy.lock FREE.
 - Verdict: BLOCKED (coordinator route unproven, worker sessions not launched/resumed, compaction not enabled, Flutter/gh/SDK missing).
+
+## Route proof 2026-09-27 ~10:50
+- opencode/mimo-v2.6-flash-free: PASS (tiny run returned ROUTE_OK).
+- agentrouter/deepseek-v4-flash: FAILED x2 (default + --variant low) with provider error 'Invalid input: expected object, received null'. Coordinator stays on opencode free models until owner checks AgentRouter dashboard/docs.
+- CI run 36294784667 on ae70e64: SUCCESS (artifact railmate-debug-apk). Prior run on fdd7a16: FAILURE (incomplete tree — superseded).
+

@@ -29,3 +29,8 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~10:40
 - Skeleton corrected: full lib/test/android trees committed (ae70e64, 45 tracked files); flutter test 1/1 PASS; analyze NO ISSUES; pushed, CI triggered.
 
+
+## Update 2026-09-27 ~10:50
+- CI GREEN on ae70e64 (run 36294784667 success, artifact railmate-debug-apk). MiMo route proven. DeepSeek route FAILED (provider Invalid input) — coordinator = opencode models for now.
+- NEXT OWNER STEP: create hosted Supabase project in dashboard (region/billing/SMS decisions), then S03/S04 packets. No app feature work started.
+
