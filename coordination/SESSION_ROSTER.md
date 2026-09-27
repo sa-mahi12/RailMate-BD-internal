@@ -18,3 +18,13 @@ Base SHAs: code fabd791, docs d185dfe. Coordinator owns commits/pushes/migration
 - Gate: paths disjoint OK, secrets clean, schema match OK, tests 11/11, analyze clean, seed applied as migration 20260927000005, live REST verify 4/4/40 + DAC->CGP search OK.
 - Code commits: 505e8fe (features) + 0d399ac (untrack .temp). B01-U1 open: no is_demo column (prefix convention for now).
 
+
+## Wave A02+B02 (2026-09-27)
+| Worker A (A02) | subagent | D:\RailMateBD | lib/features/auth/** EXCEPT username/ | ACTIVE |
+| Worker B (B02) | subagent | D:\RailMateBD | supabase/migrations/*username*, lib/features/auth/username/** | ACTIVE |
+Base SHA: code 0d399ac. UI spec: design/UI_VISUAL_SPEC.md + design/reference/.
+
+
+## Wave A02+B02 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 26/26 tests, analyze clean, migration 20260927055200 applied (local==remote 6/6). Live 2-user concurrent-claim NOT TESTED (deferred to Q01). Code ba04f67.
+

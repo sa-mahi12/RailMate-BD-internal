@@ -48,3 +48,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~11:20
 - A01 DONE (bootstrap slice + 6 tests), B01 DONE (seed 4/4/40 live + 4 model tests). Code at 0d399ac. Next packets: A02 (email auth) + B02 (usernames) — predecessors met.
 
+
+## Update 2026-09-27 ~12:00
+- A02 DONE (auth repo/state/screens per ref-2/ref-3), B02 DONE (username unique migration applied + field/checker). Code ba04f67. Next: A03 (phone OTP) + B03 (trip search UI).
+
