@@ -70,3 +70,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave B08+A08 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 87/87 tests, analyze clean. Live two-client realtime proof NOT TESTED (deferred to Q03/device).
 
+
+## Wave B09+A09 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 90/90 tests, analyze clean. B09: guide shell only, R-09/10/15/16 BLOCKED (no teacher approval). A09: hosted ml-train run 36304165531 SUCCESS, SHAs verified, ranker.tflite 1280B committed.
+

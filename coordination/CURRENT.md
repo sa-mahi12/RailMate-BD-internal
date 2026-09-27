@@ -76,3 +76,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~14:15
 - B08 DONE (comments + 5-cursor + realtime lifecycle), A08 DONE (reactions + ratings). Tests 87/87. Next: B09 (Station Guide) + A09 (ML train).
 
+
+## Update 2026-09-27 ~14:30
+- B09 DONE (guide shell, embeds BLOCKED), A09 DONE (hosted training green, artifacts committed). Tests 90/90. Next: A10 (ML integrate) + B10 (BYOK).
+
