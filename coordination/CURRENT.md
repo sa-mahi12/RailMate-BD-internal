@@ -44,3 +44,7 @@ Date: 2026-09-27
 - Migrations applied via CLI (4 files): initial_schema, rls, booking_rpc, storage_policy. Remote DB up to date.
 - Docker not needed for hosted push; local dev shadow DB requires Docker (optional).
 
+
+## Update 2026-09-27 ~11:20
+- A01 DONE (bootstrap slice + 6 tests), B01 DONE (seed 4/4/40 live + 4 model tests). Code at 0d399ac. Next packets: A02 (email auth) + B02 (usernames) — predecessors met.
+
