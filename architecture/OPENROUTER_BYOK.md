@@ -1,0 +1,8 @@
+# OpenRouter user-owned key design
+
+
+Each app user can enter and remove their own OpenRouter API key. Do not embed developer credentials or commit a valid key. The native Android secure-storage plugin should store the key in OS-backed encryption with explicit account scoping and logout/remove behavior. The app sends the key only to the verified OpenRouter HTTPS origin. Client-side BYOK carries exposure and misuse risk on compromised/rooted devices; show a plain disclosure: `Your key stays on this device and OpenRouter may charge your account; set a spending limit in OpenRouter. AI is optional.` No security claim of impossibility of extraction.
+
+One feature: select text from a Journey Board draft and click Improve Wording. Require explicit user action; pass only the selected draft text, not passenger details, booking records, local files or other users' data. Display loading, cancel, provider error, no key, invalid key, quota, rate-limit and successful suggestion states. Suggestion is shown for editing/accepting or rejecting. Model choice is a single owner-verified free-compatible candidate, not a broad catalogue; use official API metadata and a fallback policy that does not silently incur paid charges. The user can remove key without affecting core booking. Log only request ID and sanitized status, never prompts/credential.
+
+Do not confuse the development AgentRouter account with the app's independent OpenRouter BYOK path. Neither credential crosses into the other's environment. On an Android mobile app, a user-owned token is still visible to a determined attacker on their own compromised device; disclose this and encourage scoped/limited keys. Never ship service-role credentials or the developer's provider key as fallback.

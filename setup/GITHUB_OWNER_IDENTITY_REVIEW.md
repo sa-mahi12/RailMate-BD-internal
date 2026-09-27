@@ -1,0 +1,5 @@
+# Verify the GitHub author belongs to the actual user
+
+The starter defaults to `ID+login@users.noreply.github.com`, derived from `gh api user`, and `user.name=login`, not a memory-derived or invented personal email. Before first remote action, check `gh auth status` and `gh api user --jq '{login,id,name}'`. If using actual verified email instead, read `gh api user/emails` through the local terminal with appropriate scope and compare; do not paste the address or response into an AI prompt if unnecessary. Log only that account matching was confirmed. `git show --format=fuller` proves the intended author/committer metadata, while the remote GitHub UI proves whether the commit is linked to that account. Both checks are necessary before claiming correct attribution.
+
+No AI nor fabricated human `Co-authored-by:` trailer is added. Git authorship is provenance of account committing, not necessarily disclosure of assistance. Follow university rules for assistance and cite third-party assets according to course requirements. Do not use someone else's account, spoof a human collaborator, or claim the model did work it did not do.

@@ -1,0 +1,6 @@
+# Authentication and real verification
+
+
+Supabase Auth manages identity/session and issues JWTs. Email sign-up/confirmation uses configured SMTP/email flow and redirect/deep-link tested on Android. Username selection checks availability live for friendly feedback, but `usernames.normalized_username` unique constraint is authoritative. The server claims a normalized username inside one atomic operation associated with the authenticated ID, protecting against two users racing. Normalization policy is locked before users register: lowercase ASCII letters, digits and underscores, length 3–20, trim spaces; reject lookalike Unicode rather than accidentally making ambiguous cases equivalent.
+
+Teacher explicitly requests **email and phone verification**. Supabase phone OTP requires a third-party SMS provider; choose one based on price, Bangladesh delivery and account access. Before a real SMS, record owner approval of provider/budget/recipient and configure test numbers where supported. A fake in-app six-digit code must be labelled a mock and cannot be presented as completed phone verification. If real SMS is unavailable, keep email auth functional and mark course row R-05 BLOCKED pending instructor decision. Login/logout/restoration each need actual JWT and RLS authorization tests. Do not log auth tokens or test users' real phone numbers.

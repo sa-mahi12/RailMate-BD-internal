@@ -1,0 +1,17 @@
+# TASKS.md — setup gate (2026-09-27)
+- [x] Unzip kit to Mahi_Number_9\RailMate_BD_Execution_Kit
+- [x] Read README_START_HERE, OWNER_DECISIONS, SETUP_SEQUENCE
+- [x] Use D:\RailMateBD for code, create D:\RailMateBD-internal
+- [x] Copy repo-code/ → D:\RailMateBD, repo-docs/ → D:\RailMateBD-internal
+- [x] Machine discovery (Phase A) → MACHINE_PROFILE.md
+- [x] Project paths (Phase B) → PROJECT_PATHS.md
+- [x] Backup opencode.jsonc, git init -b main both
+- [ ] Install gh + auth (Phase C blocker)
+- [ ] Create two private remotes with explicit confirmation (Phase C)
+- [ ] Supabase hosted decision, URL/publishable-key handling, no local DB (Phase D)
+- [ ] flutter doctor -v, skeleton compiles, device detect (Phase E blocker)
+- [ ] OpenCode coordinator/worker/MCP/LSP config + route proof (Phase F + Prompt 2)
+- [ ] heavy.lock enforcement, 2-worker max (Phase G)
+- [ ] Durable memory files complete (Phase H — partial)
+- [ ] GitHub Actions baseline runs (Phase I)
+- [ ] Pre-implementation gate sign-off (Phase J)

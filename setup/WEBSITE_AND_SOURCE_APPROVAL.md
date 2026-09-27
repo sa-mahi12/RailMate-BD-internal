@@ -1,0 +1,5 @@
+# Teacher and library evidence checks
+
+Before coding WebView accommodations, ask whether one embedded HTML page using GSAP and compiled SASS satisfies the teacher's exact technology requirement within a Flutter application. If teacher says no, reevaluate primary framework or acceptable equivalent; don't falsely claim Flutter animation qualifies as GSAP. For TFLite, check the teacher accepts a tiny actual on-device search ranking model versus full demand forecasting. These are clarification gates, not blanket exceptions.
+
+At build/release time verify current package versions and licenses for Flutter SDK, Supabase Flutter SDK, `webview_flutter`, `flutter_secure_storage`, `tflite_flutter`, chosen PDF/QR packages, GSAP and Sass. Never copy licensed images/video data into repo without appropriate rights. Use YouTube iframe embed permitted by provider rather than downloading video. Only include minimal dependencies required by implemented features; don't install large ML runtime beyond tiny TFLite interpreter. Every unsupported or paid integration must be logged and shown to teacher rather than mocked as real.

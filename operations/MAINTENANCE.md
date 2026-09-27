@@ -1,0 +1,7 @@
+# Ongoing maintenance without new infrastructure
+
+At every working session: refresh CURRENT and TASK_BOARD; verify GitHub account/branch/current SHA; read any owner changes; run two workers on disjoint tasks; run one coordinator post-pass gate; direct commit/push main; capture CI outcome; update private docs main. Do not create extra GitHub repos, branches, PRs or long-lived app servers. If an external API/model/package changes, record date/source and adjust one minimal adapter rather than rebuilding architecture.
+
+Weekly: review Supabase quota and RLS policies, OpenRouter user-facing key notice, AgentRouter/free model availability, Android build tools, CI minutes and uploaded media. Keep demo seed data synthetic. Prune unused dependencies, inactive realtime listeners and generated temporary files. Preserve migration history forward-only and exported Storage bytes when backing up live data. Avoid keeping local database duplicates. If a model free tier disappears, mark worker blocked and select a currently authorized alternative with owner consent; never silently incur paid fallback.
+
+On compaction: reload owner contract/CURRENT, not only generated summary. On session resume: read last handoff and actual code diff. On interruption: check worker PID/lock before restarting. On final delivery: record exact source/Docs SHAs and verified APK hash. `PASSED` evidence must survive a fresh context window and a different coordinator session without relying on conversational memory.

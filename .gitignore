@@ -1,0 +1,11 @@
+
+.runtime/
+.env
+.env.*
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+app.env.json
+

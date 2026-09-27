@@ -1,0 +1,8 @@
+# Minimum on-device ML integrated with search
+
+
+A small TFLite model scores demo trip relevance from normalized features: departure time difference to selected preference, journey duration relative to displayed alternatives, fare relative to selected price range, seats-remaining ratio and day-of-week indicator. Use an actual pre-trained small logistic or single dense-layer model exported to `.tflite` in hosted Colab, checked into code as a small asset with SHA-256 and metadata. Do not train a large neural network on the owner's PC. The demo dataset is synthetic and labels approximate a simple preference ranking; it is not a prediction of actual demand or crowding.
+
+On every search criteria change (after debounce), compute feature vector for each trip and invoke `Interpreter.run` on the phone. Sort the UI by the model score with deterministic tie-break. The UI must visibly indicate `Experimental relevance score (demo data)` and allow default time sort. Create a model-asset test confirming nonzero bytes/version, a deterministic fixture inference test and a physical-device proof that two input vectors produce differing output. If the interpreter fails, show a safe time-sort fallback labelled non-ML; mark teacher R-12 only when live model inference works. No external LLM result can substitute for on-device ML.
+
+A purely handwritten formula, random score, a fixed sorted list, or SQL query ranking by departure time **does not** by itself meet the explicit on-device ML item. Exporting TensorFlow Lite from Colab/CI avoids hardware overhead. Keep input dimensions, normalization constants and TFLite op compatibility documented alongside the model; reject NaNs and infinities.

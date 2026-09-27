@@ -1,0 +1,6 @@
+# Small community board contract
+
+
+The Journey Board is a course-requirement consolidation area, not a social network. A post has text and optional uploaded image. Authenticated users add comments; post owner may edit/delete own text; reactions are one of LIKE/DISLIKE per user; rating is integer 1–5 per user; pagination uses a stable `(created_at,id)` cursor in groups of five. Realtime subscriptions are scoped to visible posts and disposed on navigation/log-out so many workers/screens don't leak subscriptions. Do not let anonymous/public read expose phone/email or booking data.
+
+The aggregate display must update in two signed-in clients without refresh; counters can be read from a trusted view/RPC and invalidated on actual Postgres change. App treats event notifications as an invalidation signal and fetches authoritative state if out of sync; this avoids blindly incrementing counts twice when reconnecting. Upload: restrict MIME to JPG/PNG/WebP, downsample/compress a sample image, max size chosen after testing, file path prefixed by signed-in ID, no public `service_role` key, deny executable extensions, clean orphan object when a post insert fails. AI rewrite never auto-publishes or overwrites without user confirmation.

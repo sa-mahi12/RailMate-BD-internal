@@ -1,0 +1,12 @@
+# Minimal runtime architecture and responsibility boundaries
+
+
+The Flutter application uses the hosted Supabase SDK. A public publishable key identifies the project, but does **not** authorize private data without RLS/JWT. Auth tokens stay in platform-supported session storage. The app calls auto-generated REST for ordinary CRUD; it calls `pg_graphql` for one genuine read-only station query; it subscribes to selected Realtime table changes for comments/reactions/ratings. Storage hosts post images under user-scoped paths. An Edge Function validates the caller and makes a service-role-only call to an atomic Postgres function for booking/cancellation. Other features use normal user-scoped RLS.
+
+**No local business database:** The app may cache UI state and platform session metadata to function normally, but Supabase hosted Postgres remains the only authoritative persisted application data. If the phone is offline, show explicit `network unavailable` and preserve unsent form input in memory if possible; do not invent an offline ticket or silently report a booking as complete. No local Postgres, SQLite business schema, emulator database or docker.
+
+**Data boundaries:** User profile and booking passengers must not be public; post content may be publicly readable according to approved policies; uploaded media path ownership must be scoped; admin authorization stored by privileged operator, not a writable `is_admin` field. Public demo stations/trips may be anonymously readable. A function must derive the booking owner from validated user identity, never from caller-controlled JSON. The service-role key lives only in hosted function environment.
+
+**Cost boundaries:** Supabase plan, SMS provider and invocation rates verified before enabling. OpenRouter API key is provided by each user and stored on device; the developer's key is never compiled into the binary. Map embeds, video embeds, and hosting may carry separate access/rate constraints. Machine-heavy Android builds occur in hosted CI when possible.
+
+**Failure handling:** Auth failure does not mutate bookings; payment failure creates no booking; seat race rejects entire multi-seat set; transient network retry uses the same idempotency key; Edge Function failure yields retry/unknown status not fake success; app refreshes from hosted state after uncertain response; cancellation is idempotent and never frees a seat owned by another booking.

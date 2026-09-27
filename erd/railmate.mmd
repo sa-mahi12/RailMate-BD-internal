@@ -1,0 +1,54 @@
+erDiagram
+    PROFILES ||--o{ BOOKINGS : owns
+    PROFILES ||--o{ POSTS : writes
+    PROFILES ||--o{ POST_COMMENTS : writes
+    PROFILES ||--o{ POST_REACTIONS : chooses
+    PROFILES ||--o{ POST_RATINGS : rates
+    STATIONS ||--o{ TRIPS : origin
+    STATIONS ||--o{ TRIPS : destination
+    TRIPS ||--o{ TRIP_SEATS : offers
+    TRIPS ||--o{ BOOKINGS : has
+    BOOKINGS ||--|{ BOOKING_PASSENGERS : contains
+    BOOKINGS ||--|{ BOOKING_SEATS : assigns
+    TRIP_SEATS ||--o| BOOKING_SEATS : allocation
+    POSTS ||--o{ POST_COMMENTS : has
+    POSTS ||--o{ POST_REACTIONS : has
+    POSTS ||--o{ POST_RATINGS : has
+    PROFILES { uuid id PK
+      text username }
+    STATIONS { uuid id PK
+      text code UK
+      text name }
+    TRIPS { uuid id PK
+      uuid origin_station_id FK
+      uuid destination_station_id FK
+      timestamp departure_at
+      int base_fare_bdt }
+    TRIP_SEATS { uuid id PK
+      uuid trip_id FK
+      text seat_code
+      uuid booking_id FK }
+    BOOKINGS { uuid id PK
+      uuid user_id FK
+      uuid trip_id FK
+      uuid request_id UK
+      text status }
+    BOOKING_PASSENGERS { uuid id PK
+      uuid booking_id FK
+      text passenger_name }
+    BOOKING_SEATS { uuid id PK
+      uuid booking_id FK
+      uuid trip_seat_id FK
+      uuid passenger_id FK }
+    POSTS { uuid id PK
+      uuid user_id FK
+      text body }
+    POST_COMMENTS { uuid id PK
+      uuid post_id FK
+      uuid user_id FK }
+    POST_REACTIONS { uuid post_id FK
+      uuid user_id FK
+      text reaction }
+    POST_RATINGS { uuid post_id FK
+      uuid user_id FK
+      int stars }

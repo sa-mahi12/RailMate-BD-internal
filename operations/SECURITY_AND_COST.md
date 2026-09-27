@@ -1,0 +1,6 @@
+# Security, account and spending gates
+
+
+Never store service-role credentials or database passwords in Flutter assets, git, GitHub Actions artifact, worker prompt or logs. The Supabase publishable key is intended for client use but RLS must protect every table. Use short-lived token flows; never let `is_admin` be controlled by an ordinary user. Turn on RLS explicitly on all SQL-created exposed tables, with narrow grants and private booking RPC called by service-role-only Edge Function. Review storage bucket policies; public display images must be separated from private receipts/passenger data.
+
+Supabase project creation, SMS provider purchase, OpenRouter API requests, AgentRouter usage, enabling paid GitHub runners and any other billed action have individual owner budget decisions. The existence of a key never equals permission to incur uncapped usage. Use cost ceilings/alerts and avoid mass free-model retry storms. Real phone verification may require SMS provider contracts/fees and regional delivery checks. Data deletion, migrations that drop data and `db reset` are separately owner gated; a Postgres backup does not include arbitrary Storage objects, so back them up separately when necessary. Never run a production reset to get a clean demo.
