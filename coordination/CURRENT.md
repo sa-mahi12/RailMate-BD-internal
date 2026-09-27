@@ -68,3 +68,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~13:45
 - B06 DONE (simulated payment state machine), A06 DONE (demo ticket + print-map, no new deps). Tests 70/70. Next: B07 (history/cancel) + A07 (Journey Board).
 
+
+## Update 2026-09-27 ~14:00
+- B07 DONE (history + RPC-only cancel), A07 DONE (board posts + owned media). Tests 79/79. Next: B08 (comments) + A08 (likes/ratings).
+
