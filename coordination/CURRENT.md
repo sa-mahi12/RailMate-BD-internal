@@ -56,3 +56,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~12:30
 - A03 DONE (phone OTP UI + fake wiring, SMS BLOCKED), B03 DONE (search repo/state/Home/Results per ref-1). Tests 36/36. Next: B04 (GraphQL) + A04 (seats).
 
+
+## Update 2026-09-27 ~13:00
+- B04 DONE (GraphQL live-verified), A04 DONE (seat UI per ref-1). Tests 45/45. Next: B05 (passengers) + A05 (atomic booking).
+

@@ -38,3 +38,13 @@ Base SHA: code ba04f67.
 ## Wave A03+B03 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 36/36 tests, analyze clean. Live SMS BLOCKED (S04 unmet). Live search query NOT TESTED on device (widget/unit only).
 
+
+## Wave B04+A04 (2026-09-27)
+| Worker A (A04) | subagent | lib/features/booking/seat_ui/** | ACTIVE |
+| Worker B (B04) | subagent | lib/features/graphql/** + supabase/migrations/*graphql* (one file) | ACTIVE |
+Base SHA: code 48ee1a3.
+
+
+## Wave B04+A04 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 45/45 tests, analyze clean, pg_graphql enabled + LIVE query returns 4 stations. Device NOT TESTED.
+
