@@ -48,3 +48,13 @@ Base SHA: code 48ee1a3.
 ## Wave B04+A04 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 45/45 tests, analyze clean, pg_graphql enabled + LIVE query returns 4 stations. Device NOT TESTED.
 
+
+## Wave B05+A05 (2026-09-27)
+| Worker B (B05) | subagent | lib/features/booking/passenger_ui/** | ACTIVE |
+| Worker A (A05) | subagent | supabase/migrations/*booking*, supabase/functions/book-trip/** | ACTIVE |
+Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); skill preload infra-error, using architecture docs.
+
+
+## Wave B05+A05 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 64/64 tests, analyze clean, booking_atomic migration applied (8/8 sync). LIVE concurrency proof NOT TESTED — needs service-role execution path (Edge deploy + secrets, owner step; see Q02).
+

@@ -60,3 +60,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~13:00
 - B04 DONE (GraphQL live-verified), A04 DONE (seat UI per ref-1). Tests 45/45. Next: B05 (passengers) + A05 (atomic booking).
 
+
+## Update 2026-09-27 ~13:30
+- B05 DONE (passenger form/review per ref-4), A05 DONE (atomic RPC + Edge fn source, migration applied). Tests 64/64. Concurrency proof deferred to Q02. Next: B06 (payment) + A06 (ticket).
+
