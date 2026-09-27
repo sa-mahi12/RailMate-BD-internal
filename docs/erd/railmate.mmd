@@ -1,0 +1,105 @@
+%% RailMate BD ERD — regenerated from applied schema 2026-09-27
+%% Source: supabase/migrations/20260927000001_initial_schema.sql (+000003 RPC, +000004 storage, +052 username, +028 graphql, +630 atomic)
+%% All tables live in the `public` schema of hosted project ref psuzlyingfmstnyfvlnj.
+erDiagram
+  profiles ||--o| usernames : "claims (1:1, FK user_id)"
+  profiles ||--o{ bookings : "owns (user_id)"
+  profiles ||--o{ posts : "authors (user_id)"
+  profiles ||--o{ post_comments : "writes (user_id)"
+  profiles ||--o{ post_reactions : "votes (user_id)"
+  profiles ||--o{ post_ratings : "rates (user_id)"
+  stations ||--o{ trips : "origin (origin_station_id)"
+  stations ||--o{ trips : "destination (destination_station_id)"
+  trips ||--o{ trip_seats : "has (trip_id)"
+  trips ||--o{ bookings : "booked (trip_id)"
+  bookings ||--o{ booking_passengers : "lists (booking_id, cascade)"
+  bookings ||--o{ booking_seats : "links (booking_id, cascade)"
+  bookings ||--o| trip_seats : "holds (trip_seats.booking_id, nullable)"
+  trip_seats ||--o{ booking_seats : "taken (trip_seat_id)"
+  booking_passengers ||--o{ booking_seats : "seated (passenger_id)"
+  posts ||--o{ post_comments : "thread (post_id, cascade)"
+  posts ||--o{ post_reactions : "reacts (post_id, cascade)"
+  posts ||--o{ post_ratings : "rates (post_id, cascade)"
+
+  profiles {
+    uuid id PK "FK auth.users(id), cascade"
+    text display_name
+    timestamptz created_at
+  }
+  usernames {
+    text username PK "regex ^[a-z0-9_]{3,20}$"
+    uuid user_id FK "unique, FK profiles, cascade"
+    timestamptz created_at
+  }
+  stations {
+    uuid id PK
+    text code "unique: DAC CGP SYL RJH demo"
+    text name
+    numeric latitude "nullable"
+    numeric longitude "nullable"
+  }
+  trips {
+    uuid id PK
+    text train_name
+    uuid origin_station_id FK "FK stations, <> destination"
+    uuid destination_station_id FK "FK stations"
+    timestamptz departure_at
+    timestamptz arrival_at "CHECK arrival > departure"
+    int fare_bdt "CHECK >= 0"
+    bool active
+  }
+  bookings {
+    uuid id PK
+    uuid user_id FK "FK profiles"
+    uuid trip_id FK "FK trips"
+    uuid request_id "unique per (user_id, request_id)"
+    text request_fingerprint
+    text status "CONFIRMED|CANCELLED"
+    int total_fare_bdt "CHECK >= 0"
+    timestamptz created_at
+    timestamptz cancelled_at "nullable"
+  }
+  trip_seats {
+    uuid id PK
+    uuid trip_id FK "FK trips"
+    text seat_code "unique per (trip_id, seat_code)"
+    uuid booking_id FK "nullable, FK bookings"
+  }
+  booking_passengers {
+    uuid id PK
+    uuid booking_id FK "FK bookings, cascade"
+    int passenger_order "1..4"
+    text passenger_name "2..80 chars"
+  }
+  booking_seats {
+    uuid id PK
+    uuid booking_id FK "FK bookings, cascade"
+    uuid trip_seat_id FK "FK trip_seats"
+    uuid passenger_id FK "FK booking_passengers"
+  }
+  posts {
+    uuid id PK
+    uuid user_id FK "FK profiles"
+    text body "1..2000 chars"
+    text image_path "nullable, post-media object"
+    timestamptz created_at
+  }
+  post_comments {
+    uuid id PK
+    uuid post_id FK "FK posts, cascade"
+    uuid user_id FK "FK profiles"
+    text body "1..500 chars"
+    timestamptz created_at
+  }
+  post_reactions {
+    uuid post_id PK "FK posts, cascade; PK(post_id,user_id)"
+    uuid user_id PK "FK profiles"
+    text reaction "LIKE|DISLIKE"
+    timestamptz created_at
+  }
+  post_ratings {
+    uuid post_id PK "FK posts, cascade; PK(post_id,user_id)"
+    uuid user_id PK "FK profiles"
+    int stars "1..5"
+    timestamptz created_at
+  }

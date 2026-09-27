@@ -90,3 +90,7 @@ Base SHA: code b135793. Note: A05 runs parallel (file-independent from B05); ski
 ## Wave Q03+Q04 CLOSED (2026-09-27)
 - Coordinator-executed (MAIN lane). Q03 matrix labelled (4 PASS/EXEMPT rows, rest UNIT/BLOCKED/NOT TESTED, no blanket pass). Q04: CI green run 36307419959 on 0994746, APK SHA e77d14b7..local-match. Device install NOT TESTED (no phone attached).
 
+
+## R01 CLOSED + R02 FREEZE (2026-09-27)
+- R01: ERD MMD + vector PDF (12 tables verified) + install/viva docs. All sub-sessions DELETED (none active).
+
