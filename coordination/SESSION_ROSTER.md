@@ -28,3 +28,13 @@ Base SHA: code 0d399ac. UI spec: design/UI_VISUAL_SPEC.md + design/reference/.
 ## Wave A02+B02 CLOSED (2026-09-27)
 - Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 26/26 tests, analyze clean, migration 20260927055200 applied (local==remote 6/6). Live 2-user concurrent-claim NOT TESTED (deferred to Q01). Code ba04f67.
 
+
+## Wave A03+B03 (2026-09-27)
+| Worker A (A03) | subagent | lib/features/auth/phone/** | ACTIVE (S04 SMS: NO provider/budget -> live SMS BLOCKED, UI+fallback only) |
+| Worker B (B03) | subagent | lib/features/search/** except models/ | ACTIVE |
+Base SHA: code ba04f67.
+
+
+## Wave A03+B03 CLOSED (2026-09-27)
+- Both sub-sessions DELETED. Gate: disjoint OK, secrets clean, 36/36 tests, analyze clean. Live SMS BLOCKED (S04 unmet). Live search query NOT TESTED on device (widget/unit only).
+

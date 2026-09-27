@@ -52,3 +52,7 @@ Date: 2026-09-27
 ## Update 2026-09-27 ~12:00
 - A02 DONE (auth repo/state/screens per ref-2/ref-3), B02 DONE (username unique migration applied + field/checker). Code ba04f67. Next: A03 (phone OTP) + B03 (trip search UI).
 
+
+## Update 2026-09-27 ~12:30
+- A03 DONE (phone OTP UI + fake wiring, SMS BLOCKED), B03 DONE (search repo/state/Home/Results per ref-1). Tests 36/36. Next: B04 (GraphQL) + A04 (seats).
+
