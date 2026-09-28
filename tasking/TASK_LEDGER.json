@@ -41,11 +41,11 @@
       "title": "Reconcile actual repo state and stale coordination",
       "dependencies": [],
       "preferred_owner": "COORDINATOR",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "e939735"
     },
     {
       "id": "F01",
@@ -54,8 +54,8 @@
         "F00"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "READY_FOR_REVIEW",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -67,11 +67,11 @@
         "F00"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "b7753d1e3898c4937167fdb3b7e9486d75a0b0c2"
     },
     {
       "id": "F03",
@@ -80,8 +80,8 @@
         "F02"
       ],
       "preferred_owner": "WORKER_A",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "READY_FOR_REVIEW",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -93,8 +93,8 @@
         "F02"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "READY_FOR_REVIEW",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -106,9 +106,15 @@
         "F02"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "migration 20260928000001 applied",
+        "refresh_demo_horizon()=168 x2",
+        "8 stations, ids stable",
+        "40 seats/demo trip",
+        "anon/auth execute=false"
+      ],
       "blocker": null,
       "verified_commit": null
     },
@@ -186,8 +192,8 @@
         "F02"
       ],
       "preferred_owner": "WORKER_C",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "READY_FOR_REVIEW",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
