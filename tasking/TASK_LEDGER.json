@@ -1,0 +1,377 @@
+{
+  "allowed_statuses": [
+    "TODO",
+    "READY",
+    "IN_PROGRESS",
+    "BLOCKED_OWNER",
+    "BLOCKED_EXTERNAL",
+    "READY_FOR_REVIEW",
+    "VERIFIED",
+    "SUPERSEDED"
+  ],
+  "mandatory_task_ids": [
+    "F00",
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "F06",
+    "F07",
+    "F08",
+    "F09",
+    "F10",
+    "F11",
+    "F12",
+    "F13",
+    "F14",
+    "F15",
+    "F16",
+    "F17",
+    "F18",
+    "F19",
+    "F20",
+    "F21",
+    "F22",
+    "F23"
+  ],
+  "tasks": [
+    {
+      "id": "F00",
+      "title": "Reconcile actual repo state and stale coordination",
+      "dependencies": [],
+      "preferred_owner": "COORDINATOR",
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F01",
+      "title": "Configure/verify MCP LSP skills",
+      "dependencies": [
+        "F00"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F02",
+      "title": "Real Supabase bootstrap and dependency composition",
+      "dependencies": [
+        "F00"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F03",
+      "title": "Auth session profile and approved shell",
+      "dependencies": [
+        "F02"
+      ],
+      "preferred_owner": "WORKER_A",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F04",
+      "title": "Hosted search and actual GraphQL integration",
+      "dependencies": [
+        "F02"
+      ],
+      "preferred_owner": "WORKER_B",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F05",
+      "title": "Dynamic daily demo data",
+      "dependencies": [
+        "F02"
+      ],
+      "preferred_owner": "WORKER_B",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F06",
+      "title": "Live seat inventory + demo_reserved behavior",
+      "dependencies": [
+        "F04",
+        "F05"
+      ],
+      "preferred_owner": "WORKER_B",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F07",
+      "title": "UUID booking client + Edge deploy + payment-to-booking",
+      "dependencies": [
+        "F02",
+        "F06"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F08",
+      "title": "Collision rollback idempotency proof",
+      "dependencies": [
+        "F07"
+      ],
+      "preferred_owner": "WORKER_E",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F09",
+      "title": "Booking history/details/cancel",
+      "dependencies": [
+        "F07"
+      ],
+      "preferred_owner": "WORKER_B",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F10",
+      "title": "Real QR + PDF ticket",
+      "dependencies": [
+        "F07"
+      ],
+      "preferred_owner": "WORKER_B",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F11",
+      "title": "Journey Board hosted feed/create",
+      "dependencies": [
+        "F02"
+      ],
+      "preferred_owner": "WORKER_C",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F12",
+      "title": "Board image picker + Storage",
+      "dependencies": [
+        "F11"
+      ],
+      "preferred_owner": "WORKER_C",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F13",
+      "title": "Realtime comments/reactions/ratings/pagination",
+      "dependencies": [
+        "F11"
+      ],
+      "preferred_owner": "WORKER_C",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F14",
+      "title": "Real OpenRouter BYOK",
+      "dependencies": [
+        "F03"
+      ],
+      "preferred_owner": "WORKER_D",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F15",
+      "title": "WebView + SASS + GSAP + map + video",
+      "dependencies": [
+        "F02"
+      ],
+      "preferred_owner": "WORKER_D",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F16",
+      "title": "Navigation alignment and remove happy-path placeholders",
+      "dependencies": [
+        "F03",
+        "F09",
+        "F11",
+        "F15"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F17",
+      "title": "Actual TFLite ranking in live search",
+      "dependencies": [
+        "F04",
+        "F06"
+      ],
+      "preferred_owner": "WORKER_D",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F18",
+      "title": "Android/CI config hardening",
+      "dependencies": [
+        "F02"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F19",
+      "title": "Composition-root integration tests",
+      "dependencies": [
+        "F03",
+        "F04",
+        "F06",
+        "F07",
+        "F09",
+        "F11",
+        "F14",
+        "F15",
+        "F17"
+      ],
+      "preferred_owner": "WORKER_E",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F20",
+      "title": "Two-account RLS/storage proof",
+      "dependencies": [
+        "F03",
+        "F11",
+        "F12",
+        "F13"
+      ],
+      "preferred_owner": "WORKER_E",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F21",
+      "title": "Physical-device full demo proof",
+      "dependencies": [
+        "F16",
+        "F18",
+        "F19"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F22",
+      "title": "Refresh 24-row course evidence matrix",
+      "dependencies": [
+        "F08",
+        "F10",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F17",
+        "F20",
+        "F21"
+      ],
+      "preferred_owner": "WORKER_E",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    },
+    {
+      "id": "F23",
+      "title": "Final docs README freeze CI APK SHA",
+      "dependencies": [
+        "F22"
+      ],
+      "preferred_owner": "COORDINATOR",
+      "status": "TODO",
+      "current_owner": null,
+      "evidence": [],
+      "blocker": null,
+      "verified_commit": null
+    }
+  ]
+}
