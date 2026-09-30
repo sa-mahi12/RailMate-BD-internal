@@ -189,11 +189,15 @@
         "F07"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "cancel UX on live Edge path",
+        "232/232 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "2f5427e"
     },
     {
       "id": "F10",
@@ -202,8 +206,8 @@
         "F07"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -233,11 +237,15 @@
         "F11"
       ],
       "preferred_owner": "WORKER_C",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "picker wired in compose host",
+        "232/232 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "2f5427e"
     },
     {
       "id": "F13",
@@ -246,9 +254,13 @@
         "F11"
       ],
       "preferred_owner": "WORKER_C",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "realtime channel wired in shell",
+        "6 data closures added",
+        "UI/pagination -> F13b"
+      ],
       "blocker": null,
       "verified_commit": null
     },
@@ -259,11 +271,16 @@
         "F03"
       ],
       "preferred_owner": "WORKER_D",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "real OpenRouter path",
+        "key audit clean",
+        "232/232 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "2f5427e"
     },
     {
       "id": "F15",
@@ -308,8 +325,8 @@
         "F06"
       ],
       "preferred_owner": "WORKER_D",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
