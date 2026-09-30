@@ -126,11 +126,15 @@
         "F05"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "analyze clean",
+        "158/158 tests",
+        "demoReserved model+mapping+shade"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "4ea4d3c"
     },
     {
       "id": "F07",
@@ -140,8 +144,8 @@
         "F06"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -244,11 +248,17 @@
         "F02"
       ],
       "preferred_owner": "WORKER_D",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "analyze clean",
+        "158/158 tests",
+        "SCSS compiled twin",
+        "Leaflet/GSAP/YT page+WebView",
+        "assets wired"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "4ea4d3c"
     },
     {
       "id": "F16",
