@@ -176,9 +176,16 @@
         "F07"
       ],
       "preferred_owner": "WORKER_E",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "live Edge E2E 13/13",
+        "race 1-winner-1-409",
+        "held-seat 409",
+        "idempotent replay+cancel",
+        "re-book after release",
+        "zero residue"
+      ],
       "blocker": null,
       "verified_commit": null
     },
@@ -206,11 +213,15 @@
         "F07"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "QR+PDF real path",
+        "259/259 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "05488e7"
     },
     {
       "id": "F11",
@@ -254,15 +265,15 @@
         "F11"
       ],
       "preferred_owner": "WORKER_C",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "realtime channel wired in shell",
-        "6 data closures added",
-        "UI/pagination -> F13b"
+        "realtime+engagement UI+paged feed live in tree",
+        "259/259 tests",
+        "analyze clean"
       ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "05488e7"
     },
     {
       "id": "F14",
@@ -311,11 +322,15 @@
         "F15"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "TODO",
-      "current_owner": null,
-      "evidence": [],
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "evidence": [
+        "contract tabs",
+        "259/259 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "e0a674c"
     },
     {
       "id": "F17",
@@ -325,11 +340,15 @@
         "F06"
       ],
       "preferred_owner": "WORKER_D",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "real .tflite + inference path wired",
+        "259/259 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "05488e7"
     },
     {
       "id": "F18",
@@ -338,8 +357,8 @@
         "F02"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -375,8 +394,8 @@
         "F13"
       ],
       "preferred_owner": "WORKER_E",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
