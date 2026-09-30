@@ -460,12 +460,13 @@
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "README freeze",
-        "CI 36679071869 green",
-        "APK a6cb6a9b...ee2"
+        "README freeze (no hardcoded SHA)",
+        "CI 36690222169 green",
+        "live APK 5f3f06ac...fffcf7",
+        "283/283 + analyze clean"
       ],
       "blocker": null,
-      "verified_commit": "82b11d0"
+      "verified_commit": "7fea7ce"
     }
   ]
 }

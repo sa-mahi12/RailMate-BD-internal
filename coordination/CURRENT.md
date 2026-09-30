@@ -1,7 +1,7 @@
 # CURRENT
 
 Timestamp: 2026-09-30 ~07:00 UTC
-Code HEAD: 82b11d0 (pushed to origin/main)
+Code HEAD: 7fea7ce (pushed to origin/main)
 Docs HEAD: this commit (pending)
 Phase: V3 COMPLETE — all worker lanes verified; owner-side items only
 
@@ -13,7 +13,7 @@ BACKEND STATE: hosted ref psuzlyingfmstnyfvlnj; 9/9 migrations in sync; refresh_
 LAST ANALYZE: clean (freeze tree)
 LAST TEST: 283/283 green (coordinator-ran)
 LAST CI: 36679071869 success on 7f71b06 (analyze + tests + APK)
-LAST APK: a848a209fece2fbcd8ee941ccd3982d9af409f84e07b0fec6720572512391017 (debug, needs repo vars for a live build)
+LAST APK: 5f3f06ac...fffcf7 (debug, live-config: boots into app; per-run hash in CI log)
 DEVICE: none attached
 HEAVY LOCK: FREE
 EXACT NEXT ACTION: owner — F21 device walkthrough (handover 08_FINAL_DEMO_WALKTHROUGH.md), SMS decision, repo vars; then viva
