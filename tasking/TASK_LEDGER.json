@@ -43,9 +43,12 @@
       "preferred_owner": "COORDINATOR",
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "bootstrap script",
+        "skeleton created"
+      ],
       "blocker": null,
-      "verified_commit": "e939735"
+      "verified_commit": "0994746"
     },
     {
       "id": "F01",
@@ -57,11 +60,11 @@
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "mcp registered needs-auth",
-        "flutter-analyze path proven"
+        "flutter create",
+        "pubspec baseline"
       ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "0994746"
     },
     {
       "id": "F02",
@@ -122,14 +125,11 @@
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "migration 20260928000001 applied",
-        "refresh_demo_horizon()=168 x2",
-        "8 stations, ids stable",
-        "40 seats/demo trip",
-        "anon/auth execute=false"
+        "demo horizon migration",
+        "168 trips live"
       ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "b7753d1"
     },
     {
       "id": "F06",
@@ -179,15 +179,11 @@
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "live Edge E2E 13/13",
-        "race 1-winner-1-409",
-        "held-seat 409",
-        "idempotent replay+cancel",
-        "re-book after release",
-        "zero residue"
+        "book-trip/cancel-booking deployed",
+        "13/13 live E2E"
       ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "137a0f5"
     },
     {
       "id": "F09",
@@ -407,13 +403,12 @@
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "two-account live 15/16+removal",
-        "RLS owner-only proven",
-        "bucket created",
-        "zero residue"
+        "two-account 15/16+removal",
+        "RLS owner-only",
+        "bucket created"
       ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "5c9d178"
     },
     {
       "id": "F21",
@@ -445,14 +440,15 @@
         "F21"
       ],
       "preferred_owner": "WORKER_E",
-      "status": "VERIFIED",
+      "status": "PARTIAL",
       "current_owner": "COORDINATOR",
       "evidence": [
-        "24-row matrix refreshed",
-        "pg_graphql live proof"
+        "matrix refreshed",
+        "pg_graphql live",
+        "awaits F21 for live rows"
       ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": ""
     },
     {
       "id": "F23",
