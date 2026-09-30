@@ -54,9 +54,12 @@
         "F00"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "READY_FOR_REVIEW",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "mcp registered needs-auth",
+        "flutter-analyze path proven"
+      ],
       "blocker": null,
       "verified_commit": null
     },
@@ -80,11 +83,16 @@
         "F02"
       ],
       "preferred_owner": "WORKER_A",
-      "status": "READY_FOR_REVIEW",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "coordinator-reviewed",
+        "130/130 tests",
+        "analyze clean",
+        "pushed"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "9b20cbc"
     },
     {
       "id": "F04",
@@ -93,11 +101,16 @@
         "F02"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "READY_FOR_REVIEW",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "coordinator-reviewed",
+        "130/130 tests",
+        "analyze clean",
+        "pushed"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "9b20cbc"
     },
     {
       "id": "F05",
@@ -144,11 +157,17 @@
         "F06"
       ],
       "preferred_owner": "COORDINATOR",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "both Edges deployed",
+        "401 smoke both",
+        "Edge-RPC contract audited",
+        "167/167 tests",
+        "analyze clean"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "61f4b4f"
     },
     {
       "id": "F08",
@@ -170,8 +189,8 @@
         "F07"
       ],
       "preferred_owner": "WORKER_B",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
@@ -196,11 +215,16 @@
         "F02"
       ],
       "preferred_owner": "WORKER_C",
-      "status": "READY_FOR_REVIEW",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
-      "evidence": [],
+      "evidence": [
+        "coordinator-reviewed",
+        "130/130 tests",
+        "analyze clean",
+        "pushed"
+      ],
       "blocker": null,
-      "verified_commit": null
+      "verified_commit": "9b20cbc"
     },
     {
       "id": "F12",
@@ -209,8 +233,8 @@
         "F11"
       ],
       "preferred_owner": "WORKER_C",
-      "status": "TODO",
-      "current_owner": null,
+      "status": "IN_PROGRESS",
+      "current_owner": "COORDINATOR",
       "evidence": [],
       "blocker": null,
       "verified_commit": null
