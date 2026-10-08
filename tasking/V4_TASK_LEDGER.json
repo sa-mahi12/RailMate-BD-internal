@@ -1,0 +1,903 @@
+{
+  "schema_version": 4,
+  "baseline": {
+    "code": "7fea7ced4f108574a3c48b66452561698819bad5",
+    "docs": "c696eeb9c7aec033c71b27c305bf4f8e010482f8",
+    "ci": "36690222169"
+  },
+  "allowed_statuses": [
+    "TODO",
+    "READY",
+    "IN_PROGRESS",
+    "BLOCKED_OWNER",
+    "BLOCKED_EXTERNAL",
+    "READY_FOR_REVIEW",
+    "VERIFIED",
+    "SUPERSEDED"
+  ],
+  "mandatory_task_ids": [
+    "P00",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P22",
+    "P23",
+    "P24",
+    "P25",
+    "P26",
+    "P27",
+    "P28",
+    "P29",
+    "P30",
+    "P31",
+    "P32",
+    "P33",
+    "P34",
+    "P35",
+    "P36"
+  ],
+  "tasks": [
+    {
+      "id": "P00",
+      "title": "Recover baseline and open V4 coordination",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [],
+      "objective": "Reconcile actual HEADs, create V4 current/roster, run baseline analyze/tests, no behavior change.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "HEADs match baselines",
+        "analyze clean",
+        "283/283 baseline",
+        "V4_CURRENT+roster open"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-09-30T10:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P01",
+      "title": "Central design tokens and motion primitives",
+      "preferred_owner": "WORKER_A",
+      "dependencies": [
+        "P00"
+      ],
+      "objective": "Create design/motion layer, reduced-motion handling and reusable animated primitives.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "lib/design 16 files",
+        "29/29 design tests",
+        "312/312 full suite",
+        "analyze clean"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-09-30T10:00:00Z",
+      "verified_commit": "30c5b55"
+    },
+    {
+      "id": "P02",
+      "title": "Branding, launcher icon, app name and splash",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P00"
+      ],
+      "objective": "Change visible product metadata and implement branded launch/splash foundation.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": "30c5b55+ follow-ups; branded icon/splash, RailMate BD label",
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P03",
+      "title": "Root application gate and onboarding persistence",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P00"
+      ],
+      "objective": "Introduce root state machine, first-run persistence and authenticated/unauthenticated routing.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "AppGate splash/onboarding/welcome/verify/home",
+        "onboarding store",
+        "8 gate tests",
+        "335/335"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P04",
+      "title": "Three-page onboarding experience",
+      "preferred_owner": "WORKER_B",
+      "dependencies": [
+        "P01",
+        "P03"
+      ],
+      "objective": "Implement three polished onboarding pages, page indicator, Skip/Next/Get Started and motion.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "onboarding screen exact contract",
+        "14 tests",
+        "326/326"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P05",
+      "title": "Welcome and Login experience",
+      "preferred_owner": "WORKER_B",
+      "dependencies": [
+        "P01",
+        "P03"
+      ],
+      "objective": "Polish Welcome/Login and ensure root-auth flow actually uses them.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "welcome hero staggered entrances",
+        "login entrances + busy/error swaps",
+        "STALE FIX: login forgot-password now opens real reset flow (was not-wired dialog)",
+        "4 new auth widget tests",
+        "432/432 green",
+        "commit 29c527e"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P06",
+      "title": "Forgot-password flow",
+      "preferred_owner": "WORKER_B",
+      "dependencies": [
+        "P05"
+      ],
+      "objective": "Add minimal real Supabase password-reset request UX; never fake reset.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "register+forgot-password routes",
+        "real reset/update password"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P07",
+      "title": "Registration, live username and confirm-password",
+      "preferred_owner": "WORKER_B",
+      "dependencies": [
+        "P05"
+      ],
+      "objective": "Polish registration, debounced username availability, validation and success routing.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "confirm-password field + match gate",
+        "LIVE username availability via UsernameField (usernames_read allows anon)",
+        "taken verdict blocks submit; server unique constraint still arbiter",
+        "checker injected only when backend client exists",
+        "432/432 green",
+        "29c527e"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P08",
+      "title": "Email verification and phone-verification states",
+      "preferred_owner": "WORKER_B",
+      "dependencies": [
+        "P07"
+      ],
+      "objective": "Polish email OTP; provider-ready phone UX; honest unavailable state if SMS blocked.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "verify entrances + error/info/button swaps",
+        "countdown deliberately not swapped (per-second fade = noise)",
+        "432/432 green",
+        "29c527e"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P09",
+      "title": "Animated app shell and bottom navigation",
+      "preferred_owner": "WORKER_A",
+      "dependencies": [
+        "P01",
+        "P03"
+      ],
+      "objective": "Add tab crossfade, selected-icon motion and consistent page-route transitions.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "home shell animated nav",
+        "409/409"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P10",
+      "title": "Home personalization and content sections",
+      "preferred_owner": "WORKER_C",
+      "dependencies": [
+        "P01",
+        "P03"
+      ],
+      "objective": "Dynamic greeting/name, upcoming booking seam, popular routes, recent searches and guide promo.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "home personalization sections",
+        "recent-searches store"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P11",
+      "title": "Expand station and service demo catalog",
+      "preferred_owner": "WORKER_C",
+      "dependencies": [
+        "P00"
+      ],
+      "objective": "Prepare 20\u201324 stations and 28\u201332 synthetic service templates with no official claims.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "24 stations + 32 services drafts",
+        "pglast parse clean",
+        "staging-only, not applied"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-09-30T10:00:00Z",
+      "verified_commit": "8e43c38"
+    },
+    {
+      "id": "P12",
+      "title": "Rolling 21-day demo generation migration",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P11"
+      ],
+      "objective": "Add new migration/generator producing rich trip/seat data without overwriting bookings.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "24 stations live, 8 ids stable",
+        "refresh=648 trips",
+        "40 seats/trip",
+        "handoffs/P12.md"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P13",
+      "title": "Search/date alignment and richer result cards",
+      "preferred_owner": "WORKER_C",
+      "dependencies": [
+        "P10",
+        "P12"
+      ],
+      "objective": "Limit date horizon; show richer service information, availability bands and simple sorting.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "results: skeleton/ErrorState/EmptyState, StaggeredList cards, PressScale cards+dates",
+        "timeout vs generic copy preserved",
+        "form: search-button swap, endpoint-change swap",
+        "5 new widget tests",
+        "428/428 green",
+        "commit 238b9fb"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P14",
+      "title": "Seat-selection visual and motion polish",
+      "preferred_owner": "WORKER_D",
+      "dependencies": [
+        "P01",
+        "P12"
+      ],
+      "objective": "Animated seat states, summary and sticky CTA while preserving live semantics.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "seat screen: skeleton/ErrorState/EmptyState, section entrances, PressScale available-only, AnimatedSwap codes",
+        "10 new widget tests",
+        "423/423 green",
+        "f66e69f"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P15",
+      "title": "Passenger and review stepper polish",
+      "preferred_owner": "WORKER_D",
+      "dependencies": [
+        "P14"
+      ],
+      "objective": "Animated passenger switching, step progress and validation.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "passenger: EmptyState, entrances, tab AnimatedSwap, animated stepper",
+        "review: EmptyState, entrances, rows stagger, total swap",
+        "shake-on-invalid deliberately skipped (behavior change)",
+        "423/423 green",
+        "f66e69f"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P16",
+      "title": "Payment state polish",
+      "preferred_owner": "WORKER_D",
+      "dependencies": [
+        "P15"
+      ],
+      "objective": "Processing/success/failure motion; booking only after hosted confirm.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "payment: entrances, status AnimatedSwap, processing spinner, animated stepper",
+        "423/423 green",
+        "f66e69f"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P17",
+      "title": "Ticket and PDF visual polish",
+      "preferred_owner": "WORKER_D",
+      "dependencies": [
+        "P16"
+      ],
+      "objective": "Ticket reveal, QR presentation, PDF/share polish and demo disclaimer.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "ticket: entrances, QR reveal, rows stagger, invalid->ErrorState same copy, download busy swap",
+        "payload/PDF untouched",
+        "423/423 green",
+        "f66e69f"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P18",
+      "title": "Bookings history/details/cancel polish",
+      "preferred_owner": "WORKER_D",
+      "dependencies": [
+        "P16"
+      ],
+      "objective": "Upcoming/past presentation, cancel confirmation and animated status.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "history: skeleton, ErrorState/EmptyState same copy, cards stagger, status-chip swap, cancel-busy swap",
+        "423/423 green",
+        "f66e69f"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P19",
+      "title": "Seed populated Journey Board demo content",
+      "preferred_owner": "WORKER_E",
+      "dependencies": [
+        "P00"
+      ],
+      "objective": "Prepare safe generic sample content and seed mechanism without committing credentials.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "40 posts draft",
+        "safety scan clean",
+        "staging-only, not applied"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-09-30T10:00:00Z",
+      "verified_commit": "e7013d1"
+    },
+    {
+      "id": "P20",
+      "title": "Journey Board visual and motion polish",
+      "preferred_owner": "WORKER_E",
+      "dependencies": [
+        "P01",
+        "P19"
+      ],
+      "objective": "Post cards, author presentation, realtime insertion, image polish and pagination skeleton.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "feed: skeleton, P26 ErrorState/EmptyState same copy, staggered cards, PressScale compose",
+        "relative timestamps via formatRelativeTime (was raw toString)",
+        "7 new pure-Dart relative-time tests",
+        "faf73c8"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P21",
+      "title": "Comments/reactions/ratings interaction motion",
+      "preferred_owner": "WORKER_E",
+      "dependencies": [
+        "P20"
+      ],
+      "objective": "Comment presentation, reaction pop, star motion and error/loading states.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "reaction bar: AnimatedContainer vote state + AnimatedSwap counts",
+        "star row: AnimatedScale highlight + AnimatedSwap average",
+        "engagement: skeleton bars, PressScale retry",
+        "FIX: FadeSlideIn cancels pending delay on dispose (unblocks pumpAndSettle)",
+        "439/439 green",
+        "deac79f"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P22",
+      "title": "Expand Station Guide data and presentation",
+      "preferred_owner": "WORKER_E",
+      "dependencies": [
+        "P01"
+      ],
+      "objective": "10\u201312 guide entries, richer facts, map/video/WebView polish.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "24/24 live codes, stale RNG/TKG/BSR fixed",
+        "map pins honest (8 only)",
+        "StaggeredList+PressScale list",
+        "webview load fade",
+        "removed stale BLOCKED cards",
+        "413/413 green",
+        "commit e96964d"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P23",
+      "title": "Profile/settings/about polish",
+      "preferred_owner": "WORKER_E",
+      "dependencies": [
+        "P01",
+        "P08"
+      ],
+      "objective": "Profile badges, phone state, AI settings, About/version and logout confirmation.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "profile entrances, verification-badge AnimatedSwap, sign-out swap",
+        "About dialog with DEMONSTRATION ONLY legalese",
+        "2 new widget tests",
+        "454/454 green",
+        "ec3b2e1"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P24",
+      "title": "OpenRouter UX polish",
+      "preferred_owner": "WORKER_E",
+      "dependencies": [
+        "P23"
+      ],
+      "objective": "Improve Wording states, consent and masked key status while preserving BYOK security.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "key setup: header entrance, PressScale back, connected-banner swap",
+        "Save/Remove/Test busy labels via AnimatedSwap",
+        "notice swap keyed by severity+message",
+        "rewrite bar: error swap, suggestion FadeSlideIn, busy label",
+        "454/454 green",
+        "ec3b2e1"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P25",
+      "title": "TFLite ranking presentation polish",
+      "preferred_owner": "WORKER_C",
+      "dependencies": [
+        "P13"
+      ],
+      "objective": "Clear smart-ranking/fallback labels and visual explanation without false claims.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "always-state the ranking: ML caption when ranked, F17 fallback note otherwise",
+        "mlRankingAppliedNote added next to smartRankingUnavailableNote",
+        "mutual-exclusion test",
+        "5107c05"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P26",
+      "title": "Global loading/empty/error/success states",
+      "preferred_owner": "WORKER_A",
+      "dependencies": [
+        "P01"
+      ],
+      "objective": "Reusable skeleton/empty/error/success components and adoption.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "design state skeletons/empty/error/success",
+        "catalog load fix"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P27",
+      "title": "Accessibility and reduced-motion pass",
+      "preferred_owner": "WORKER_F",
+      "dependencies": [
+        "P04",
+        "P09",
+        "P13",
+        "P18",
+        "P21",
+        "P23"
+      ],
+      "objective": "Semantics, scaling, reduced-motion, touch targets and contrast review.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "10-test a11y pin file (reduced motion, semantics, 1.5x text scale)",
+        "FIX: FadeSlideIn + cancel on dispose",
+        "FIX: login rows overflow at 1.5x -> Flexible+wrap",
+        "KNOWN GAP: 2.0x scale still overflows in some fixed-height rows (device QA follow-up)",
+        "5107c05"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P28",
+      "title": "Release signing configuration",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P02"
+      ],
+      "objective": "Replace debug signing for release with secret-backed keystore path.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "release signing env-var wiring",
+        "keystore RSA4096"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P29",
+      "title": "Release CI workflow: universal/split APK and AAB",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P28"
+      ],
+      "objective": "Manual release workflow, release artifacts, hashes and manifest.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "release.yml signed universal+split+AAB",
+        "release v1.0.0+2 published with APKs/AAB"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-04T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P30",
+      "title": "Versioning, release manifest and provenance",
+      "preferred_owner": "WORKER_F",
+      "dependencies": [
+        "P29"
+      ],
+      "objective": "Generate release-manifest/SHA evidence and verify monotonic versionCode.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "tool/release_evidence.dart parses+validates the real workflow manifest",
+        "14 tests incl. REAL v1.0.0+3 manifest + digests",
+        "monotonic versionCode rule",
+        "release 3 success: 4 APKs + AAB, code 3 > 2",
+        "468/468 green",
+        "cddbb97"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P31",
+      "title": "Root/onboarding/auth integration tests",
+      "preferred_owner": "WORKER_F",
+      "dependencies": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "objective": "Test fresh/returning/authenticated/logout root flows.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "8 root-flow tests through the real RailMateApp gate",
+        "splash transient, onboarding->welcome persists",
+        "welcome->verify (unconfirmed) -> home (confirmed)",
+        "logout -> welcome without replaying onboarding",
+        "one-phase-at-a-time invariant",
+        "476/476 green",
+        "930ac11"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P32",
+      "title": "Visual/motion integration QA",
+      "preferred_owner": "WORKER_F",
+      "dependencies": [
+        "P09",
+        "P13",
+        "P18",
+        "P21",
+        "P22",
+        "P23",
+        "P26"
+      ],
+      "objective": "Screen inventory audit, no stale static/placeholder states, reduced-motion checks.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "22-screen inventory audited, table in handoffs/P32_P33.md",
+        "no stale placeholder contradicting shipped behaviour",
+        "2 bare page spinners -> skeleton bars",
+        "476/476 green",
+        "d618aef"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P33",
+      "title": "Rich-data/backend QA",
+      "preferred_owner": "WORKER_F",
+      "dependencies": [
+        "P12",
+        "P13",
+        "P19",
+        "P22"
+      ],
+      "objective": "Counts, routes, horizon, occupancy stability, seed safety and performance.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "live: 24 stations, 726 trips, 29080 seats, 32 service codes",
+        "every trip has 40 seats (782/782)",
+        "occupancy 57.5% avg, 0-85% spread (tiers work)",
+        "idempotent refresh: 648 again, zero churn",
+        "0 profiles / 0 bookings \u2014 no leaked test rows",
+        "handoffs/P32_P33.md"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P34",
+      "title": "Release APK physical-device walkthrough",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P27",
+        "P29",
+        "P31",
+        "P32",
+        "P33"
+      ],
+      "objective": "Install release APK fresh and execute complete first-run/core demo.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "OWNER",
+      "allowed_paths": [],
+      "evidence": [
+        "Owner directive recorded 2026-10-05",
+        "No Android device available (adb: no devices)",
+        "Work NOT to be attempted again without a new owner instruction"
+      ],
+      "blocker": "Owner directive 2026-10-05: ALL on-device testing (P34) and device screenshot capture (P35) are PERMANENTLY DEFERRED until the owner lifts the deferral in a separate, explicit instruction. No Android device/emulator is connected anyway (flutter devices: Windows/Chrome/Edge only). No workaround is attempted.",
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P35",
+      "title": "Screenshot pack and final visual defect pass",
+      "preferred_owner": "WORKER_F",
+      "dependencies": [
+        "P34"
+      ],
+      "objective": "Capture required screens and log/fix remaining visual defects.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "OWNER",
+      "allowed_paths": [],
+      "evidence": [
+        "Owner directive recorded 2026-10-05",
+        "No Android device available (adb: no devices)",
+        "Work NOT to be attempted again without a new owner instruction"
+      ],
+      "blocker": "Owner directive 2026-10-05: ALL on-device testing (P34) and device screenshot capture (P35) are PERMANENTLY DEFERRED until the owner lifts the deferral in a separate, explicit instruction. No Android device/emulator is connected anyway (flutter devices: Windows/Chrome/Edge only). No workaround is attempted.",
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    },
+    {
+      "id": "P36",
+      "title": "Final V4 evidence matrix and freeze",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P35"
+      ],
+      "objective": "Update docs/ledger/README/release hashes, clean/push/freeze.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "README rewritten for V4",
+        "V4_CURRENT freeze state",
+        "handoffs/P36.md evidence matrix",
+        "UNIVERSAL SHA256: 7a679eeb\u2026946c",
+        "code e4187b1 pushed, CI green",
+        "P34/P35 stay BLOCKED_OWNER per owner directive"
+      ],
+      "blocker": null,
+      "started_at": null,
+      "updated_at": "2026-10-05T00:00:00Z",
+      "verified_commit": null
+    }
+  ]
+}
