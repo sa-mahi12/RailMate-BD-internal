@@ -841,17 +841,18 @@
         "P33"
       ],
       "objective": "Install release APK fresh and execute complete first-run/core demo.",
-      "status": "BLOCKED_OWNER",
-      "current_owner": "OWNER",
+      "status": "READY",
+      "current_owner": "COORDINATOR",
       "allowed_paths": [],
       "evidence": [
         "Owner directive recorded 2026-10-05",
         "No Android device available (adb: no devices)",
-        "Work NOT to be attempted again without a new owner instruction"
+        "Work NOT to be attempted again without a new owner instruction",
+        "Owner directive (governance/OWNER_DIRECTIVE_DEVICE_TESTS.md) superseded the 2026-10-05 permanent deferral: Android Emulator x86_64 release verification is AUTHORIZED. Pass criterion: full consumer journey on a Pixel-class API 35 AVD with the release x86_64 APK, labelled ANDROID_EMULATOR_RUNTIME_PROOF. Physical hardware explicitly NOT required."
       ],
-      "blocker": "Owner directive 2026-10-05: ALL on-device testing (P34) and device screenshot capture (P35) are PERMANENTLY DEFERRED until the owner lifts the deferral in a separate, explicit instruction. No Android device/emulator is connected anyway (flutter devices: Windows/Chrome/Edge only). No workaround is attempted.",
+      "blocker": null,
       "started_at": null,
-      "updated_at": "2026-10-05T00:00:00Z",
+      "updated_at": "2026-10-09T00:00:00Z",
       "verified_commit": null
     },
     {
@@ -862,17 +863,18 @@
         "P34"
       ],
       "objective": "Capture required screens and log/fix remaining visual defects.",
-      "status": "BLOCKED_OWNER",
-      "current_owner": "OWNER",
+      "status": "TODO",
+      "current_owner": null,
       "allowed_paths": [],
       "evidence": [
         "Owner directive recorded 2026-10-05",
         "No Android device available (adb: no devices)",
-        "Work NOT to be attempted again without a new owner instruction"
+        "Work NOT to be attempted again without a new owner instruction",
+        "Emulator screenshot pass authorized after P34 under the same owner directive."
       ],
-      "blocker": "Owner directive 2026-10-05: ALL on-device testing (P34) and device screenshot capture (P35) are PERMANENTLY DEFERRED until the owner lifts the deferral in a separate, explicit instruction. No Android device/emulator is connected anyway (flutter devices: Windows/Chrome/Edge only). No workaround is attempted.",
+      "blocker": null,
       "started_at": null,
-      "updated_at": "2026-10-05T00:00:00Z",
+      "updated_at": "2026-10-09T00:00:00Z",
       "verified_commit": null
     },
     {
@@ -883,7 +885,7 @@
         "P35"
       ],
       "objective": "Update docs/ledger/README/release hashes, clean/push/freeze.",
-      "status": "VERIFIED",
+      "status": "TODO",
       "current_owner": "COORDINATOR",
       "allowed_paths": [],
       "evidence": [
@@ -892,11 +894,12 @@
         "handoffs/P36.md evidence matrix",
         "UNIVERSAL SHA256: 7a679eeb\u2026946c",
         "code e4187b1 pushed, CI green",
-        "P34/P35 stay BLOCKED_OWNER per owner directive"
+        "P34/P35 stay BLOCKED_OWNER per owner directive",
+        "Reopened 2026-10-09 because the owner lifted the P34/P35 deferral; final freeze now waits for consumer-readiness pass + emulator acceptance. Previous freeze evidence above is retained as history."
       ],
       "blocker": null,
       "started_at": null,
-      "updated_at": "2026-10-05T00:00:00Z",
+      "updated_at": "2026-10-09T00:00:00Z",
       "verified_commit": null
     }
   ]

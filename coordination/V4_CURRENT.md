@@ -1,69 +1,59 @@
-# V4 CURRENT — FREEZE (P36)
+# V4 CURRENT — consumer-readiness + emulator acceptance (reopened)
 
-Timestamp: 2026-10-05 ~18:10 UTC
-Code HEAD: e4187b1 (pushed; CI `flutter test` gates)
+Timestamp: 2026-10-09 UTC
+Code HEAD: e4187b1 (pushed, CI green, 476/476)
 Docs HEAD: this commit
-Phase: V4 product polish — COMPLETE except owner-deferred device work
+Phase: **V4 consumer-readiness + emulator acceptance, reopened by owner directive**
 
-## VERIFIED (34 of 37 V4 tasks)
-- P00 baseline, P01 design/motion layer, P02 icon+splash, P03 app gate,
-  P04 onboarding, P05 auth, P06 register/forgot-password, P07 username+
-  confirm-password, P08 verification, P09 home shell, P10 home sections,
-  P11 station/service drafts, P12 richness migration (live, 648-trip
-  refresh proven idempotent), P13 search polish, P14 seat polish,
-  P15 passenger/review polish, P16 payment polish, P17 ticket polish,
-  P18 history polish, P19 board posts draft, P20 board feed polish,
-  P21 engagement motion, P22 station guide, P23 profile polish, P24 AI UX
-  polish, P25 ranking honesty caption, P26 state library, P27 a11y pins,
-  P28 release signing, P29 release workflow, P30 release evidence,
-  P31 root-flow integration, P32 screen audit, P33 backend QA.
+Owner directive now in force:
+`governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` — the 2026-10-05 permanent
+device deferral is LIFTED and replaced by Android Emulator verification
+(`ANDROID_EMULATOR_RUNTIME_PROOF`). P34/P35 are open again. The final line
+must always read: "Verified on Android Emulator; physical-device
+verification not performed."
 
-## BLOCKED_OWNER (binding deferral, OWNER_DIRECTIVE_DEVICE_TESTS.md)
-- P34 device walkthrough — PERMANENTLY DEFERRED until the owner lifts it
-  separately. Nothing here is device-verified.
-- P35 release screenshots — same deferral.
+## VERIFIED
+- P00–P33 except P30/P31/P32/P33 individual closure notes where superseded;
+  see the ledger. P36's earlier freeze evidence is RETAINED AS HISTORY but
+  P36 itself is back to TODO (it depends on P35).
+
+## IN_PROGRESS / READY
+- P34 READY (coordinator): emulator runtime verification.
+- P35 TODO: emulator screenshot pass after P34.
+- P36 TODO: final freeze after P35.
+
+## BLOCKED_OWNER
 - SMS provider (carried from V3; phone OTP honestly reports unavailability).
-- Social login remains unimplemented by design; the UI says so.
+- Social login: unimplemented by design; the UI must stop advertising it.
+- Physical-device verification: explicitly NOT required; document the gap.
 
 ## BLOCKED_EXTERNAL
 - (none)
 
-## IN_PROGRESS / READY_FOR_REVIEW
-- (none)
-
 ## Demo-data state (live, verified 2026-10-05)
-- 24 stations, 32 service codes, 726 demo trips (8 legacy + 648 current),
-  29,080 seats, every trip 40 seats, occupancy avg 57.5% (0–85% spread).
-- Horizon refresh is idempotent (648 again, zero churn). Horizon runs to
-  2026-10-24 (today+20); retired codes RM741/RM753 age out as documented.
-- 0 profiles, 0 bookings: no test rows in production.
-- Board posts: none seeded (deliberate — no fake community content).
+- 24 stations, 32 service codes, 726 demo trips, 29,080 seats, all trips
+  40 seats, occupancy avg 57.5% (0–85%). Horizon idempotent (648, zero
+  churn). Board empty by policy. 0 profiles / 0 bookings.
+- NOTE: horizon needs re-running (`refresh_demo_horizon()`) before it
+  expires ~2026-10-24.
 
 ## Release state
-- Latest: **v1.0.0+3 (build 3)**, signed, installable over old builds:
-  universal + 3 ABI APKs + AAB, SHA256SUMS.txt, release-manifest.json,
-  PROVENANCE.md. Universal APK sha256 recorded in `handoffs/P30.md` footer.
-- versionCode monotonic (2 → 3). Release evidence parser pinned against the
-  real published manifest (`tool/release_evidence.dart`, 14 tests).
+- Latest published: **v1.0.0+3 → commit 5107c05 (STALE)**. Do NOT use as
+  final runtime proof. V4 HEAD is e4187b1 with later fixes.
+- Next: publish **v1.0.0+4** (or higher) from the post-cleanup HEAD and use
+  its **x86_64 APK** on the emulator.
 
-## Last gates
-- format: clean
-- analyze: clean (full repo, including new test dirs)
-- tests: **476/476 green**
-- visual: owner-deferred (no claim)
-- device: owner-deferred (no claim)
-
-## Known follow-ups (not regressions, tracked for a future pass)
-- 2.0x accessibility text scale still overflows in some fixed-height rows;
-  1.5x is proven clean.
-- `refresh_demo_horizon()` is invoked manually; if it is not re-run, the
-  horizon expires ~2026-10-24. A scheduled refresh needs a service-role
-  secret the repo correctly never holds.
-- Live two-account RLS proof was last done in V3; V4 made no schema/RLS
-  change, but re-running is on the next backend touch.
-- Resend-countdown, ticker and shimmer animations are correct but were only
-  ever host-asserted, never eyeballed on a screen.
-
-## Exact next action
-1. Nothing open. The next session starts only on a new owner instruction
-   (device deferral lift, new feature, or backend touch).
+## Exact next sequence
+1. Consumer-readiness/source audit (no raw UUIDs, no internal codes, no
+   "Setup required", no dead/coming-soon controls, no raw exceptions).
+2. Genuine wiring fixes: Board comments entry point; password-recovery
+   deep link + session handling; profile/username bootstrap if live DB
+   proves it missing; useful booking history/details.
+3. Consumer-behavior sweep: keyboard, back, retry, double-submit,
+   confirm-destructive, session restore, restart, wording.
+4. Fresh signed release from the new HEAD (monotonic build number).
+5. Emulator walkthrough on the release x86_64 APK (Pixel-class API 35 AVD,
+   data cleared, full consumer journey).
+6. Screenshot-based visual review; fix only defects found.
+7. P34 VERIFIED (`ANDROID_EMULATOR_RUNTIME_PROOF`) → P35 VERIFIED →
+   P36 final freeze.
