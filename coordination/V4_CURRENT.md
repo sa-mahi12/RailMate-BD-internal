@@ -1,14 +1,14 @@
-# V4 CURRENT — auth deep-link hotfix; v1.0.0+7 in progress; P36 re-freeze next
+# V4 CURRENT — v1.0.0+7 published; P36 re-freeze VERIFIED
 
 Timestamp: 2026-10-14 UTC
 Code HEAD: 315b6a9 (pushed 2026-10-14; full suite 516/516 local, analyze zero
 issues, format clean)
 Docs HEAD: this commit
-Phase: **Auth deep-link hotfix committed (RouteErrorScreen regression fixed
-at the app layer). v1.0.0+7 building from 315b6a9; P36 re-freeze on publish.
-One owner action remains: privileged-credential rotation (see
-BLOCKED_OWNER) + install +7 and retest with a FRESH confirmation email.
-Full record: `handoffs/POST_FREEZE.md` + `handoffs/TAKEOVER.md` +
+Phase: **P36 re-freeze VERIFIED at code 315b6a9 / docs this commit.
+v1.0.0+7 published (replaces the buggy +6 on device). Owner retest: install
++7, tap a FRESH confirmation email on the signup device. One owner action
+remains: privileged-credential rotation (see BLOCKED_OWNER). Full record:
+`handoffs/POST_FREEZE.md` + `handoffs/TAKEOVER.md` +
 `handoffs/HOTFIX_AUTH_DEEPLINK.md`.**
 
 Superseded-directive note (do NOT follow the paragraph below):
@@ -89,7 +89,10 @@ mid-journey (Booking Review) and will not resume.
 - `v1.0.0+6` (2026-10-14, `210ad8a`) — LATEST. Signed 4 APKs
   (arm64-v8a, armeabi-v7a, universal, x86_64) + AAB + release-manifest +
   SHA256SUMS + PROVENANCE. Contains the link-first verify UI and the
-  `app.env.json` removal. Cut a higher build only if code changes again.
+  `app.env.json` removal.
+- `v1.0.0+7` (2026-10-14, `315b6a9`) — LATEST. Auth deep-link hotfix build:
+  4 signed APKs + AAB + manifest + SHA256SUMS + PROVENANCE. `v1.0.0+6`
+  contains the RouteErrorScreen regression — replace it on device.
 
 ## Exact next sequence
 1. Consumer-readiness/source audit (no raw UUIDs, no internal codes, no
