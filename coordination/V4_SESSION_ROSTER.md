@@ -5,7 +5,7 @@ is active or standby. A compacted agent must not treat them as live leases.
 
 | Session | Model | Lane | Task | Allowed paths | Last checkpoint | State |
 |---|---|---|---|---|---|---|
-| coordinator | muse-spark-1.3 | integration | P00–P33 done solo; consumer-readiness + emulator gate next | shared (main/app/pubspec/android/CI/migrations/git) | 2026-10-09 ledger consistency fix | active |
+| coordinator | muse-spark-1.3 | integration | P00–P33 done solo; post-freeze batch + signup localhost fix committed (`b4f008d`, 503/503); P34/P35 dropped per owner; docs sync `POST_FREEZE.md` | shared (main/app/pubspec/android/CI/migrations/git) | 2026-10-14 full sync (ledger + V4_CURRENT + POST_FREEZE handoff) | active |
 | worker-a | - | design/motion | P01 done | lib/design/** | closed 2026-09-30 | closed |
 | worker-b | - | onboarding/auth | P04 done | lib/features/onboarding/** | closed 2026-09-30 | closed |
 | worker-c | - | home/search/data | P11 draft done | supabase/seed drafts | closed 2026-09-30 | closed |

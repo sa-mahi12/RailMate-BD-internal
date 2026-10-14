@@ -1,9 +1,9 @@
-# V4 CURRENT — consumer-readiness + emulator acceptance (reopened)
+# V4 CURRENT — post-freeze fixes synced; P36 freeze pending
 
-Timestamp: 2026-10-09 UTC
-Code HEAD: e4187b1 (pushed, CI green, 476/476)
+Timestamp: 2026-10-14 UTC
+Code HEAD: b4f008d (pushed 2026-10-14; full suite 503/503 local, analyze + format clean)
 Docs HEAD: this commit
-Phase: **V4 consumer-readiness + emulator acceptance, reopened by owner directive**
+Phase: **Post-freeze batch committed; owner dropped all runtime verification; P36 freeze pending. Full record: `handoffs/POST_FREEZE.md`.**
 
 Owner directive now in force:
 `governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` — the 2026-10-05 permanent
@@ -15,7 +15,12 @@ verification not performed."
 ## VERIFIED
 - P00–P33 except P30/P31/P32/P33 individual closure notes where superseded;
   see the ledger. P36's earlier freeze evidence is RETAINED AS HISTORY but
-  P36 itself is back to TODO (it depends on P35).
+  P36 itself is TODO (no runtime gate in front of it anymore).
+- Post-freeze batch committed 2026-10-09 → 2026-10-14: consumer gate
+  (`a598fcb`), board comments (`e75584a`), reset deep link (`3217b45`),
+  username claim trigger (`27c6b2b`), signup bootstrap (`e34b67b`),
+  emulator findings (`87b0892`), signup localhost fix (`b4f008d`;
+  503/503 green). Detail: `handoffs/POST_FREEZE.md`.
 
 ## IN_PROGRESS / READY
 - P34 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
@@ -45,11 +50,13 @@ mid-journey (Booking Review) and will not resume.
 - NOTE: horizon needs re-running (`refresh_demo_horizon()`) before it
   expires ~2026-10-24.
 
-## Release state
-- Latest published: **v1.0.0+3 → commit 5107c05 (STALE)**. Do NOT use as
-  final runtime proof. V4 HEAD is e4187b1 with later fixes.
-- Next: publish **v1.0.0+4** (or higher) from the post-cleanup HEAD and use
-  its **x86_64 APK** on the emulator.
+## Release state (verified via `gh release list` 2026-10-14)
+- `v1.0.0+3` (2026-10-05, `5107c05`) — STALE, do not use.
+- `v1.0.0+4` (2026-10-09) — published from the post-cleanup HEAD.
+- `v1.0.0+5` (2026-10-13, `87b0892`) — latest; x86_64 APK installed on the
+  emulator during the (now dropped) walkthrough.
+- No release cut from `b4f008d` yet; cut one only if/when code changes
+  again or a fresh installable is wanted (monotonic build number).
 
 ## Exact next sequence
 1. Consumer-readiness/source audit (no raw UUIDs, no internal codes, no
