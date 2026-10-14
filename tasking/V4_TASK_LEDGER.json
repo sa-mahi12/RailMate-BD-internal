@@ -831,7 +831,7 @@
     },
     {
       "id": "P34",
-      "title": "Release APK physical-device walkthrough",
+      "title": "DROPPED BY OWNER 2026-10-14: no device/emulator verification",
       "preferred_owner": "COORDINATOR",
       "dependencies": [
         "P27",
@@ -840,15 +840,16 @@
         "P32",
         "P33"
       ],
-      "objective": "Install release APK fresh and execute complete first-run/core demo.",
-      "status": "READY",
+      "objective": "DROPPED. Was: install release APK fresh and execute complete first-run/core demo.",
+      "status": "SUPERSEDED",
       "current_owner": "COORDINATOR",
       "allowed_paths": [],
       "evidence": [
         "Owner directive recorded 2026-10-05",
         "No Android device available (adb: no devices)",
         "Work NOT to be attempted again without a new owner instruction",
-        "Owner directive (governance/OWNER_DIRECTIVE_DEVICE_TESTS.md) superseded the 2026-10-05 permanent deferral: Android Emulator x86_64 release verification is AUTHORIZED. Pass criterion: full consumer journey on a Pixel-class API 35 AVD with the release x86_64 APK, labelled ANDROID_EMULATOR_RUNTIME_PROOF. Physical hardware explicitly NOT required."
+        "Owner directive (governance/OWNER_DIRECTIVE_DEVICE_TESTS.md) superseded the 2026-10-05 permanent deferral: Android Emulator x86_64 release verification is AUTHORIZED. Pass criterion: full consumer journey on a Pixel-class API 35 AVD with the release x86_64 APK, labelled ANDROID_EMULATOR_RUNTIME_PROOF. Physical hardware explicitly NOT required.",
+        "DROPPED BY OWNER 2026-10-14: device AND emulator verification are both dropped completely. No runtime proof of any kind is required; reviewers must not expect or request it."
       ],
       "blocker": null,
       "started_at": null,
@@ -857,20 +858,21 @@
     },
     {
       "id": "P35",
-      "title": "Screenshot pack and final visual defect pass",
+      "title": "DROPPED BY OWNER 2026-10-14: no device/emulator verification",
       "preferred_owner": "WORKER_F",
       "dependencies": [
         "P34"
       ],
-      "objective": "Capture required screens and log/fix remaining visual defects.",
-      "status": "TODO",
+      "objective": "DROPPED. Was: capture required screens and log/fix remaining visual defects.",
+      "status": "SUPERSEDED",
       "current_owner": null,
       "allowed_paths": [],
       "evidence": [
         "Owner directive recorded 2026-10-05",
         "No Android device available (adb: no devices)",
         "Work NOT to be attempted again without a new owner instruction",
-        "Emulator screenshot pass authorized after P34 under the same owner directive."
+        "Emulator screenshot pass authorized after P34 under the same owner directive.",
+        "DROPPED BY OWNER 2026-10-14: device AND emulator verification are both dropped completely. No runtime proof of any kind is required; reviewers must not expect or request it."
       ],
       "blocker": null,
       "started_at": null,

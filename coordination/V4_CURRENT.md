@@ -18,9 +18,17 @@ verification not performed."
   P36 itself is back to TODO (it depends on P35).
 
 ## IN_PROGRESS / READY
-- P34 READY (coordinator): emulator runtime verification.
-- P35 TODO: emulator screenshot pass after P34.
-- P36 TODO: final freeze after P35.
+- P34 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
+- P35 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
+- P36 TODO: final freeze (no runtime gate in front of it anymore).
+
+## OWNER DROP NOTICE (2026-10-14, binding on reviewers)
+Device verification AND emulator verification are both dropped completely.
+No phone, emulator, screenshot-pack, or runtime proof of any kind is
+required, expected, or to be requested. Do not treat their absence as a
+gap: it is an explicit owner decision, recorded in the ledger (P34/P35
+SUPERSEDED). The emulator walkthrough started 2026-10-13/14 was stopped
+mid-journey (Booking Review) and will not resume.
 
 ## BLOCKED_OWNER
 - SMS provider (carried from V3; phone OTP honestly reports unavailability).
@@ -52,8 +60,6 @@ verification not performed."
 3. Consumer-behavior sweep: keyboard, back, retry, double-submit,
    confirm-destructive, session restore, restart, wording.
 4. Fresh signed release from the new HEAD (monotonic build number).
-5. Emulator walkthrough on the release x86_64 APK (Pixel-class API 35 AVD,
-   data cleared, full consumer journey).
-6. Screenshot-based visual review; fix only defects found.
-7. P34 VERIFIED (`ANDROID_EMULATOR_RUNTIME_PROOF`) → P35 VERIFIED →
-   P36 final freeze.
+5. ~~Emulator walkthrough~~ DROPPED 2026-10-14 (see drop notice above).
+6. ~~Screenshot-based visual review~~ DROPPED 2026-10-14.
+7. P36 final freeze (directly; P34/P35 SUPERSEDED).
