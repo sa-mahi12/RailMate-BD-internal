@@ -1,14 +1,15 @@
-# V4 CURRENT — takeover complete; v1.0.0+6 published; P36 VERIFIED
+# V4 CURRENT — auth deep-link hotfix; v1.0.0+7 in progress; P36 re-freeze next
 
 Timestamp: 2026-10-14 UTC
-Code HEAD: 210ad8a (pushed 2026-10-14; full suite 506/506 local, analyze zero
+Code HEAD: 315b6a9 (pushed 2026-10-14; full suite 516/516 local, analyze zero
 issues, format clean)
 Docs HEAD: this commit
-Phase: **P36 final freeze VERIFIED. Owner Supabase setup complete
-(link-based signup, no SMTP/domain). Release v1.0.0+6 published from
-210ad8a. One owner action remains: privileged-credential rotation (see
-BLOCKED_OWNER). Full record: `handoffs/POST_FREEZE.md` +
-`handoffs/TAKEOVER.md`.**
+Phase: **Auth deep-link hotfix committed (RouteErrorScreen regression fixed
+at the app layer). v1.0.0+7 building from 315b6a9; P36 re-freeze on publish.
+One owner action remains: privileged-credential rotation (see
+BLOCKED_OWNER) + install +7 and retest with a FRESH confirmation email.
+Full record: `handoffs/POST_FREEZE.md` + `handoffs/TAKEOVER.md` +
+`handoffs/HOTFIX_AUTH_DEEPLINK.md`.**
 
 Superseded-directive note (do NOT follow the paragraph below):
 `governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` once reopened emulator
@@ -29,6 +30,11 @@ recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
   (`0489e61`; 506/506 green), release-gate analyze fix (`210ad8a`;
   zero issues), tracked `app.env.json` removed from HEAD (rotation still
   owed, see BLOCKED_OWNER). Detail: `handoffs/TAKEOVER.md`.
+- Auth deep-link hotfix 2026-10-14 (`315b6a9`; 516/516 green):
+  `flutter_deeplinking_enabled=false`, `/auth/*` defensive routes, single
+  PKCE-exchange ownership + consumed-code guard. The `v1.0.0+6` build
+  contains the RouteErrorScreen regression and must be replaced on device
+  by `v1.0.0+7`. Detail: `handoffs/HOTFIX_AUTH_DEEPLINK.md`.
 
 ## IN_PROGRESS / READY
 - P34 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
