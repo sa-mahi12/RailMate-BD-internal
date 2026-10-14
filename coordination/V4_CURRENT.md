@@ -1,16 +1,18 @@
-# V4 CURRENT — post-freeze fixes synced; P36 freeze pending
+# V4 CURRENT — takeover batch; owner Supabase setup complete; P36 pending
 
 Timestamp: 2026-10-14 UTC
-Code HEAD: b4f008d (pushed 2026-10-14; full suite 503/503 local, analyze + format clean)
+Code HEAD: 210ad8a (pushed 2026-10-14; full suite 506/506 local, analyze zero
+issues, format clean)
 Docs HEAD: this commit
-Phase: **Post-freeze batch committed; owner dropped all runtime verification; P36 freeze pending. Full record: `handoffs/POST_FREEZE.md`.**
+Phase: **Owner completed Supabase dashboard setup (link-based signup, no
+SMTP/domain). Takeover batch committed; release v1.0.0+6 in progress; then
+P36. Full record: `handoffs/POST_FREEZE.md` + `handoffs/TAKEOVER.md`.**
 
-Owner directive now in force:
-`governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` — the 2026-10-05 permanent
-device deferral is LIFTED and replaced by Android Emulator verification
-(`ANDROID_EMULATOR_RUNTIME_PROOF`). P34/P35 are open again. The final line
-must always read: "Verified on Android Emulator; physical-device
-verification not performed."
+Superseded-directive note (do NOT follow the paragraph below):
+`governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` once reopened emulator
+verification (2026-10-05 deferral LIFTED, P34/P35 open). That reopen is
+HISTORICAL and was superseded by the binding 2026-10-14 owner drop
+recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
 
 ## VERIFIED
 - P00–P33 except P30/P31/P32/P33 individual closure notes where superseded;
@@ -21,6 +23,10 @@ verification not performed."
   username claim trigger (`27c6b2b`), signup bootstrap (`e34b67b`),
   emulator findings (`87b0892`), signup localhost fix (`b4f008d`;
   503/503 green). Detail: `handoffs/POST_FREEZE.md`.
+- Takeover batch 2026-10-14: link-first verify UI + 3 widget tests
+  (`0489e61`; 506/506 green), release-gate analyze fix (`210ad8a`;
+  zero issues), tracked `app.env.json` removed from HEAD (rotation still
+  owed, see BLOCKED_OWNER). Detail: `handoffs/TAKEOVER.md`.
 
 ## IN_PROGRESS / READY
 - P34 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
@@ -35,10 +41,27 @@ gap: it is an explicit owner decision, recorded in the ledger (P34/P35
 SUPERSEDED). The emulator walkthrough started 2026-10-13/14 was stopped
 mid-journey (Booking Review) and will not resume.
 
+## OWNER-COMPLETED SUPABASE WORK (2026-10-14, reported by owner)
+- Dashboard URL/deep-link configuration for signup + password reset: DONE.
+  Expected callbacks `railmatebd://auth/verify`, `railmatebd://auth/reset-password`.
+- Deliberate owner choice: NO custom domain, NO custom SMTP; default mailer
+  retained. Production signup verification is therefore confirmation-link
+  based. Do NOT list `{{ .Token }}` template editing as an owner task, and
+  do NOT ask the owner for domain/SMTP work.
+- App aligned in code `0489e61`: link-first verify UI, no 6-digit signup
+  OTP promise; `verifyCode`/`verifyEmailOtp` kept as a dormant seam only.
+
 ## BLOCKED_OWNER
 - SMS provider (carried from V3; phone OTP honestly reports unavailability).
 - Social login: unimplemented by design; the UI must stop advertising it.
-- Physical-device verification: explicitly NOT required; document the gap.
+- Privileged credential rotation: the tracked `app.env.json` was removed
+  from code HEAD in `0489e61`, but the exposed legacy credential stays valid
+  until rotated dashboard-side. OWNER ACTION: rotate/invalidate the legacy
+  key, update the hosted `SUPABASE_SERVICE_ROLE_KEY` secret for the
+  `book-trip` + `cancel-booking` Edge Functions, redeploy/verify them, and
+  only then treat the exposed copy as dead. No history rewrite needed once
+  the key is invalid. (Secret value never recorded in docs.)
+- Runtime proof: none required (P34/P35 SUPERSEDED) — not a gap.
 
 ## BLOCKED_EXTERNAL
 - (none)
