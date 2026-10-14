@@ -47,8 +47,11 @@ template editing is NOT an outstanding owner task. App side aligned in
 - P34/P35 stay SUPERSEDED; no device/emulator/screenshot gate was
   requested or run.
 
-## 5. Release + P36
+## 5. Release + P36 (completed)
 
-- `v1.0.0+6` dispatched from `210ad8a` after the analyze fix (run
-  `38518404447`). Record the published tag here and in `V4_CURRENT.md`
-  once the run completes, then mark P36 VERIFIED with final heads.
+- `v1.0.0+6` published 2026-10-14 from `210ad8a` (run `38518404447`,
+  success): 4 signed APKs + AAB + release-manifest.json + SHA256SUMS.txt
+  + PROVENANCE.md. Latest release; recorded in `V4_CURRENT.md`.
+- P36 marked VERIFIED in `tasking/V4_TASK_LEDGER.json` with this freeze as
+  evidence (earlier `v1.0.0+3`-era matrix retained as history inside the
+  entry). Ledger state: P00–P33 VERIFIED, P34/P35 SUPERSEDED, P36 VERIFIED.

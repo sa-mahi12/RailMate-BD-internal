@@ -298,7 +298,7 @@
       "dependencies": [
         "P00"
       ],
-      "objective": "Prepare 20\u201324 stations and 28\u201332 synthetic service templates with no official claims.",
+      "objective": "Prepare 20–24 stations and 28–32 synthetic service templates with no official claims.",
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "allowed_paths": [],
@@ -544,7 +544,7 @@
       "dependencies": [
         "P01"
       ],
-      "objective": "10\u201312 guide entries, richer facts, map/video/WebView polish.",
+      "objective": "10–12 guide entries, richer facts, map/video/WebView polish.",
       "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "allowed_paths": [],
@@ -821,7 +821,7 @@
         "every trip has 40 seats (782/782)",
         "occupancy 57.5% avg, 0-85% spread (tiers work)",
         "idempotent refresh: 648 again, zero churn",
-        "0 profiles / 0 bookings \u2014 no leaked test rows",
+        "0 profiles / 0 bookings — no leaked test rows",
         "handoffs/P32_P33.md"
       ],
       "blocker": null,
@@ -887,22 +887,22 @@
         "P35"
       ],
       "objective": "Update docs/ledger/README/release hashes, clean/push/freeze.",
-      "status": "TODO",
+      "status": "VERIFIED",
       "current_owner": "COORDINATOR",
       "allowed_paths": [],
       "evidence": [
-        "README rewritten for V4",
-        "V4_CURRENT freeze state",
-        "handoffs/P36.md evidence matrix",
-        "UNIVERSAL SHA256: 7a679eeb\u2026946c",
-        "code e4187b1 pushed, CI green",
-        "P34/P35 stay BLOCKED_OWNER per owner directive",
-        "Reopened 2026-10-09 because the owner lifted the P34/P35 deferral; final freeze now waits for consumer-readiness pass + emulator acceptance. Previous freeze evidence above is retained as history."
+        "Takeover freeze 2026-10-14: code 210ad8a pushed (0489e61 link-first verify UI + 3 tests, 210ad8a analyze fix)",
+        "format clean, flutter analyze zero issues, full suite 506/506 green",
+        "v1.0.0+6 published 2026-10-14 from 210ad8a (4 APKs + AAB + manifest + SHA256SUMS + PROVENANCE)",
+        "app.env.json untracked from HEAD; privileged-credential rotation handed to owner as one explicit action",
+        "V4_CURRENT contradiction fixed; owner-completed dashboard setup recorded (link-based, no SMTP/domain)",
+        "handoffs/TAKEOVER.md takeover record; P34/P35 stay SUPERSEDED, no runtime gate",
+        "HISTORY retained: P36 evidence matrix handoffs/P36.md, UNIVERSAL SHA256 7a679eeb..946c, code e4187b1 CI green (v1.0.0+3 era)"
       ],
       "blocker": null,
-      "started_at": null,
-      "updated_at": "2026-10-09T00:00:00Z",
-      "verified_commit": null
+      "started_at": "2026-10-14T00:00:00Z",
+      "updated_at": "2026-10-14T00:00:00Z",
+      "verified_commit": "7474519"
     }
   ]
 }

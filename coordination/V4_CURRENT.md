@@ -1,12 +1,14 @@
-# V4 CURRENT — takeover batch; owner Supabase setup complete; P36 pending
+# V4 CURRENT — takeover complete; v1.0.0+6 published; P36 VERIFIED
 
 Timestamp: 2026-10-14 UTC
 Code HEAD: 210ad8a (pushed 2026-10-14; full suite 506/506 local, analyze zero
 issues, format clean)
 Docs HEAD: this commit
-Phase: **Owner completed Supabase dashboard setup (link-based signup, no
-SMTP/domain). Takeover batch committed; release v1.0.0+6 in progress; then
-P36. Full record: `handoffs/POST_FREEZE.md` + `handoffs/TAKEOVER.md`.**
+Phase: **P36 final freeze VERIFIED. Owner Supabase setup complete
+(link-based signup, no SMTP/domain). Release v1.0.0+6 published from
+210ad8a. One owner action remains: privileged-credential rotation (see
+BLOCKED_OWNER). Full record: `handoffs/POST_FREEZE.md` +
+`handoffs/TAKEOVER.md`.**
 
 Superseded-directive note (do NOT follow the paragraph below):
 `governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` once reopened emulator
@@ -78,8 +80,10 @@ mid-journey (Booking Review) and will not resume.
 - `v1.0.0+4` (2026-10-09) — published from the post-cleanup HEAD.
 - `v1.0.0+5` (2026-10-13, `87b0892`) — latest; x86_64 APK installed on the
   emulator during the (now dropped) walkthrough.
-- No release cut from `b4f008d` yet; cut one only if/when code changes
-  again or a fresh installable is wanted (monotonic build number).
+- `v1.0.0+6` (2026-10-14, `210ad8a`) — LATEST. Signed 4 APKs
+  (arm64-v8a, armeabi-v7a, universal, x86_64) + AAB + release-manifest +
+  SHA256SUMS + PROVENANCE. Contains the link-first verify UI and the
+  `app.env.json` removal. Cut a higher build only if code changes again.
 
 ## Exact next sequence
 1. Consumer-readiness/source audit (no raw UUIDs, no internal codes, no
