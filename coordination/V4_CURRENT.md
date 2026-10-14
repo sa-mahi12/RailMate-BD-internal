@@ -18,9 +18,11 @@ HISTORICAL and was superseded by the binding 2026-10-14 owner drop
 recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
 
 ## VERIFIED
-- P00–P33 except P30/P31/P32/P33 individual closure notes where superseded;
-  see the ledger. P36's earlier freeze evidence is RETAINED AS HISTORY but
-  P36 itself is TODO (no runtime gate in front of it anymore).
+- P00–P33 VERIFIED (P30/P31/P32/P33 individual closure notes where
+  superseded; see the ledger).
+- P36 VERIFIED at this freeze (code `315b6a9`, release `v1.0.0+7`,
+  516/516). Earlier freeze evidence (v1.0.0+3 era, v1.0.0+6 era) is
+  RETAINED AS HISTORY in the ledger entry.
 - Post-freeze batch committed 2026-10-09 → 2026-10-14: consumer gate
   (`a598fcb`), board comments (`e75584a`), reset deep link (`3217b45`),
   username claim trigger (`27c6b2b`), signup bootstrap (`e34b67b`),
@@ -36,10 +38,11 @@ recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
   contains the RouteErrorScreen regression and must be replaced on device
   by `v1.0.0+7`. Detail: `handoffs/HOTFIX_AUTH_DEEPLINK.md`.
 
-## IN_PROGRESS / READY
+## STATE
 - P34 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
 - P35 SUPERSEDED — DROPPED BY OWNER 2026-10-14.
-- P36 TODO: final freeze (no runtime gate in front of it anymore).
+- P36 VERIFIED — final freeze at code `315b6a9` / release `v1.0.0+7`.
+  No agent-actionable task remains open; only owner-side items below.
 
 ## OWNER DROP NOTICE (2026-10-14, binding on reviewers)
 Device verification AND emulator verification are both dropped completely.
@@ -84,25 +87,18 @@ mid-journey (Booking Review) and will not resume.
 ## Release state (verified via `gh release list` 2026-10-14)
 - `v1.0.0+3` (2026-10-05, `5107c05`) — STALE, do not use.
 - `v1.0.0+4` (2026-10-09) — published from the post-cleanup HEAD.
-- `v1.0.0+5` (2026-10-13, `87b0892`) — latest; x86_64 APK installed on the
-  emulator during the (now dropped) walkthrough.
-- `v1.0.0+6` (2026-10-14, `210ad8a`) — LATEST. Signed 4 APKs
-  (arm64-v8a, armeabi-v7a, universal, x86_64) + AAB + release-manifest +
-  SHA256SUMS + PROVENANCE. Contains the link-first verify UI and the
-  `app.env.json` removal.
-- `v1.0.0+7` (2026-10-14, `315b6a9`) — LATEST. Auth deep-link hotfix build:
-  4 signed APKs + AAB + manifest + SHA256SUMS + PROVENANCE. `v1.0.0+6`
-  contains the RouteErrorScreen regression — replace it on device.
+- `v1.0.0+5` (2026-10-13, `87b0892`) — superseded; x86_64 APK used in the
+  (now dropped) emulator walkthrough.
+- `v1.0.0+6` (2026-10-14, `210ad8a`) — SUPERSEDED, DO NOT INSTALL:
+  contains the auth deep-link RouteErrorScreen regression.
+- `v1.0.0+7` (2026-10-14, `315b6a9`) — LATEST AND ONLY SUPPORTED BUILD.
+  Auth deep-link hotfix: 4 signed APKs + AAB + manifest + SHA256SUMS +
+  PROVENANCE.
 
-## Exact next sequence
-1. Consumer-readiness/source audit (no raw UUIDs, no internal codes, no
-   "Setup required", no dead/coming-soon controls, no raw exceptions).
-2. Genuine wiring fixes: Board comments entry point; password-recovery
-   deep link + session handling; profile/username bootstrap if live DB
-   proves it missing; useful booking history/details.
-3. Consumer-behavior sweep: keyboard, back, retry, double-submit,
-   confirm-destructive, session restore, restart, wording.
-4. Fresh signed release from the new HEAD (monotonic build number).
-5. ~~Emulator walkthrough~~ DROPPED 2026-10-14 (see drop notice above).
-6. ~~Screenshot-based visual review~~ DROPPED 2026-10-14.
-7. P36 final freeze (directly; P34/P35 SUPERSEDED).
+## Remaining — owner-side only (no agent gate)
+1. Install `v1.0.0+7` on the owner device (replaces buggy +6).
+2. Owner taps a FRESH signup confirmation email on the signup device.
+3. Privileged-credential rotation (see BLOCKED_OWNER) — the single
+   outstanding owner-only security action.
+4. Demo-horizon refresh before ~2026-10-24 if the demo must stay live
+   (agent-run if access permits, else owner re-runs the idempotent RPC).
