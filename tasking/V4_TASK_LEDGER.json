@@ -891,17 +891,18 @@
       "current_owner": "COORDINATOR",
       "allowed_paths": [],
       "evidence": [
-        "Re-freeze 2026-10-14: code 315b6a9 pushed (auth deep-link hotfix)",
-        "flutter_deeplinking_enabled=false; /auth/* defensive routes to AuthCallbackScreen; single PKCE-exchange ownership + consumed-code guard",
-        "format clean, flutter analyze zero issues, full suite 516/516 green (10 new auth-callback tests)",
-        "v1.0.0+7 published 2026-10-14 from 315b6a9 (4 APKs + AAB + manifest + SHA256SUMS + PROVENANCE); v1.0.0+6 superseded (RouteErrorScreen regression)",
-        "Device retest is owner-side: install +7, fresh confirmation email on signup device (P34/P35 stay SUPERSEDED, no agent runtime gate)",
-        "HISTORY retained: v1.0.0+6 freeze (210ad8a, 506/506), v1.0.0+3-era matrix handoffs/P36.md"
+        "Re-freeze 2026-10-19: consumer-readiness batch at code 3d2a73b",
+        "home upcoming booking wired to real trip/station/seat reads; username checker on every signup entry point; one-shot booking submit guard; raw-error/developer copy removed across auth/phone/GraphQL/search/seats/board/guide/ticket/payment/history/AI settings",
+        "dart format clean; flutter analyze zero issues; full suite 523/523 green (local and CI)",
+        "v1.0.0+8 published 2026-10-19 from 3d2a73b (run 39205358414): 4 signed APKs + AAB + release-manifest.json + SHA256SUMS.txt + PROVENANCE.md; v1.0.0+7 superseded",
+        "demo horizon refreshed 2026-10-19 via idempotent owner-only RPC (648 slots): 24 stations, 1186 trips, 47320 seats, horizon 2026-11-08, 1 booking, 3 profiles",
+        "Device retest is owner-side: install +8, fresh confirmation email (P34/P35 stay SUPERSEDED, no agent runtime gate)",
+        "HISTORY retained: v1.0.0+7 re-freeze (315b6a9, 516/516), v1.0.0+6 freeze (210ad8a, 506/506), v1.0.0+3-era matrix handoffs/P36.md"
       ],
       "blocker": null,
       "started_at": "2026-10-14T00:00:00Z",
-      "updated_at": "2026-10-14T00:00:00Z",
-      "verified_commit": "671e787"
+      "updated_at": "2026-10-19T00:00:00Z",
+      "verified_commit": "3d2a73b"
     }
   ]
 }
