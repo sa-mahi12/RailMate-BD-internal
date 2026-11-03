@@ -899,7 +899,7 @@
         "demo horizon refreshed 2026-10-19 via idempotent owner-only RPC (648 slots): 24 stations, 1186 trips, 47320 seats, horizon 2026-11-08, 1 booking, 3 profiles",
         "Device retest is owner-side: install +9, fresh confirmation email (P34/P35 stay SUPERSEDED, no agent runtime gate)",
         "HISTORY retained: v1.0.0+7 re-freeze (315b6a9, 516/516), v1.0.0+6 freeze (210ad8a, 506/506), v1.0.0+3-era matrix handoffs/P36.md",
-        "2026-11-03 post-release sync (no lib/ change, +9 APK/manifest unchanged): d683e14 README -> v1.0.0+9/523 tests/live demo counts/owner 2026-10-14 drop; a265c92 home-search widget-test clock pinned to the real day (hardcoded 2026-10-02 had drifted past its own today+20 horizon); format 193 files 0 changed, analyze zero, full suite 523/523 re-verified on the real clock"
+        "2026-11-03 post-release sync (no lib/ change, +9 APK/manifest unchanged): d683e14 README -> v1.0.0+9/523 tests/live demo counts/owner 2026-10-14 drop; a265c92 home-search widget-test clock pinned to the real day (hardcoded 2026-10-02 had drifted past its own today+20 horizon); format 193 files 0 changed, analyze zero, full suite 523/523 re-verified on the real clock; CI run 41638600872 green on a265c92"
       ],
       "blocker": null,
       "started_at": "2026-10-14T00:00:00Z",

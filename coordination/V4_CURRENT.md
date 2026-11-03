@@ -69,7 +69,8 @@ recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
   test stopped hardcoding `2026-10-02` as its clock, which had silently
   expired (the app correctly refused a date past that clock's today+20
   horizon). Re-verified 2026-11-03: format 193 files/0 changed, analyze
-  zero issues, full suite **523/523**.
+  zero issues, full suite **523/523**; CI `Flutter CI - main only`
+  run `41638600872` green on `a265c92`.
 
 ## STATE
 - P34 SUPERSEDED - DROPPED BY OWNER 2026-10-14.
