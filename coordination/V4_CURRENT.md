@@ -1,17 +1,14 @@
-# V4 CURRENT - v1.0.0+9 published; P36 re-freeze VERIFIED
+# V4 CURRENT — teacher final gate code pass; v1.0.0+10 published (P37)
 
-Timestamp: 2026-10-19 UTC (repo docs/test sync 2026-11-03)
-Code HEAD: 6c0ddf8 is the APP code and the `+9` release commit; repo HEAD is
-a265c92, which is docs/test-only (README sync + one widget-test clock fix, no
-`lib/` change, APK and manifest unchanged). Full suite 523/523 on the real
-clock 2026-11-03, analyze zero issues, format clean.
-Docs HEAD: this commit
-Phase: **P36 re-freeze VERIFIED at code 6c0ddf8 / docs this commit.
-v1.0.0+9 published (replaces +8 on device). Owner retest: install +9.
-One owner action remains: privileged-credential rotation (see
-BLOCKED_OWNER). Full record: `handoffs/CONSUMER_READINESS_2026-10-19.md`
-+ `handoffs/POST_FREEZE.md` + `handoffs/TAKEOVER.md` +
-`handoffs/HOTFIX_AUTH_DEEPLINK.md`.**
+Timestamp: 2026-11-03 (Asia/Dhaka).
+Code HEAD: `cafa3f0` is BOTH the app-code commit for this pass and the
+`v1.0.0+10` release commit (manifest `versionCode=10`, `signed=true`).
+Docs HEAD: this commit.
+Phase: **P37 code pass VERIFIED at `cafa3f0` / release `v1.0.0+10` (run
+`41661512576`, 8 assets, latest). Full suite 542/542 local and CI (run
+`41661488425`), analyze zero issues, format clean. Teacher acceptance itself
+is owner-side: live SMS delivery is BLOCKED_OWNER and two-device runtime
+observation was not performed.** Record: `handoffs/TEACHER_FINAL_GATE_2026-11-03.md`.
 
 Superseded-directive note (do NOT follow the paragraph below):
 `governance/OWNER_DIRECTIVE_DEVICE_TESTS.md` once reopened emulator
@@ -22,6 +19,10 @@ recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
 ## VERIFIED
 - P00-P33 VERIFIED (P30/P31/P32/P33 individual closure notes where
   superseded; see the ledger).
+- P37 VERIFIED at code `cafa3f0`, release `v1.0.0+10`, 542/542 (2026-11-03
+  teacher final gate code pass). Code scope only: production phone-OTP
+  routing + cross-client board comments/reactions + hosted realtime
+  publication. Live SMS and two-device runtime are NOT verified.
 - P36 VERIFIED at code `6c0ddf8`, release `v1.0.0+9`, 523/523. Earlier
   freeze evidence (v1.0.0+3 era, +6 era, +7 era, +8 era) is RETAINED AS
   HISTORY in the ledger entry.
@@ -62,6 +63,41 @@ recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
 - Demo horizon refreshed 2026-10-19 via the idempotent, owner-only
   `refresh_demo_horizon()` RPC: 648 slots touched; live 24 stations,
   1186 trips, 47,320 seats, horizon 2026-11-08, 1 booking, 3 profiles.
+- Teacher final gate code pass 2026-11-03 (`cafa3f0`; 542/542 local + CI,
+  analyze zero, format 197 files/0 changed, release `v1.0.0+10` run
+  `41661512576`):
+  - **Realtime publication was the real blocker.** Hosted
+    `pg_publication_tables` listed NO `public` table in `supabase_realtime`
+    (only internal `realtime.messages_*`), so Postgres Changes delivered
+    nothing — the pre-existing `public.posts` channel was dead as well. With
+    owner approval, `public.posts` / `public.post_comments` /
+    `public.post_reactions` were added (additive, reversible, no row
+    touched); committed as idempotent migration
+    `supabase/migrations/20261103000001_realtime_publication.sql` and
+    re-verified hosted.
+  - **Phone OTP is reachable and real**: `AppDependencies.create()` composes
+    `SupabasePhoneOtpClient` (fake is test-only); signed-in requests use
+    `updateUser(phone:)` + `verifyOTP(phoneChange)` so the number attaches to
+    the existing account, no-session requests use `signInWithOtp` +
+    `verifyOTP(sms)`. The Verify screen phone button now opens
+    `PhoneVerifyScreen` instead of a placeholder dialog; the DEMO notice is
+    gated on the injected fake (`PhoneState.isDemo`) only.
+  - **Cross-client comments**: one shared `public.post_comments` channel at
+    the shell root, typed `CommentRealtimeEvent`s on a broadcast stream,
+    filtered per card. Loaded threads merge inserts/deletes with no refetch;
+    other posts ignored; never-loaded threads merge nothing (no invented
+    count); own-echo insert dedupes by row id; subscription cancelled on
+    dispose.
+  - **Cross-client reaction counts**: one shared `public.post_reactions`
+    channel; `ReactionRealtimeEvent` carries `post_id` (PK `(post_id,
+    user_id)` so deletes carry it), each card filters to its own post and
+    calls the existing authoritative `refresh()` — echoed own votes refetch
+    once, never double-count.
+  - 19 new hermetic tests (`comment_section_realtime_test.dart` 7,
+    `post_engagement_realtime_test.dart` 7, `phone_production_wiring_test.dart`
+    5); no polling and no per-card channels were introduced.
+  - README corrected: phone OTP is no longer described as unimplemented;
+    realtime publication + 542 tests + the live-proof limits are stated.
 - Post-release docs/test sync 2026-11-03 (`d683e14`, `a265c92`; NO `lib/`
   change, so the `+9` APK and manifest still match `6c0ddf8`): README now
   names `v1.0.0+9`, 523 tests, the live demo counts and the 2026-10-14
@@ -75,8 +111,11 @@ recorded under OWNER DROP NOTICE. P34/P35 stay SUPERSEDED.
 ## STATE
 - P34 SUPERSEDED - DROPPED BY OWNER 2026-10-14.
 - P35 SUPERSEDED - DROPPED BY OWNER 2026-10-14.
-- P36 VERIFIED - final freeze at code `6c0ddf8` / release `v1.0.0+9`.
-  Repo HEAD `a265c92` is docs/test-only (no app-code change).
+- P37 VERIFIED (code scope) at `cafa3f0` / release `v1.0.0+10`; 542/542 local
+  and CI. Teacher acceptance is owner-side: live SMS is BLOCKED_OWNER and no
+  two-device runtime observation was made.
+- P36 VERIFIED - final V4 freeze at code `6c0ddf8` / release `v1.0.0+9`.
+  Repo HEAD `a265c92` was docs/test-only (no app-code change).
   No agent-actionable task remains open; only owner-side items below.
 
 ## OWNER DROP NOTICE (2026-10-14, binding on reviewers)
@@ -98,7 +137,11 @@ mid-journey (Booking Review) and will not resume.
   OTP promise; `verifyCode`/`verifyEmailOtp` kept as a dormant seam only.
 
 ## BLOCKED_OWNER
-- SMS provider (carried from V3; phone OTP honestly reports unavailability).
+- SMS provider (carried from V3): the app now composes the REAL
+  `SupabasePhoneOtpClient`, so phone verification works as soon as the hosted
+  project has an SMS provider and an approved test recipient. Without it the
+  request fails honestly (no fake code, no fallback). Owner action before
+  claiming the phone feature live.
 - Social login: unimplemented by design; the UI must stop advertising it.
 - Privileged credential rotation: the tracked `app.env.json` was removed
   from code HEAD in `0489e61`, but the exposed legacy credential stays valid
@@ -137,13 +180,21 @@ mid-journey (Booking Review) and will not resume.
   contains the auth deep-link RouteErrorScreen regression.
 - `v1.0.0+7` (2026-10-14, `315b6a9`) - superseded by +8.
 - `v1.0.0+8` (2026-10-19, `3d2a73b`, run `39205358414`) - superseded by +9.
-- `v1.0.0+9` (2026-10-19, `6c0ddf8`, run `39206584037`) - LATEST AND ONLY
+- `v1.0.0+9` (2026-10-19, `6c0ddf8`, run `39206584037`) - superseded by +10.
+- `v1.0.0+10` (2026-11-03, `cafa3f0`, run `41661512576`) - LATEST AND ONLY
   SUPPORTED BUILD: 4 signed APKs + AAB + manifest + SHA256SUMS +
-  PROVENANCE. Consumer-readiness batch + non-contract submit failure
-  handling + refreshed demo horizon.
+  PROVENANCE. Teacher final gate code pass: real phone-OTP routing, shared
+  per-table realtime comments/reactions, hosted realtime publication
+  (`posts`, `post_comments`, `post_reactions`), 542 tests.
 
 ## Remaining - owner-side only (no agent gate)
-1. Install `v1.0.0+9` on the owner device (replaces `+8`).
+1. Install `v1.0.0+10` on the owner device (replaces `+9`).
 2. Owner taps a FRESH signup confirmation email on the signup device.
-3. Privileged-credential rotation (see BLOCKED_OWNER) - the single
+3. Configure the hosted SMS provider + an approved test recipient, then send
+   one real OTP to claim the phone feature live (BLOCKED_OWNER); if none is
+   available, present the phone lane as "wired, provider pending".
+4. Two-device demo for the teacher: cross-client comment and like/dislike
+   count updates without refresh (the code + hosted publication are ready;
+   runtime observation is owner-side).
+5. Privileged-credential rotation (see BLOCKED_OWNER) - the single
    outstanding owner-only security action.

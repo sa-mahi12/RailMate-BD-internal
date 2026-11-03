@@ -905,6 +905,35 @@
       "started_at": "2026-10-14T00:00:00Z",
       "updated_at": "2026-11-03T00:00:00Z",
       "verified_commit": "6c0ddf8"
+    },
+    {
+      "id": "P37",
+      "title": "Teacher final gate code pass: real phone OTP + cross-client board realtime",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P36"
+      ],
+      "objective": "Make the six teacher-announced features demonstrable with the smallest safe change set: production phone-OTP routing, cross-client realtime comments, live reaction counts, hosted Realtime publication, next signed release, docs/evidence.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [],
+      "evidence": [
+        "Code cafa3f0 (app repo) and this docs commit; both repos main only, no branches/PRs/worktrees",
+        "Blocker found first: hosted pg_publication_tables listed NO public table in supabase_realtime (only realtime.messages_*), so Postgres Changes delivered nothing and the pre-existing public.posts channel was dead too. Owner approved the additive change; public.posts/post_comments/post_reactions are now in supabase_realtime (observed hosted). Recorded as idempotent supabase/migrations/20261103000001_realtime_publication.sql",
+        "Phone OTP is production-reachable: AppDependencies.create composes SupabasePhoneOtpClient (fake test-only); signed-in updateUser(phone:)+verifyOTP(phoneChange) attaches the number to the existing account, no-session signInWithOtp+verifyOTP(sms); Verify screen phone button opens PhoneVerifyScreen (no placeholder dialog); DEMO notice and 'no real code' copy gated on PhoneState.isDemo only",
+        "Realtime comments: ONE shared public.post_comments channel at the shell root mapped to typed CommentRealtimeEvents; cards filter by post; loaded threads merge insert/delete with no refetch; never-loaded threads merge nothing (no invented count); deletes match loaded ids (default replica identity keeps only id); own-echo insert dedupes; subscription cancelled on dispose; no polling, no per-card channels",
+        "Realtime reaction counts: ONE shared public.post_reactions channel; ReactionRealtimeEvent carries post_id (PK (post_id,user_id), so DELETE old_record carries it); each card filters its own post and calls the existing authoritative refresh(), so an echoed own vote refetches once and can never double-count",
+        "Hermetic tests: test/board/comment_section_realtime_test.dart (7), test/board/post_engagement_realtime_test.dart (7), test/phone_production_wiring_test.dart (5) = 19 new tests",
+        "Gates: dart format --set-exit-if-changed lib test tool clean (197 files, 0 changed); flutter analyze --no-pub No issues found; full suite 542/542 local and CI Flutter CI - main only run 41661488425 on cafa3f0",
+        "Release: v1.0.0+10 published 2026-11-03 from cafa3f0 (run 41661512576), 8 assets (4 signed APKs, AAB, release-manifest.json, SHA256SUMS.txt, PROVENANCE.md); manifest versionCode=10, commit=cafa3f01c67a66dd647f7cf40f27f0cae786c78a, signed=true; latest release",
+        "README corrected: phone OTP no longer described as unimplemented; realtime publication, 542 tests and the live-proof limits stated",
+        "NOT verified: live SMS delivery (no provider/recipient approved, no OTP sent) and two-device runtime observation (no device/emulator; P34/P35 stay SUPERSEDED). Session/JWT, username, email verification, Storage upload were regression-only and untouched; booking/maps/TFLite/GSAP/SASS/GraphQL/pagination/PDF/AI/timetable untouched",
+        "Owner packet: RailMateBD_Handoff_01_Teacher_Final_Gate_Code_2026-11-03.zip (read from Downloads, three packets PHONE_OTP/COMMENTS_REALTIME/REACTIONS_REALTIME)"
+      ],
+      "blocker": "Owner side before the teacher demo: (1) configure an SMS provider + approved test recipient on the hosted Supabase project and send one real OTP; until then the phone lane is wired but no live code is delivered (the app fails honestly, no fake code). (2) Install v1.0.0+10 on two clients to observe cross-client comment/count updates without refresh; no device/emulator runtime proof was produced in this environment.",
+      "started_at": "2026-11-03T00:00:00Z",
+      "updated_at": "2026-11-03T00:00:00Z",
+      "verified_commit": "cafa3f0"
     }
   ]
 }
