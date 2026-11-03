@@ -5,7 +5,7 @@ is active or standby. A compacted agent must not treat them as live leases.
 
 | Session | Model | Lane | Task | Allowed paths | Last checkpoint | State |
 |---|---|---|---|---|---|---|
-| coordinator-2026-10-19 | `agentrouter/deepseek-v4-flash` | integration | Consumer-readiness batch: real upcoming booking wiring, username checker on all signup paths, booking submit guard, raw-error/copy gate; `3d2a73b`; 523/523; `v1.0.0+8` (run 39205358414) | shared (main/app/pubspec/android/CI/migrations/git) | 2026-10-19 (V4_CURRENT + ledger + CONSUMER_READINESS handoff) | active |
+| coordinator-2026-10-19 | `agentrouter/deepseek-v4-flash` | integration | Consumer-readiness batch: real upcoming booking wiring, username checker on all signup paths, booking submit guard + non-contract failure handling, raw-error/copy gate; `3d2a73b` + `6c0ddf8`; 523/523; `v1.0.0+9` (run 39206584037); post-release docs/test sync `d683e14` + `a265c92` (no lib/ change, +9 unchanged) | shared (main/app/pubspec/android/CI/migrations/git) | 2026-11-03 (V4_CURRENT + ledger + CURRENT + CONSUMER_READINESS handoff) | active |
 | coordinator | muse-spark-1.3 | integration | Takeover batch: link-first verify UI (`0489e61`, 506/506) + analyze fix (`210ad8a`); app.env.json untracked (rotation = owner action); v1.0.0+6 dispatched; V4_CURRENT contradiction fixed | shared (main/app/pubspec/android/CI/migrations/git) | 2026-10-14 takeover (ledger + V4_CURRENT + TAKEOVER handoff) | closed |
 | worker-a | - | design/motion | P01 done | lib/design/** | closed 2026-09-30 | closed |
 | worker-b | - | onboarding/auth | P04 done | lib/features/onboarding/** | closed 2026-09-30 | closed |

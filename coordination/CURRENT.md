@@ -2,7 +2,8 @@
 
 > HISTORICAL - 2026-09-30 snapshot, kept for provenance. The live authority
 > is `coordination/V4_CURRENT.md` and `tasking/V4_TASK_LEDGER.json`.
-> Current state: code `3d2a73b`, release `v1.0.0+8`, 523/523 tests.
+> Current state: app code `6c0ddf8` (repo HEAD `a265c92`, docs/test-only),
+> release `v1.0.0+9`, 523/523 tests.
 
 Timestamp: 2026-09-30 ~07:00 UTC
 Code HEAD: 7fea7ce (pushed to origin/main)
