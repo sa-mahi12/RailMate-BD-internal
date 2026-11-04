@@ -97,6 +97,27 @@ Next action: owner installs +11 and signs up privately; existing account data wa
 erased, so an old account must be recreated. Inbox/OTP, login/logout, recovery and
 photo-upload runtime acceptance remain owner-side, never inferred from CI.
 
+## Owner-requested demo account (2026-11-04 11:55 +06:00)
+Owner overrode the personal-signup choice and asked for an immediate demo login,
+including deletion of any conflicting existing account.
+
+- Email `sanjidamahi2005@gmail.com`, username `sanjidamahi2005`, password chosen
+  by the owner (demo strength only; never written to either repository, logs,
+  prompts or screenshots).
+- Provisioned with Supabase Admin API `POST /auth/v1/admin/users`, `email_confirm`
+  true, username in `user_metadata` only; no `app_metadata` role change, so the
+  account is an ordinary `authenticated` user under normal RLS.
+- Conflict policy executed: pre-scan for matching email or username claim found
+  0 accounts, deleted 0, recheck found 0. Nothing else was removed.
+- Verification: an independent rerun signed in with the password grant, read its
+  own profile and username rows, then closed the session locally. Observed output:
+  `authUsers=1 emailMatches=1 emailConfirmed=True role=authenticated
+  profileRows=1 usernameRows=1`.
+- Script: approved Temp `mailjet-gate/provision-demo-user.ps1`; it pins RailMate
+  `psuzlyingfmstnyfvlnj` only. Exit 0; no repository files changed.
+- This is a host-side seeded account, not proof that the app's OTP signup UI or
+  Mailjet delivery works. The owner still needs to install +11 and log in.
+
 ## Requirement impact and documentation gate
 - R-05: signup email uses numeric OTP; live delivery/acceptance NOT VERIFIED,
   phone-provider blocker unchanged. No whole-requirement PASS claimed.

@@ -25,6 +25,13 @@ Release: https://github.com/sa-mahi12/RailMate-BD/releases/tag/v1.0.0%2B11
   login/logout, forgotten-password callbacks, photo upload and phone OTP retained.
 - Owner selected **I will sign up**. Agent sent NO signup email, generated NO
   password. Inbox/provider delivery and hosted OTP acceptance are NOT VERIFIED.
+- Owner then requested an immediate demo account and authorised deleting a
+  conflicting account. Provisioned 2026-11-04 11:55 +06:00 via Auth Admin API:
+  `sanjidamahi2005@gmail.com`, username `sanjidamahi2005`,
+  administrator-approved email status, normal `authenticated` role. Owner chose
+  the password; it is stored in neither repo. Conflict scan found 0 accounts and
+  deleted 0. Independent rerun: password grant succeeds, own profile and username
+  rows present, session closed. Demo seed only, not OTP-path proof.
 - Independent review findings reproduced and corrected. Already-running final
   verification finished 2026-11-04 11:30:50 +06:00: format/analyze/test exit 0,
   558/558 tests. No additional local test pass launched after owner request.

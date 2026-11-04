@@ -954,9 +954,10 @@
         "Independent read-only review found 3 important edge cases; each reproduced RED and corrected. Already-running final verification finished 2026-11-04T11:30:50+06:00: format/analyze/test exit 0, 558/558; no new local pass after owner request. Pre-review 552/552 is historical",
         "GitHub release run 41779702127 and CI run 41779699297 completed success on 5ebbf70; release/debug APK builds successful; no new local test pass",
         "v1.0.0+11 published 2026-11-04T05:37:12Z, 8 assets. Downloaded manifest asserted versionCode=11, signed=true, commit=5ebbf70f13509c0f5e86ed7668630264b40276b5, RailMate backend. Universal APK published SHA256=69fe44835a3aaa2e906184f87011ab12775cc900d2ac31ad479a6b9855f0aff3; no local APK hash/device claim",
-        "Owner selected I will sign up: no agent-generated password, no outgoing signup request; provider delivery and hosted code verification NOT VERIFIED"
+        "Owner selected I will sign up: no agent-generated password, no outgoing signup request; provider delivery and hosted code verification NOT VERIFIED",
+        "Owner then requested an immediate demo account: provisioned via Auth Admin API with email_confirm=true; independent rerun signed in (password grant), read own profile + username rows, then closed the session; owner-chosen password not recorded"
       ],
-      "blocker": "Code/reset/release complete; owner chose personal signup, so real inbox delivery and hosted OTP acceptance remain owner-side and NOT VERIFIED. Existing SMS/credential-rotation owner tasks remain unchanged.",
+      "blocker": "Code/reset/release complete and demo account exists; real inbox delivery and hosted OTP acceptance remain owner-side and NOT VERIFIED. Existing SMS/credential-rotation owner tasks remain unchanged.",
       "started_at": "2026-11-04T00:00:00Z",
       "updated_at": "2026-11-04T00:00:00Z",
       "verified_commit": "5ebbf70f13509c0f5e86ed7668630264b40276b5"
