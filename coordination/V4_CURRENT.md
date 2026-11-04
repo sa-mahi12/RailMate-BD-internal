@@ -43,6 +43,58 @@ Release: https://github.com/sa-mahi12/RailMate-BD/releases/tag/v1.0.0%2B11
 **Superseded below:** 2026-10-14 no-custom-SMTP/link-first signup decision and
   no-agent-task state are historical; the owner Mailjet handoff overrides them.
 
+## P39 — demo readiness pass (2026-11-04, after +11)
+
+Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
+
+1. **Demo timetable refreshed.** `select public.refresh_demo_horizon(20)` ->
+   `648` (idempotent slot count). Live: 1,682 trips, 67,160 seats, horizon now
+   `2026-11-24` (was `2026-11-08`, which had become shorter than the app's
+   today..+20 picker window). 32 trips exist on the last selectable day.
+   `bookings=0`, occupied seats `0`. Four stale 10-seat 2026-10-15/16 test trips
+   remain, past the picker window and therefore unreachable.
+2. **Auth-function advisories fixed** (hosted migration
+   `20261104060034 auth_function_hardening`, committed as
+   `supabase/migrations/20261104000001_auth_function_hardening.sql`):
+   - 0011: `public.normalize_username` now `SET search_path = ''` and uses
+     `pg_catalog`-qualified built-ins.
+   - 0028/0029: `EXECUTE` on the `SECURITY DEFINER` signup trigger
+     `public.bootstrap_new_user()` revoked from `PUBLIC`, `anon`,
+     `authenticated`; ACL now `postgres`/`service_role` only. Trigger firing does
+     not check EXECUTE, so signup is unaffected.
+   - Smoke test after the change: admin-created user still produced its profile
+     row and a normalised username claim; anonymous
+     `POST /rest/v1/rpc/bootstrap_new_user` -> HTTP 404 (not exposed); smoke user
+     deleted and its rows cascaded. Advisors 0011/0028/0029 no longer fire.
+   - Remaining WARNs are intentional/owner-side: 0026/0027 pg_graphql table
+     exposure (needed for R-18 and PostgREST grants, RLS-gated) and
+     `auth_leaked_password_protection` disabled (owner decision; enabling it
+     would reject the owner's chosen demo password).
+3. **Live user-flow re-verification** against RailMate with the seeded demo
+   account (`exit=0`): password login -> session; authenticated upload to
+   `<uid>/...png` in `post-media` + public read (HTTP 200, 70 bytes) + own
+   delete; own post + comment + reaction inserts accepted under RLS and cleaned
+   up; global logout -> refresh token rejected (HTTP 400); one Mailjet recovery
+   request returned HTTP 200. Access JWTs remain valid until their normal expiry
+   — standard Supabase behaviour, stated instead of claiming instant JWT death.
+   Owner-side evidence also observed: a real 645 KB `.jpg` appeared in
+   `post-media` at 11:58 +06:00, so photo upload has been exercised from the app.
+4. **Data hygiene:** verification posts/comments/reactions/objects removed; only
+   the seed post/comment/reaction, the owner's uploaded photo, 1 profile and 1
+   demo account remain.
+
+### Remaining after P39 (owner-side only, no agent gate)
+1. Install `v1.0.0+11` and log in with the seeded demo account.
+2. Change the weak demo password before any public demonstration.
+3. Read the real signup OTP from the inbox once to accept the email lane
+   (or use the recovery email already sent to reset the account).
+4. SMS provider + approved recipient for the live phone-OTP claim.
+5. Privileged credential rotation (legacy `app.env.json` key) — unchanged.
+6. Two-device realtime observation is owner-side and **not required** (P34/P35
+   SUPERSEDED).
+
+Historical P37 section follows.
+
 ## Historical P37 teacher final gate — v1.0.0+10
 
 Timestamp: 2026-11-03 (Asia/Dhaka).

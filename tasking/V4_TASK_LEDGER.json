@@ -959,8 +959,32 @@
       ],
       "blocker": "Code/reset/release complete and demo account exists; real inbox delivery and hosted OTP acceptance remain owner-side and NOT VERIFIED. Existing SMS/credential-rotation owner tasks remain unchanged.",
       "started_at": "2026-11-04T00:00:00Z",
-      "updated_at": "2026-11-04T00:00:00Z",
+      "updated_at": "2026-11-04T06:10:00Z",
       "verified_commit": "5ebbf70f13509c0f5e86ed7668630264b40276b5"
+    },
+    {
+      "id": "P39",
+      "title": "Demo readiness: horizon refresh, auth-function hardening, live flow re-verification",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": ["P38"],
+      "objective": "Make the released app usable now and close the auth-function security advisories without changing app behaviour.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": ["supabase/migrations/", "coordination/", "governance/", "handoffs/", "tasking/"],
+      "evidence": [
+        "refresh_demo_horizon(20) returned 648; trips 1186->1682, seats 47320->67160, horizon 2026-11-08->2026-11-24, 32 trips on the last picker day; bookings 0, occupied seats 0",
+        "Hosted migration 20261104060034 auth_function_hardening applied: normalize_username pinned to empty search_path with pg_catalog-qualified builtins; bootstrap_new_user EXECUTE revoked from PUBLIC/anon/authenticated (ACL now postgres+service_role)",
+        "Post-change smoke test exit 0: admin-created user still bootstrapped profile+username (normalised), anon RPC /rest/v1/rpc/bootstrap_new_user returned 404, smoke user deleted with cascade; advisors 0011/0028/0029 no longer fire",
+        "Live flow verification exit 0 against RailMate with the seeded demo account: login OK; post-media upload 200 + public read 200 (70 bytes) + own delete; own post+comment+reaction accepted under RLS then removed; global logout rejected the refresh token (HTTP 400); recovery request HTTP 200",
+        "Access JWTs remain valid until expiry after logout (standard Supabase behaviour); no instant-JWT-death claim made",
+        "Owner-side observation: a 645 KB jpg appeared in post-media at 11:58 +06:00, indicating app photo upload was exercised",
+        "Remaining WARNs intentional: pg_graphql table exposure (needed by R-18, RLS-gated) and leaked-password protection disabled by owner decision (would reject the current demo password)",
+        "No app-code, CI, secret or release change; app HEAD 41e8e57 and release v1.0.0+11 unchanged"
+      ],
+      "blocker": "Owner-side only: install +11, log in, change the weak demo password, read one real signup/recovery email, and configure SMS for the live phone claim.",
+      "started_at": "2026-11-04T06:00:00Z",
+      "updated_at": "2026-11-04T06:10:00Z",
+      "verified_commit": "41e8e57f474b72166209d077792356950ae8c3a1"
     }
   ]
 }
