@@ -128,8 +128,7 @@ error events appeared in the auth logs for the window examined.
 - An existing account for the same address yields *"An account with this email
   already exists. Try logging in instead."*
 
-### 7.4 Genuine OTP send (packet step 4)
-One genuine signup OTP was requested for the owner-requested recipient through
+### 7.4 Genuine OTP send (packet step 4)One genuine signup OTP was requested for the owner-requested recipient through
 the real Auth signup endpoint at 12:25 +06:00: Auth replied 200 with
 `user_confirmation_requested` and the Mailjet dispatch was accepted. **Inbox
 delivery and code entry are NOT verified** - per the packet only the inbox holder
@@ -148,3 +147,20 @@ Please try again."*, a verify screen with no code email, or a rejected code?
 That answer decides between (a) surfacing the local validation message and
 shipping build +12, or (b) chasing Mailjet/Gmail deliverability with the owner's
 dashboard.
+
+### 7.7 Mailjet pipe + template content (verified without an owner inbox)
+To separate "email does not arrive" from "app does not work", a signup was made
+against a **disposable third-party mailbox** (address withheld; the auth user was
+deleted straight after). Findings:
+
+| Check | Result |
+|---|---|
+| Delivery | railmate message arrived in ~10 s at a provider that spam-filters aggressively |
+| Subject | `Verify your RailMate BD account` |
+| Body | OTP-only: "Enter this one-time verification code in the RailMate BD app to complete your registration" + the six digits |
+| Confirmation link | **none** - the only URLs in the body are Mailjet open/click tracking (`*.mjt.lu`), so the packet's "no confirmation button/link" rule holds |
+| Sender | the owner Gmail address, which is why Gmail itself may file these under Spam |
+
+So the email lane is functional at the provider level as of 12:5x +06:00; a
+missing code on the owner's phone most likely means Spam/Promotions placement
+rather than a broken send.

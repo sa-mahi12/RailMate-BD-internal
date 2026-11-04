@@ -986,6 +986,7 @@
         "Client-side signup rules confirmed on the real form: password >= 8 chars is enforced locally and a shorter value surfaces only the generic 'Registration failed. Please try again.'; usernames are lowercased and must match ^[a-z][a-z0-9_]{2,19}$",
         "Genuine signup OTP requested once for the owner-requested recipient through the real Auth signup endpoint (200, user_confirmation_requested, Mailjet dispatch accepted); inbox delivery and code entry NOT verified - inbox-holder step per the packet; the address is withheld from this PUBLIC docs repo and the temporary account created for that send was deleted",
         "Probe cleanup: railmate.probe*, railmate.pw*, railmate.ui.probe, railmate.shortpw and the temporary OTP-send account removed; auth_users=1 (demo), profiles=1, usernames=1, 0 orphan profile/username rows",
+        "Mailjet pipe + hosted template content verified end to end without an owner inbox: signup for a disposable third-party mailbox (address withheld) delivered 'Verify your RailMate BD account' in ~10s; body is OTP-only (six digits, no confirmation link, only Mailjet tracking URLs), sender is the owner Gmail address; disposable auth user deleted immediately after the check",
         "No app-code, CI, secret or release change in this addendum; app HEAD 32c1770 (migration commit), release v1.0.0+11 still latest"
       ],
       "blocker": "Owner-side only: install +11, log in, change the weak demo password, read one real signup/recovery email, and configure SMS for the live phone claim.",

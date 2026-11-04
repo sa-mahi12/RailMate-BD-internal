@@ -126,6 +126,15 @@ Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
    - All probe accounts (`railmate.probe*`, `railmate.pw*`, `railmate.ui.probe`,
      `railmate.shortpw`) were removed; verified `auth_users=1`,
      `profiles=1`, `usernames=1`, no orphan rows.
+   - **Mailjet pipe and template content verified end to end without touching an
+     owner inbox:** a signup for a disposable third-party mailbox (address
+     withheld) produced the hosted *"Verify your RailMate BD account"* email in
+     about 10 s. The body is OTP-only - "Enter this one-time verification code
+     in the RailMate BD app to complete your registration" followed by the six
+     digits - and contains **no confirmation link** (the only URLs are Mailjet
+     open/click tracking), so the packet's OTP-only template requirement holds.
+     Sender is the owner Gmail address, which is why Gmail may file these under
+     Spam; the disposable account was deleted immediately afterwards.
 
 ### Remaining after P39 (owner-side only, no agent gate)
 1. Install `v1.0.0+11` and log in with the seeded demo account.
