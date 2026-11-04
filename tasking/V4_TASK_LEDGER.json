@@ -981,12 +981,17 @@
         "Remaining WARNs intentional: pg_graphql table exposure (needed by R-18, RLS-gated) and leaked-password protection disabled by owner decision (would reject the current demo password)",
         "Live booking E2E via deployed Edge Functions: simulateSuccess=false returned PAYMENT_SIMULATION_FAILED with zero writes (SQL counts unchanged: 1 booking, 2 held seats); 2-passenger booking cddd66e6-2520-4e06-98f2-150dadeb7577 CONFIRMED, fare 1080, seats A9/B1, booking_seats=2, held seats=2; cancel returned CANCELLED with held seats back to 0 and audit rows retained; final demo booking f463cead-2a63-4a48-a1a0-1656a23e2ebf CONFIRMED, seats A2/A3, fare 1250, Dhaka->Chattogram 2026-11-06 07:00 Asia/Dhaka (hosted totals: 2 booking rows, 2 held seats)",
         "Note: PowerShell @(Invoke-RestMethod ...) wraps a JSON array as one element (an empty array reports Count=1), so booking evidence was read back with authoritative SQL instead of array counts",
-        "No app-code, CI, secret or release change; app HEAD 41e8e57 and release v1.0.0+11 unchanged"
+        "Signup + OTP proven on-device with the published +11 APK (x86_64, SHA256 matches SHA256SUMS.txt): cleared app data -> onboarding -> Create Account -> form -> 'Verify your account' -> 6-digit code -> Home; Profile shows 'Email verified' plus the chosen username, the live username checker showed 'Available', and the home date picker lists days through 2026-11-24 (refreshed horizon visible in the shipped build)",
+        "Backend contract replay of the same path: POST /auth/v1/signup -> 200 with confirmation_sent_at; six-digit OTP verified with type=email returns a session with email_confirmed_at set; bootstrap trigger still creates the profile + normalised username",
+        "Client-side signup rules confirmed on the real form: password >= 8 chars is enforced locally and a shorter value surfaces only the generic 'Registration failed. Please try again.'; usernames are lowercased and must match ^[a-z][a-z0-9_]{2,19}$",
+        "Genuine signup OTP requested once for the owner-requested recipient through the real Auth signup endpoint (200, user_confirmation_requested, Mailjet dispatch accepted); inbox delivery and code entry NOT verified - inbox-holder step per the packet; the address is withheld from this PUBLIC docs repo and the temporary account created for that send was deleted",
+        "Probe cleanup: railmate.probe*, railmate.pw*, railmate.ui.probe, railmate.shortpw and the temporary OTP-send account removed; auth_users=1 (demo), profiles=1, usernames=1, 0 orphan profile/username rows",
+        "No app-code, CI, secret or release change in this addendum; app HEAD 32c1770 (migration commit), release v1.0.0+11 still latest"
       ],
       "blocker": "Owner-side only: install +11, log in, change the weak demo password, read one real signup/recovery email, and configure SMS for the live phone claim.",
       "started_at": "2026-11-04T06:00:00Z",
-      "updated_at": "2026-11-04T06:10:00Z",
-      "verified_commit": "41e8e57f474b72166209d077792356950ae8c3a1"
+      "updated_at": "2026-11-04T06:45:00Z",
+      "verified_commit": "32c177026ee98751aa1383d0276baa058e4312ab"
     }
   ]
 }

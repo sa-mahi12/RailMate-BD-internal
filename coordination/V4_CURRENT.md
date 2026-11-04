@@ -99,6 +99,33 @@ Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
 5. **Data hygiene:** verification posts/comments/reactions/objects removed; only
    the seed post/comment/reaction, the owner's uploaded photo, 1 profile, 1 demo
    account and the demo booking pair above remain.
+6. **Signup/OTP proven on-device (emulator + released APK).** Installed the
+   published `RailMate-BD-1.0.0-x86_64.apk` (SHA256 matches `SHA256SUMS.txt`),
+   cleared app data, and drove the real UI: onboarding -> Create Account -> form
+   -> **Verify your account** screen -> 6-digit code -> Home
+   ("Good afternoon, UI Probe"), with Profile showing *Email verified* and
+   `@uiprobe2026`. The live username checker showed *Available*, and the home
+   date picker displayed *Up to 24 Nov, 2026*, i.e. the refreshed horizon is
+   visible in the shipped app.
+   - Backend replay of the same contract also passed: `POST /auth/v1/signup`
+     returns 200 with `confirmation_sent_at`, `type=email` OTP verification
+     returns a session, and the bootstrap trigger creates the profile +
+     normalised username.
+   - Client-side rule found while driving the form: the app requires a password
+     of **at least 8 characters**; a shorter one is rejected locally and the
+     screen shows the generic *"Registration failed. Please try again."*, which
+     can look like a broken signup. Usernames are normalised to lowercase and
+     must be 3-20 chars of `[a-z0-9_]` starting with a letter.
+   - Genuine signup OTP requested for the owner-requested recipient address
+     (withheld from this PUBLIC docs repo) at 12:25 +06:00 (Auth 200,
+     `user_confirmation_requested`, Mailjet dispatch accepted). **Inbox delivery
+     and code entry remain unverified** - that step belongs to the inbox holder
+     per the packet. The temporary account created for that send was deleted
+     again (only the demo account remains) so the owner can register that address
+     with their own password.
+   - All probe accounts (`railmate.probe*`, `railmate.pw*`, `railmate.ui.probe`,
+     `railmate.shortpw`) were removed; verified `auth_users=1`,
+     `profiles=1`, `usernames=1`, no orphan rows.
 
 ### Remaining after P39 (owner-side only, no agent gate)
 1. Install `v1.0.0+11` and log in with the seeded demo account.

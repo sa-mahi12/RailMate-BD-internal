@@ -90,3 +90,61 @@ bookings.
 4. SMS provider + approved recipient for the live phone-OTP claim.
 5. Rotate the legacy exposed privileged key (unchanged owner task).
 6. Two-device realtime observation is not required (owner dropped device proof).
+
+## 7. Signup / email-OTP lane (addendum, 12:45 +06:00)
+
+The owner reported that creating an account "seems to fail". Both halves of the
+lane were therefore re-proven, and the probe accounts were cleaned up.
+
+### 7.1 On-device proof with the published build
+Installed the released `RailMate-BD-1.0.0-x86_64.apk` (SHA256 matched
+`SHA256SUMS.txt`) on the emulator, cleared app data, and drove the real UI:
+
+| Step | Observed |
+|---|---|
+| Fresh launch | onboarding -> Welcome |
+| Create Account -> form | filled; live username checker showed *Available* |
+| Submit | **Verify your account** screen, "Enter the 6-digit code ..." |
+| Six-digit code | accepted -> Home ("Good afternoon, UI Probe") |
+| Profile | *Email verified*, `@uiprobe2026` |
+| Home date picker | days listed through **2026-11-24** (refreshed horizon) |
+
+So the shipped +11 build completes signup + OTP verification end to end; the
+failure the owner saw is not a broken lane.
+
+### 7.2 Backend contract replay
+`POST /auth/v1/signup` -> 200 with `confirmation_sent_at`; OTP verified with
+`type=email` -> session with `email_confirmed_at`; the bootstrap trigger created
+the profile and the normalised username. No 4xx/5xx signup responses and no SMTP
+error events appeared in the auth logs for the window examined.
+
+### 7.3 Client-side rules that can look like a failure
+- Password is validated locally: **minimum 8 characters**. A shorter value never
+  reaches the server and the screen only shows the generic
+  *"Registration failed. Please try again."* - indistinguishable from a network
+  failure to a user.
+- Username: normalised to lowercase, must be 3-20 chars of `[a-z0-9_]` and start
+  with a letter.
+- An existing account for the same address yields *"An account with this email
+  already exists. Try logging in instead."*
+
+### 7.4 Genuine OTP send (packet step 4)
+One genuine signup OTP was requested for the owner-requested recipient through
+the real Auth signup endpoint at 12:25 +06:00: Auth replied 200 with
+`user_confirmation_requested` and the Mailjet dispatch was accepted. **Inbox
+delivery and code entry are NOT verified** - per the packet only the inbox holder
+can report receipt and type the code. The address is withheld from this PUBLIC
+docs repo, and the temporary account created for that send was deleted so the
+owner can register the address with their own password.
+
+### 7.5 Cleanup
+`railmate.probe*`, `railmate.pw*`, `railmate.ui.probe`, `railmate.shortpw` and
+the temporary OTP-send account were deleted. Verified afterwards: `auth_users=1`
+(demo), `profiles=1`, `usernames=1`, 0 orphan profile/username rows.
+
+### 7.6 Open question for the owner
+Which symptom did the failed attempt show: the generic *"Registration failed.
+Please try again."*, a verify screen with no code email, or a rejected code?
+That answer decides between (a) surfacing the local validation message and
+shipping build +12, or (b) chasing Mailjet/Gmail deliverability with the owner's
+dashboard.
