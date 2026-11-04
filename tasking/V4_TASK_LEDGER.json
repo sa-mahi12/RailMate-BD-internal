@@ -934,6 +934,32 @@
       "started_at": "2026-11-03T00:00:00Z",
       "updated_at": "2026-11-03T00:00:00Z",
       "verified_commit": "cafa3f0"
+    },
+    {
+      "id": "P38",
+      "title": "Mailjet signup email OTP and RailMate-only user reset",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": ["P37"],
+      "objective": "Execute owner OTP/reset packet; preserve password registration, recovery, phone, login/logout and upload; next signed release.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": ["lib/features/auth/", "test/auth/", "test/app_gate_p03_test.dart", "README.md"],
+      "evidence": [
+        "Code pushed 5ebbf70f13509c0f5e86ed7668630264b40276b5 on main with real owner identity; no branch/PR/worktree",
+        "README-only evidence correction pushed as 41e8e57f474b72166209d077792356950ae8c3a1 with skip-ci; released binary unchanged",
+        "Purge in prescribed order: Storage API removed 1; transaction removed 12 app rows and released 2 seats; Auth Admin removed 3; post-query confirms zero users/user rows/objects, 24 stations/1186 trips/47320 seats retained, bucket and 3 public Realtime tables retained",
+        "401 default-request blocker resolved by explicit server User-Agent; current secret key used in trusted process memory only; legacy exposed credential not used/rotated",
+        "Hosted signup template byte/string exact match to supplied HTML, Token present/no confirmation link, OTP length 6, Mailjet configured, recovery link retained; no hosted config patch required",
+        "Six numeric digits/paste, duplicate guards, resend cooldown, invalid-code input/route retention, email OTP verify type email, signup resend type signup; session required; late OTP results cannot supersede logout; own-route navigation guard",
+        "Independent read-only review found 3 important edge cases; each reproduced RED and corrected. Already-running final verification finished 2026-11-04T11:30:50+06:00: format/analyze/test exit 0, 558/558; no new local pass after owner request. Pre-review 552/552 is historical",
+        "GitHub release run 41779702127 and CI run 41779699297 completed success on 5ebbf70; release/debug APK builds successful; no new local test pass",
+        "v1.0.0+11 published 2026-11-04T05:37:12Z, 8 assets. Downloaded manifest asserted versionCode=11, signed=true, commit=5ebbf70f13509c0f5e86ed7668630264b40276b5, RailMate backend. Universal APK published SHA256=69fe44835a3aaa2e906184f87011ab12775cc900d2ac31ad479a6b9855f0aff3; no local APK hash/device claim",
+        "Owner selected I will sign up: no agent-generated password, no outgoing signup request; provider delivery and hosted code verification NOT VERIFIED"
+      ],
+      "blocker": "Code/reset/release complete; owner chose personal signup, so real inbox delivery and hosted OTP acceptance remain owner-side and NOT VERIFIED. Existing SMS/credential-rotation owner tasks remain unchanged.",
+      "started_at": "2026-11-04T00:00:00Z",
+      "updated_at": "2026-11-04T00:00:00Z",
+      "verified_commit": "5ebbf70f13509c0f5e86ed7668630264b40276b5"
     }
   ]
 }

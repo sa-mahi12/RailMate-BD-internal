@@ -1,4 +1,42 @@
-# V4 CURRENT — teacher final gate code pass; v1.0.0+10 published (P37)
+# V4 CURRENT — signup email OTP + RailMate user reset (P38)
+
+Timestamp: 2026-11-04 (Asia/Dhaka).
+Code pushed to `main`: `5ebbf70f13509c0f5e86ed7668630264b40276b5`.
+Current app-repo HEAD: `41e8e57f474b72166209d077792356950ae8c3a1` (README-only
+evidence correction, pushed with `[skip ci]`; released app binary unchanged).
+Signed `v1.0.0+11` PUBLISHED 2026-11-04T05:37:12Z: release run `41779702127`
+completed success. Downloaded manifest confirms versionCode 11, signed true,
+commit `5ebbf70f13509c0f5e86ed7668630264b40276b5`, correct RailMate backend.
+Eight assets: four APKs, AAB, manifest, checksums, provenance.
+Release: https://github.com/sa-mahi12/RailMate-BD/releases/tag/v1.0.0%2B11
+
+- RailMate-only purge COMPLETE: Storage API removed 1 object; packet app-row
+  transaction removed 12 rows and released 2 occupied seats; Auth Admin API
+  removed 3 users. Post-query shows users/user data/objects 0, bucket retained.
+  Preserved 24 stations, 1186 trips, 47320 seats, schema, Realtime and functions.
+- Initial 401 resolved with explicit server User-Agent using the CURRENT secret
+  key in process memory. No exposed legacy credential used, no rotation performed.
+- Hosted signup HTML EXACT MATCH to supplied token-only template; Mailjet already
+  configured, confirmation required, six digits; recovery remains link-based.
+  No template or SMTP mutation needed/performed.
+- OTP UI/state/adapter shipped: numeric paste, duplicate guard, cooldown, safe
+  errors retain input/route, real session required, stale results cannot undo
+  newer auth state; root does not pop other routes. Password/username registration,
+  login/logout, forgotten-password callbacks, photo upload and phone OTP retained.
+- Owner selected **I will sign up**. Agent sent NO signup email, generated NO
+  password. Inbox/provider delivery and hosted OTP acceptance are NOT VERIFIED.
+- Independent review findings reproduced and corrected. Already-running final
+  verification finished 2026-11-04 11:30:50 +06:00: format/analyze/test exit 0,
+  558/558 tests. No additional local test pass launched after owner request.
+  GitHub runs `41779702127` and `41779699297` completed success on `5ebbf70`;
+  release APKs/AAB and CI debug APK built. Live/device proof remains distinct.
+- Record: `handoffs/MAILJET_OTP_2026-11-04_PLAN.md` and
+  `handoffs/MAILJET_EMAIL_OTP_USER_RESET_2026-11-04.md`.
+
+**Superseded below:** 2026-10-14 no-custom-SMTP/link-first signup decision and
+  no-agent-task state are historical; the owner Mailjet handoff overrides them.
+
+## Historical P37 teacher final gate — v1.0.0+10
 
 Timestamp: 2026-11-03 (Asia/Dhaka).
 Code HEAD: `cafa3f0` is BOTH the app-code commit for this pass and the
