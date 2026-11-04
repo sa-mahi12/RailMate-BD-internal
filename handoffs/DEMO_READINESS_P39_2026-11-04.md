@@ -60,13 +60,29 @@ Limits stated honestly:
 - Independent owner-side signal: a real 645 KB `.jpg` appeared in `post-media`
   at 11:58 +06:00, so photo upload has been exercised from the app itself.
 
-## 4. Data hygiene
+## 4. Live booking E2E (deployed Edge Functions, `exit=0` per step)
+Script `mailjet-gate/booking-e2e-steps.ps1`; every state claim below was read
+back with SQL, because `@(Invoke-RestMethod ...)` wraps a JSON array as one
+element (an empty result reports `Count=1`) and would make count assertions
+vacuous.
+
+| Step | Result |
+|---|---|
+| Declined simulation (`simulateSuccess=false`) | `PAYMENT_SIMULATION_FAILED` + `DEMONSTRATION ONLY - no booking created, no charge`; booking count and held-seat count unchanged, so nothing was written |
+| 2-passenger booking | `CONFIRMED`, booking `cddd66e6-...`, fare 1080, seats `A9`/`B1`, `booking_seats=2`, held seats `2` |
+| Cancel | `CANCELLED`; held seats back to `0`; seats no longer tied to the booking; passenger/seat audit rows kept |
+| Final demo booking (kept) | `f463cead-...` `CONFIRMED`, passengers `Sanjida Mahi` + `Demo Companion`, seats `A2`/`A3`, fare 1250, Dhaka -> Chattogram, departs 2026-11-06 07:00 Asia/Dhaka |
+
+Hosted totals after the pass: 2 booking rows (1 CONFIRMED + 1 CANCELLED
+history), 2 held seats, 0 seats with a stale booking id.
+
+## 5. Data hygiene
 Verification posts, comments, reactions and storage objects were deleted. Live
 counts after the pass: 1 seed post, 1 comment, 1 reaction, 1 storage object (the
 owner's uploaded photo), 1 profile/username (demo account), 1682 trips, 0
 bookings.
 
-## 5. What is still owner-side
+## 6. What is still owner-side
 1. Install `v1.0.0+11`; log in with the seeded demo account.
 2. Change the weak demo password before demonstrating.
 3. Accept the email lane by reading one real signup OTP, or use the recovery

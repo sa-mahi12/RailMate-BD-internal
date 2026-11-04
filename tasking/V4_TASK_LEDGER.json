@@ -979,6 +979,8 @@
         "Access JWTs remain valid until expiry after logout (standard Supabase behaviour); no instant-JWT-death claim made",
         "Owner-side observation: a 645 KB jpg appeared in post-media at 11:58 +06:00, indicating app photo upload was exercised",
         "Remaining WARNs intentional: pg_graphql table exposure (needed by R-18, RLS-gated) and leaked-password protection disabled by owner decision (would reject the current demo password)",
+        "Live booking E2E via deployed Edge Functions: simulateSuccess=false returned PAYMENT_SIMULATION_FAILED with zero writes (SQL counts unchanged: 1 booking, 2 held seats); 2-passenger booking cddd66e6-2520-4e06-98f2-150dadeb7577 CONFIRMED, fare 1080, seats A9/B1, booking_seats=2, held seats=2; cancel returned CANCELLED with held seats back to 0 and audit rows retained; final demo booking f463cead-2a63-4a48-a1a0-1656a23e2ebf CONFIRMED, seats A2/A3, fare 1250, Dhaka->Chattogram 2026-11-06 07:00 Asia/Dhaka (hosted totals: 2 booking rows, 2 held seats)",
+        "Note: PowerShell @(Invoke-RestMethod ...) wraps a JSON array as one element (an empty array reports Count=1), so booking evidence was read back with authoritative SQL instead of array counts",
         "No app-code, CI, secret or release change; app HEAD 41e8e57 and release v1.0.0+11 unchanged"
       ],
       "blocker": "Owner-side only: install +11, log in, change the weak demo password, read one real signup/recovery email, and configure SMS for the live phone claim.",

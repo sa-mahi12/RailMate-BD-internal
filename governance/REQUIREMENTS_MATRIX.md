@@ -40,6 +40,10 @@ directly over the public API with a seeded demo account: password login, own
 `post-media` upload + public read + delete, own post/comment/reaction inserts
 under RLS, global logout revoking the refresh token, and one Mailjet recovery
 email dispatch (HTTP 200). Inbox delivery and SMS OTP remain unverified.
+Multi-passenger booking was also exercised live through the deployed Edge
+Functions: the declined-simulation path wrote nothing, a 2-passenger booking was
+CONFIRMED with both seats bound, cancellation released both seats, and one
+CONFIRMED 2-passenger demo booking was left in place.
 
 ### Coverage IDs
 The appendix contains generated planned cases `R-xx-Tyyy`; select smoke cases for every CI run, then full relevant cases before viva. Each appendix scenario is *not* a test result.

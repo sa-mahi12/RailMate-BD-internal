@@ -79,9 +79,26 @@ Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
    — standard Supabase behaviour, stated instead of claiming instant JWT death.
    Owner-side evidence also observed: a real 645 KB `.jpg` appeared in
    `post-media` at 11:58 +06:00, so photo upload has been exercised from the app.
-4. **Data hygiene:** verification posts/comments/reactions/objects removed; only
-   the seed post/comment/reaction, the owner's uploaded photo, 1 profile and 1
-   demo account remain.
+4. **Live booking E2E re-verified** through the deployed `book-trip` /
+   `cancel-booking` Edge Functions with the demo account (`exit=0` each step,
+   state read back with SQL rather than wrapped PowerShell arrays):
+   - `simulateSuccess=false` -> `PAYMENT_SIMULATION_FAILED`
+     (`DEMONSTRATION ONLY - no booking created, no charge`); booking count and
+     held-seat count unchanged afterwards, so the declined path truly writes
+     nothing.
+   - 2-passenger booking -> `CONFIRMED`, booking
+     `cddd66e6-2520-4e06-98f2-150dadeb7577`, fare 1080, seats `A9`/`B1`,
+     `booking_seats=2`, held seats `2`.
+   - Cancel -> `CANCELLED`, held seats back to `0`, seats no longer tied to the
+     booking, passenger + seat audit rows retained.
+   - Final demo booking left in place: `f463cead-2a63-4a48-a1a0-1656a23e2ebf`,
+     `CONFIRMED`, 2 passengers (Sanjida Mahi / Demo Companion), seats `A2`,`A3`,
+     fare 1250, Dhaka -> Chattogram departing 2026-11-06 07:00 Asia/Dhaka.
+     Hosted totals: 2 booking rows (1 CONFIRMED + 1 CANCELLED history), 2 held
+     seats.
+5. **Data hygiene:** verification posts/comments/reactions/objects removed; only
+   the seed post/comment/reaction, the owner's uploaded photo, 1 profile, 1 demo
+   account and the demo booking pair above remain.
 
 ### Remaining after P39 (owner-side only, no agent gate)
 1. Install `v1.0.0+11` and log in with the seeded demo account.
