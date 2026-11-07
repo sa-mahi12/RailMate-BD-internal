@@ -164,3 +164,50 @@ deleted straight after). Findings:
 So the email lane is functional at the provider level as of 12:5x +06:00; a
 missing code on the owner's phone most likely means Spam/Promotions placement
 rather than a broken send.
+
+## 8. Root cause of "signup fails" and the `v1.0.0+12` fix (2026-11-07)
+
+### 8.1 Reproduction on the published +11 build
+Filled the real Create Account form on the emulator with a **6-character
+password** (`qwerty`, the same shape as the seeded demo password) and tapped
+Create Account. Observed:
+
+- On screen: *"Registration failed. Please try again."*
+- Auth log for that attempt: **no signup event at all** - the request never left
+  the device.
+
+The 8-character floor lives in `AuthRepository._requirePassword`; it throws an
+`ArgumentError`, and `AuthState._publicAuthError` collapsed every unrecognised
+error into the generic sentence. A broken rule therefore read exactly like a
+backend outage.
+
+### 8.2 Fix (`986f994`)
+- Validation copy moved to exported constants on `AuthRepository`
+  (`kPasswordTooShortMessage`, `kEmailEmptyMessage`, ...).
+- `AuthState._publicAuthError` now returns those messages **verbatim** through an
+  allow-list (`kClientValidationMessages`). Any other `ArgumentError` - SDK text
+  that could carry backend detail - still falls through to the generic sentence,
+  so the "never show raw backend text" gate is unchanged.
+- Tests: `local password rule is shown verbatim...` and
+  `unrecognised ArgumentError text still stays behind the gate`. Suite
+  `560/560` local, `flutter analyze` clean, `dart format` clean.
+
+### 8.3 Release and device verification
+- CI `41788348858` success, release `41788362168` success -> `v1.0.0+12`
+  (versionCode 12, signed, 8 assets; x86_64 SHA256 matched `SHA256SUMS.txt`).
+- Installed `+12` on the emulator, cleared data: the same 6-character password
+  now renders **"Password must be at least 8 characters."**
+
+### 8.4 Genuine signup for the owner-requested address (from the app)
+With the fix in place, the same form was submitted for the owner-requested
+address at 19:26 +06:00:
+
+| Layer | Result |
+|---|---|
+| Auth | account created, `confirmation_sent_at` set, `user_confirmation_requested` 200 (Mailjet dispatch accepted) |
+| App | **"Verify your account - Enter the 6-digit code sent to ..."** with a resend cooldown |
+
+The account is intentionally left **unconfirmed** so the inbox holder can
+complete the code step. Its password is disposable, so after verifying the owner
+can use *Forgot password* to set their own (or ask for the account to be deleted
+and register from scratch).

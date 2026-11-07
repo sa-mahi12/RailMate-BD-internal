@@ -987,12 +987,17 @@
         "Genuine signup OTP requested once for the owner-requested recipient through the real Auth signup endpoint (200, user_confirmation_requested, Mailjet dispatch accepted); inbox delivery and code entry NOT verified - inbox-holder step per the packet; the address is withheld from this PUBLIC docs repo and the temporary account created for that send was deleted",
         "Probe cleanup: railmate.probe*, railmate.pw*, railmate.ui.probe, railmate.shortpw and the temporary OTP-send account removed; auth_users=1 (demo), profiles=1, usernames=1, 0 orphan profile/username rows",
         "Mailjet pipe + hosted template content verified end to end without an owner inbox: signup for a disposable third-party mailbox (address withheld) delivered 'Verify your RailMate BD account' in ~10s; body is OTP-only (six digits, no confirmation link, only Mailjet tracking URLs), sender is the owner Gmail address; disposable auth user deleted immediately after the check",
+        "Owner-reported 'signup fails' reproduced on the +11 build: a 6-character password is rejected by the LOCAL validator and the form shows only 'Registration failed. Please try again.'; no signup event appears in the auth log, so nothing reached Supabase",
+        "Fix 986f994: client validation copy exported as constants on AuthRepository and returned verbatim by AuthState._publicAuthError through an allow-list, while any other ArgumentError still falls through to the generic consumer message; 2 new unit tests, 560/560 suite pass, flutter analyze and dart format clean",
+        "CI run 41788348858 success and release run 41788362168 success for 986f994 -> v1.0.0+12 (versionCode 12, signed, 8 assets, x86_64 SHA256 matched SHA256SUMS.txt)",
+        "Verified on the emulator with the published +12 APK: the same 6-character password now renders 'Password must be at least 8 characters.'",
+        "Genuine signup for the owner-requested address driven from the shipped +12 app at 19:26 +06:00: Auth 200 with confirmation_sent_at, user_confirmation_requested 200, app reached 'Verify your account - Enter the 6-digit code sent to ...'; the account is left unconfirmed (disposable password) for the inbox holder to finish",
         "No app-code, CI, secret or release change in this addendum; app HEAD 32c1770 (migration commit), release v1.0.0+11 still latest"
       ],
-      "blocker": "Owner-side only: install +11, log in, change the weak demo password, read one real signup/recovery email, and configure SMS for the live phone claim.",
+      "blocker": "Owner-side only: install +12, log in, change the weak demo password, finish the signup code step from the inbox, and configure SMS for the live phone claim.",
       "started_at": "2026-11-04T06:00:00Z",
-      "updated_at": "2026-11-04T06:45:00Z",
-      "verified_commit": "32c177026ee98751aa1383d0276baa058e4312ab"
+      "updated_at": "2026-11-07T13:35:00Z",
+      "verified_commit": "986f99417fd4f46dfc6e414d4a8bdf9650b7c385"
     }
   ]
 }

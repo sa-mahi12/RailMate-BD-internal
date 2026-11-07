@@ -136,8 +136,35 @@ Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
      Sender is the owner Gmail address, which is why Gmail may file these under
      Spam; the disposable account was deleted immediately afterwards.
 
+6b. **Owner-reported "signup fails": root cause found, fixed in `v1.0.0+12`.**
+   - Reproduced on the device with the published `+11` build: a 6-character
+     password (`qwerty`, the same shape as the demo password) is rejected by the
+     **local** validator and the form shows only *"Registration failed. Please
+     try again."* Nothing reaches Supabase - the auth log records no signup
+     event at all for that attempt - so the user sees what looks like a server
+     failure.
+   - Fix (`986f994`): the client-side validation messages are now exported
+     constants on `AuthRepository`, and `AuthState._publicAuthError` returns
+     those messages **verbatim** through an allow-list. Any other
+     `ArgumentError` (SDK text that could carry backend detail) still falls
+     through to the generic sentence, so the consumer gate is intact.
+   - Evidence: two new unit tests (verbatim rule + allow-list gate), full suite
+     `560/560` local, `flutter analyze` clean, format clean; CI run
+     `41788348858` success; release run `41788362168` success ->
+     `v1.0.0+12` (8 assets, versionCode 12, signed).
+   - Verified on the emulator with the published `+12` APK: the same 6-character
+     password now renders **"Password must be at least 8 characters."**
+   - Genuine signup for the owner-requested address driven from the shipped app
+     at 19:26 +06:00: `POST /auth/v1/signup` accepted (account created,
+     `confirmation_sent_at` set, `user_confirmation_requested` 200) and the app
+     reached **"Verify your account - Enter the 6-digit code sent to ..."**.
+     The account is left **unconfirmed on purpose** so the inbox holder can
+     finish the code step; its password is a disposable one, so the owner can
+     use *Forgot password* afterwards to set their own (or ask for it to be
+     deleted and register from scratch).
+
 ### Remaining after P39 (owner-side only, no agent gate)
-1. Install `v1.0.0+11` and log in with the seeded demo account.
+1. Install `v1.0.0+12` and log in with the seeded demo account.
 2. Change the weak demo password before any public demonstration.
 3. Read the real signup OTP from the inbox once to accept the email lane
    (or use the recovery email already sent to reset the account).
