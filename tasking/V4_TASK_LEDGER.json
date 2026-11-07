@@ -992,12 +992,17 @@
         "CI run 41788348858 success and release run 41788362168 success for 986f994 -> v1.0.0+12 (versionCode 12, signed, 8 assets, x86_64 SHA256 matched SHA256SUMS.txt)",
         "Verified on the emulator with the published +12 APK: the same 6-character password now renders 'Password must be at least 8 characters.'",
         "Genuine signup for the owner-requested address driven from the shipped +12 app at 19:26 +06:00: Auth 200 with confirmation_sent_at, user_confirmation_requested 200, app reached 'Verify your account - Enter the 6-digit code sent to ...'; the account is left unconfirmed (disposable password) for the inbox holder to finish",
-        "No app-code, CI, secret or release change in this addendum; app HEAD 32c1770 (migration commit), release v1.0.0+11 still latest"
+        "Owner-reported 'error in username' reproduced on the published +12 APK: typing a username reached the widget (accessibility tree carried the text) but nothing was painted, and the green Available pill rendered across the middle of the field; a second typing attempt then exceeded 20 characters and surfaced 'Use 3-20 characters'",
+        "Root cause: the pill was wrapped in a plain Center inside InputDecoration.suffixIcon, and Center expands to the width offered, so the suffix consumed the input row and the editable area collapsed to zero width",
+        "Fix 0765a3e: pill and spinner shrink-wrapped (Center widthFactor/heightFactor 1) on the trailing edge; field reuses auth_theme tokens so it matches AuthField; alternate_email icon in both branches; field reports the in-flight 'checking' state so RegisterScreen blocks submit with 'Still checking that username — one moment.'; availability query capped at 8 s with a 'Could not check availability — retry.' fallback; register password helper corrected to 'Use at least 8 characters.' (only rule the app enforces)",
+        "New test/username_field_test.dart (5 widget tests: text stays visible, pill on the trailing edge, taken and invalid states, parent notification, hung-query timeout); full suite 565/565, flutter analyze and dart format clean",
+        "Release run 42390118106 success -> v1.0.0+13 (commit 0765a3e, versionCode 13, signed, 8 assets; x86_64 SHA256 matched SHA256SUMS.txt); dispatch attempts 42389738758 and 42389989385 were cancelled before publishing and created no tag or release",
+        "Verified on the emulator with the published +13 APK: typed name visible with the Available pill on the trailing edge, red 'That username is taken — try another.' for a claimed name, red 'Use 3-20 characters.' for over-long input, and the corrected eight-character helper under the password field"
       ],
-      "blocker": "Owner-side only: install +12, log in, change the weak demo password, finish the signup code step from the inbox, and configure SMS for the live phone claim.",
+      "blocker": "Owner-side only: install +13, log in, change the weak demo password, finish the signup code step from the inbox, and configure SMS for the live phone claim.",
       "started_at": "2026-11-04T06:00:00Z",
-      "updated_at": "2026-11-07T13:35:00Z",
-      "verified_commit": "986f99417fd4f46dfc6e414d4a8bdf9650b7c385"
+      "updated_at": "2026-11-07T16:45:00Z",
+      "verified_commit": "0765a3e7269d2c0c8d5411f7f899b56c00faec1c"
     }
   ]
 }

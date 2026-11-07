@@ -211,3 +211,67 @@ The account is intentionally left **unconfirmed** so the inbox holder can
 complete the code step. Its password is disposable, so after verifying the owner
 can use *Forgot password* to set their own (or ask for the account to be deleted
 and register from scratch).
+
+## 9. Username field rendered the typed name invisible — `v1.0.0+13` (2026-11-07)
+
+Owner report: *"this app is still giving some error in username"*, with a
+screenshot of the Create Account form where the Username box showed only a green
+*Available* pill in the middle and no characters.
+
+### 9.1 Reproduction on the published +12 build
+Typed `sanjida_mahu` into the real form on the emulator:
+
+- the accessibility tree reported `text="sanjida_mahu"` (the value was in the
+  widget), but **nothing was painted** in the field;
+- the *Available* pill was drawn across the middle of the box, not on the right
+  edge.
+
+Cause: the pill was wrapped in a plain `Center` inside
+`InputDecoration.suffixIcon`. `Center` expands to the width it is offered, so the
+suffix took the whole input row and the editable area collapsed to zero width.
+The user experience is "typing does nothing" -> they type again -> the value
+exceeds 20 characters -> red *Use 3-20 characters*, which reads like a broken
+username feature.
+
+### 9.2 Fix (`0765a3e`)
+- Pill and spinner are shrink-wrapped (`Center(widthFactor: 1, heightFactor: 1)`)
+  and sit on the trailing edge.
+- The field reuses the shared `auth_theme.dart` tokens, so its label, hint,
+  radius, fill and focus colour match `AuthField`; the icon is
+  `alternate_email` in both the live-checker and offline branches.
+- The field now reports the in-flight `checking` state to the parent.
+  `RegisterScreen._register` blocks with *Still checking that username — one
+  moment.* instead of letting a stale verdict reach the server.
+- A single availability query is capped at 8 s; on timeout the field shows
+  *Could not check availability — retry.* so a dead connection cannot lock the
+  Create Account button behind a permanent "checking" state.
+- The register helper promised "letters, numbers and symbols" while the only rule
+  is eight characters; copy corrected to *Use at least 8 characters.* to match
+  the reset-password screen and the actual validator.
+- Tests: new `test/username_field_test.dart` (5 widget tests — text stays
+  visible, pill on the trailing edge, taken and invalid states, parent
+  notification, hung-query timeout). Suite `565/565`, `flutter analyze` clean,
+  `dart format` clean.
+
+### 9.3 Release and device verification
+- Release `42390118106` success -> `v1.0.0+13` (versionCode 13, signed, 8
+  assets; x86_64 SHA256 matched `SHA256SUMS.txt`).
+- Installed `+13` on the emulator and drove the real form:
+
+| Input | Result on device |
+|---|---|
+| `sanjida_mahu` | name visible, teal focus border, green *Available* pill on the trailing edge |
+| `sanjidamahi2005` (claimed) | name visible, red border, *That username is taken — try another.* |
+| over-long value | name visible, red *Use 3-20 characters.* |
+| password section | helper reads *Use at least 8 characters.* |
+
+Two earlier release attempts were cancelled before publishing (`42389738758` on
+`844b483`, `42389989385` on `e2c164d`); neither created a tag or a release, so
+`v1.0.0+13` is the only build at that number.
+
+### 9.4 What this does not change
+The signup contract is unchanged: password >= 8 characters, username
+`^[a-z][a-z0-9_]{2,19}$` (normalised to lowercase), existing email ->
+*An account with this email already exists. Try logging in instead.* The
+owner-requested signup still waits for the inbox holder to read the code — that
+step remains BLOCKED_OWNER.

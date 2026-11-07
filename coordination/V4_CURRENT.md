@@ -45,7 +45,7 @@ Release: https://github.com/sa-mahi12/RailMate-BD/releases/tag/v1.0.0%2B11
 
 ## P39 — demo readiness pass (2026-11-04, after +11)
 
-Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
+Coordinator-run. App HEAD `0765a3e` after the `v1.0.0+13` auth UX fixes (sections 5-6c); the additive work in sections 1-4 changed no app code.
 
 1. **Demo timetable refreshed.** `select public.refresh_demo_horizon(20)` ->
    `648` (idempotent slot count). Live: 1,682 trips, 67,160 seats, horizon now
@@ -163,8 +163,44 @@ Coordinator-run, additive, no app-code change. App HEAD stays `41e8e57`.
      use *Forgot password* afterwards to set their own (or ask for it to be
      deleted and register from scratch).
 
+6c. **Owner-reported "error in username": the typed name rendered invisible, fixed
+   in `v1.0.0+13`.**
+   - Reproduced on the emulator with the published `+12` APK. Typing
+     `sanjida_mahu` did reach the widget (the accessibility tree carried
+     `text="sanjida_mahu"`), but nothing was painted and the green *Available*
+     pill sat across the middle of the box. Root cause: the pill was wrapped in a
+     plain `Center` inside `InputDecoration.suffixIcon`; `Center` expands to the
+     width it is given, so the suffix consumed the input row and the editable
+     area was squeezed to zero. A user typing into that field sees no characters,
+     types again, and lands on *Use 3-20 characters* — which reads like a broken
+     username feature.
+   - Fix (`0765a3e`): pill and spinner are shrink-wrapped
+     (`Center(widthFactor: 1, heightFactor: 1)`) on the trailing edge; the field
+     reuses the shared `auth_theme.dart` tokens so label, hint, radius, fill and
+     focus colour match `AuthField`; the icon is `alternate_email` in both the
+     live and the offline branch.
+   - Two follow-on defects found while verifying:
+     - the form could submit while an availability query was still in flight,
+       which the server answers with a duplicate-key error (generic *Registration
+       failed*). The field now reports `checking` to the parent and
+       `RegisterScreen._register` blocks with *Still checking that username -
+       one moment.*; the query is capped at 8 s and falls back to *Could not
+       check availability - retry.*, so a dead connection cannot lock the button.
+     - the register helper promised "letters, numbers and symbols" while the only
+       rule is eight characters (the reset screen already said so). Copy
+       corrected to *Use at least 8 characters.*
+   - Evidence: `test/username_field_test.dart` (5 widget tests: pill keeps the
+     text visible, pill sits on the trailing edge, taken/invalid states, parent
+     notification, hung-query timeout); full suite `565/565`, analyze and format
+     clean; CI run `42390118106` success, release `v1.0.0+13` (versionCode 13,
+     signed, 8 assets, x86_64 SHA256 matched `SHA256SUMS.txt`).
+   - On-device with the published `+13` APK: typed name visible with the pill on
+     the trailing edge (*Available*), red *That username is taken — try another.*
+     for a claimed name, red *Use 3-20 characters.* for over-long input, and the
+     corrected eight-character helper under the password field.
+
 ### Remaining after P39 (owner-side only, no agent gate)
-1. Install `v1.0.0+12` and log in with the seeded demo account.
+1. Install `v1.0.0+13` and log in with the seeded demo account.
 2. Change the weak demo password before any public demonstration.
 3. Read the real signup OTP from the inbox once to accept the email lane
    (or use the recovery email already sent to reset the account).
@@ -348,7 +384,7 @@ mid-journey (Booking Review) and will not resume.
   (idempotent slot count) and never writes `booking_id`.
 - Horizon is now valid for the app's today..+20 picker window.
 
-## Release state (verified via `gh release list` 2026-10-19)
+## Release state (verified via `gh release list` 2026-11-07)
 - `v1.0.0+3` (2026-10-05, `5107c05`) - STALE, do not use.
 - `v1.0.0+4` (2026-10-09) - published from the post-cleanup HEAD.
 - `v1.0.0+5` (2026-10-13, `87b0892`) - superseded; x86_64 APK used in the
@@ -358,14 +394,21 @@ mid-journey (Booking Review) and will not resume.
 - `v1.0.0+7` (2026-10-14, `315b6a9`) - superseded by +8.
 - `v1.0.0+8` (2026-10-19, `3d2a73b`, run `39205358414`) - superseded by +9.
 - `v1.0.0+9` (2026-10-19, `6c0ddf8`, run `39206584037`) - superseded by +10.
-- `v1.0.0+10` (2026-11-03, `cafa3f0`, run `41661512576`) - LATEST AND ONLY
-  SUPPORTED BUILD: 4 signed APKs + AAB + manifest + SHA256SUMS +
-  PROVENANCE. Teacher final gate code pass: real phone-OTP routing, shared
-  per-table realtime comments/reactions, hosted realtime publication
-  (`posts`, `post_comments`, `post_reactions`), 542 tests.
+- `v1.0.0+10` (2026-11-03, `cafa3f0`, run `41661512576`) - teacher final gate
+  code pass: real phone-OTP routing, shared per-table realtime
+  comments/reactions, hosted realtime publication (`posts`, `post_comments`,
+  `post_reactions`), 542 tests.
+- `v1.0.0+11` (2026-11-04, `5ebbf70`, run `41779702127`) - superseded by +12.
+- `v1.0.0+12` (2026-11-04, `986f994`, run `41788362168`) - superseded by +13;
+  shows the real password rule instead of the generic signup failure.
+- `v1.0.0+13` (2026-11-07, `0765a3e`, run `42390118106`) - LATEST AND ONLY
+  SUPPORTED BUILD: username field renders the typed name again, availability
+  pill on the trailing edge, submit blocked while a check is in flight, hung
+  checks time out after 8 s, password helper states the real eight-character
+  rule. 565 tests, 8 signed assets.
 
 ## Remaining - owner-side only (no agent gate)
-1. Install `v1.0.0+10` on the owner device (replaces `+9`).
+1. Install `v1.0.0+13` on the owner device (replaces `+12`).
 2. Owner taps a FRESH signup confirmation email on the signup device.
 3. Configure the hosted SMS provider + an approved test recipient, then send
    one real OTP to claim the phone feature live (BLOCKED_OWNER); if none is
