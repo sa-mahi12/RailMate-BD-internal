@@ -45,7 +45,7 @@ Release: https://github.com/sa-mahi12/RailMate-BD/releases/tag/v1.0.0%2B11
 
 ## P39 — demo readiness pass (2026-11-04, after +11)
 
-Coordinator-run. App HEAD `0765a3e` after the `v1.0.0+13` auth UX fixes (sections 5-6c); the additive work in sections 1-4 changed no app code.
+Coordinator-run. App HEAD `17d4bb3` after the `v1.0.0+14` auth UX fixes (sections 5-6d); the additive work in sections 1-4 changed no app code.
 
 1. **Demo timetable refreshed.** `select public.refresh_demo_horizon(20)` ->
    `648` (idempotent slot count). Live: 1,682 trips, 67,160 seats, horizon now
@@ -199,8 +199,48 @@ Coordinator-run. App HEAD `0765a3e` after the `v1.0.0+13` auth UX fixes (section
      for a claimed name, red *Use 3-20 characters.* for over-long input, and the
      corrected eight-character helper under the password field.
 
+6d. **Owner follow-up: availability moved under the field, and the real reason no
+   code arrived (`v1.0.0+14`).**
+   - Username feedback is no longer a pill inside the input. The field now shows
+     one small (`12 px`) line under the box, in the same slot the error would
+     use, so nothing can sit on top of the typed value:
+     - idle: *3-20 characters: lowercase letters, numbers or _.* (grey)
+     - in flight: *Checking availability...* (grey) plus a shrink-wrapped
+       trailing spinner
+     - available: *Username is available.* (green)
+     - taken / bad format / check failed: the same sentence in red, red border
+   - Signup: `auth.users` for the owner-requested account shows
+     `confirmation_sent_at = 2026-11-07 13:26:39Z` and nothing later, i.e. the
+     retries produced **no new email**. Supabase answers a repeated sign-up with
+     an obfuscated user (empty `identities`) and deliberately sends nothing. The
+     app now detects that (`AuthUser.alreadyRegistered`), asks for a real
+     `resend` before routing to the verify screen, prints *That email is already
+     registered. Try logging in instead.* when the address is already verified,
+     and *Too many emails were requested. Wait a minute and try again.* on a 429.
+   - Email-lane check on 2026-11-08 (live, 14:47-14:53Z): three sign-ups to two
+     independent disposable providers (addresses withheld) all returned
+     `POST /auth/v1/signup 200` with `user_confirmation_requested`, but **no
+     mailbox received anything within 3-4 minutes** (one was still empty 15
+     minutes later). GoTrue logged no SMTP error, so the send is being accepted
+     and then not delivered - the Mailjet/SMTP leg is unhealthy, independent of
+     the app. Probe users were deleted (auth_users back to 2, no orphan rows).
+   - Evidence: `test/username_field_test.dart` (idle helper + under-field
+     placement + colour/size assertions), `test/auth/repeat_signup_test.dart`
+     (3 cases); suite `569/569`, analyze and format clean; release run
+     `42492228769` success -> `v1.0.0+14` (versionCode 14, 8 assets, x86_64
+     SHA256 matched `SHA256SUMS.txt`). On-device with the published `+14` APK:
+     *Username is available.* renders below the box in small green type;
+     a claimed name swaps it for the red *That username is taken - try another.*
+     and a red border, with the typed value visible in both states.
+   - Owner action to restore email (dashboard-side, no agent access): confirm the
+     custom SMTP (Mailjet) credentials in Authentication -> SMTP are still valid
+     and the sender address is validated, then send a test. A `gmail.com` From
+     address relayed through an ESP fails Gmail's DMARC check, so a verified
+     domain sender is the durable fix; Supabase's built-in mailer only reaches
+     pre-authorised addresses.
+
 ### Remaining after P39 (owner-side only, no agent gate)
-1. Install `v1.0.0+13` and log in with the seeded demo account.
+1. Install `v1.0.0+14` and log in with the seeded demo account.
 2. Change the weak demo password before any public demonstration.
 3. Read the real signup OTP from the inbox once to accept the email lane
    (or use the recovery email already sent to reset the account).
@@ -384,7 +424,7 @@ mid-journey (Booking Review) and will not resume.
   (idempotent slot count) and never writes `booking_id`.
 - Horizon is now valid for the app's today..+20 picker window.
 
-## Release state (verified via `gh release list` 2026-11-07)
+## Release state (verified via `gh release list` 2026-11-08)
 - `v1.0.0+3` (2026-10-05, `5107c05`) - STALE, do not use.
 - `v1.0.0+4` (2026-10-09) - published from the post-cleanup HEAD.
 - `v1.0.0+5` (2026-10-13, `87b0892`) - superseded; x86_64 APK used in the
@@ -401,14 +441,20 @@ mid-journey (Booking Review) and will not resume.
 - `v1.0.0+11` (2026-11-04, `5ebbf70`, run `41779702127`) - superseded by +12.
 - `v1.0.0+12` (2026-11-04, `986f994`, run `41788362168`) - superseded by +13;
   shows the real password rule instead of the generic signup failure.
-- `v1.0.0+13` (2026-11-07, `0765a3e`, run `42390118106`) - LATEST AND ONLY
-  SUPPORTED BUILD: username field renders the typed name again, availability
-  pill on the trailing edge, submit blocked while a check is in flight, hung
-  checks time out after 8 s, password helper states the real eight-character
-  rule. 565 tests, 8 signed assets.
+- `v1.0.0+13` (2026-11-07, `0765a3e`, run `42390118106`) - superseded by +14;
+  username field renders the typed name again, availability pill on the trailing
+  edge, submit blocked while a check is in flight, hung checks time out after
+  8 s, password helper states the real eight-character rule. 565 tests.
+- `v1.0.0+14` (2026-11-08, `17d4bb3`, run `42492228769`) - LATEST AND ONLY
+  SUPPORTED BUILD: username availability is a small line under the field
+  (grey checking, green available, red taken/invalid/failed) instead of a pill
+  inside the input; repeated sign-up on an unverified address now issues a real
+  `resend` instead of silently sending nothing; verified addresses get the
+  *log in instead* hint and 429s get a wait-and-retry message. 569 tests,
+  8 signed assets.
 
 ## Remaining - owner-side only (no agent gate)
-1. Install `v1.0.0+13` on the owner device (replaces `+12`).
+1. Install `v1.0.0+14` on the owner device (replaces `+13`).
 2. Owner taps a FRESH signup confirmation email on the signup device.
 3. Configure the hosted SMS provider + an approved test recipient, then send
    one real OTP to claim the phone feature live (BLOCKED_OWNER); if none is

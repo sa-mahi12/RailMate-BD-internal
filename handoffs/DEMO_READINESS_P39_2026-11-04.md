@@ -275,3 +275,99 @@ The signup contract is unchanged: password >= 8 characters, username
 *An account with this email already exists. Try logging in instead.* The
 owner-requested signup still waits for the inbox holder to read the code — that
 step remains BLOCKED_OWNER.
+
+## 10. Availability under the field, and why no code arrived — `v1.0.0+14` (2026-11-08)
+
+Owner report: *"no gmail verification code is coming and if the username is
+available then show it in the downside in small fonts like the other websites
+... in the current version it is hiding the text and gives available text on top
+of it like bug type."*
+
+### 10.1 Username: the answer moved out of the input
+The availability verdict is no longer drawn inside the box. The field now owns a
+single 12 px line under the input, in the same slot the error text uses, so the
+form cannot jump and nothing can sit on top of the typed value:
+
+| State | Under the field | Border |
+|---|---|---|
+| idle | *3-20 characters: lowercase letters, numbers or _.* (grey) | normal |
+| checking | *Checking availability...* (grey) + shrink-wrapped trailing spinner | focused |
+| available | *Username is available.* (green) | focused |
+| taken | *That username is taken — try another.* (red) | red |
+| bad format | *Use 3-20 characters.* (red) | red |
+| check failed | *Could not check availability — retry.* (red) | red |
+
+Implementation notes: `InputDecoration.helperText`/`helperStyle` carry the
+non-error states and `errorText`/`errorStyle` carry the failures, so both occupy
+the same reserved line; the suffix is a spinner only while a query is in flight
+and stays shrink-wrapped (`Center(widthFactor: 1, heightFactor: 1)`), the exact
+regression guarded since `+13`.
+
+### 10.2 Why the code was not arriving — two separate causes
+
+**a) Repeating the form sent nothing.** `auth.users` for the owner-requested
+account (address withheld) shows `created_at` and `confirmation_sent_at` both at
+`2026-11-07 13:26:39Z` and nothing after, although the owner retried the form.
+Supabase answers a repeated sign-up for an existing address with an obfuscated
+user whose `identities` list is empty and deliberately dispatches **no email** —
+that is anti-enumeration behaviour, not a bug on our side. The app treated the
+200 as success and routed to the verify screen, so the owner waited for a code
+that had never been requested.
+
+**b) The SMTP leg is currently not delivering.** Live probe on 2026-11-08
+14:47–14:53Z: three sign-ups to two independent disposable providers (addresses
+withheld) each returned `POST /auth/v1/signup 200` with
+`user_confirmation_requested`, yet **no mailbox received anything within 3–4
+minutes**, and one was still empty after ~15 minutes. GoTrue logged no SMTP
+error/failure, so the send is accepted and then not delivered. The same path
+delivered in ~10 s on 2026-11-04, so something in the Mailjet/SMTP lane changed
+in between. All three probe users were deleted via the Auth Admin API;
+`auth.users` is back to 2 with 2 profiles, 2 usernames and no orphan rows.
+
+Also note the sender design: the From address is a `gmail.com` mailbox relayed
+through Mailjet, which fails Gmail's DMARC check for that domain. Even when the
+SMTP lane is healthy, Gmail may quarantine such mail. A verified sending domain
+is the durable fix.
+
+### 10.3 Fix (`17d4bb3`)
+- `AuthUser.alreadyRegistered` is set when the sign-up response carries an empty
+  `identities` list.
+- `AuthState.signUp` then calls `resendConfirmation` before routing to
+  verification, so a retry on an unverified address really does request a fresh
+  code.
+- An already-verified address surfaces *That email is already registered. Try
+  logging in instead.*; a rate-limited send surfaces *Too many emails were
+  requested. Wait a minute and try again.* (new 429 mapping in
+  `_publicAuthError`).
+- Tests: `test/auth/repeat_signup_test.dart` (3 cases: real resend + verify
+  route, verified address hint, new account untouched) and an idle-helper widget
+  test. Suite `569/569`, `flutter analyze` and `dart format` clean.
+
+### 10.4 Release and device verification
+- Release `42492228769` success -> `v1.0.0+14` (commit `17d4bb3`, versionCode 14,
+  signed, 8 assets; x86_64 SHA256 matched `SHA256SUMS.txt`).
+- Installed `+14` on the emulator and drove the real form:
+
+| Input | Result on device |
+|---|---|
+| `sanjida_mahu` | name visible, small green *Username is available.* below the box |
+| `sanjidamahi2005` (claimed) | name visible, red border, small red *That username is taken — try another.* below the box |
+
+### 10.5 Owner action required (no agent access)
+1. Install `v1.0.0+14` and tap Create Account with the address again — the app
+   now issues a real resend instead of silently doing nothing.
+2. Dashboard → Authentication → Emails/SMTP: confirm the custom SMTP
+   credentials are still valid, re-save them, and send a test message. If the
+   provider reports a block/quota, that is the current outage.
+3. Check Gmail *Spam* / *All Mail*; a `gmail.com` From address relayed through an
+   ESP is routinely quarantined. The durable fix is a verified sending domain
+   with SPF/DKIM.
+4. If the lane still fails, Supabase's built-in mailer can be enabled as a
+   stopgap; it only reaches pre-authorised addresses.
+
+### 10.6 What is not verified
+- No mailbox has received a RailMate confirmation message since 2026-11-07; the
+  email lane is **unverified/failing**, and the app change does not repair it.
+- The repeat-signup resend path is proven by fake-client unit tests and by
+  GoTrue's documented behaviour, not by an inbox receipt.
+- SMS OTP and privileged-credential rotation remain BLOCKED_OWNER, unchanged.
