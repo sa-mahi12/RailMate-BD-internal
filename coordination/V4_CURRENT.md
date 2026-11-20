@@ -1,4 +1,34 @@
-# V4 CURRENT — signup email OTP + RailMate user reset (P38)
+# V4 CURRENT — living status
+
+> **LATEST — P40 course-closure pass, 2026-11-14 → 2026-11-20.** App `main`
+> HEAD `6e3ce42` (`v1.0.0+26`); docs `main` includes
+> `coordination/COURSE_CLOSURE_2026-11-14.md` and
+> `qa/COURSE_ACCEPTANCE_2026-11-14.md`. Eleven signed releases were published
+> in this packet (`+16` run `43607854945` … `+26` run `44676107796`); the final
+> `+26` x86_64 APK is 40,240,680 B, SHA256
+> `1f77e51b83395d273723bf6420a3464694ab6295d21bfb3f3729a0f5a685e7c5`,
+> manifest versionCode 26 / device 4026, signed, eight assets, built from
+> `6e3ce42`. CI `44676098450` green on the same SHA; suite 583/583 with
+> `flutter analyze` clean on Flutter 3.47.5.
+> Closed in this packet: **R-09 video** — the YouTube iframe refused the
+> `file:///android_asset` origin with "Error 153", the Wikimedia streaming
+> fallback was then answered with HTTP 403 + `text/html`
+> (`net::ERR_BLOCKED_BY_ORB`), so the licensed CC BY-SA clip is bundled in the
+> APK and plays offline (EMULATOR proof on `+25` and `+26`); **R-10 map** —
+> every build up to `+25` showed an empty box because the Flutter screen's
+> post-load `showStation()` made `renderMap()` run twice and the second call
+> deleted Leaflet's DOM, fixed in `6e3ce42` and device-proven on `+26` for
+> Dhaka and after switching to Chattogram. Hosted: `post_ratings` added to the
+> Supabase Realtime publication (migration `20261114142438`, applied and
+> verified); demo horizon now spans to 2026-12-10; live two-client realtime
+> proof for comments/reactions/ratings; the synthetic device account and its
+> one comment, reaction and rating were deleted (2 users, 2 posts,
+> 2 comments, 2 reactions, 0 ratings). R-10 (Google Maps specifically) remains
+> a recorded DEVIATION; SMS OTP and the R-23 BYOK rewrite remain
+> BLOCKED_OWNER; every device claim is EMULATOR evidence, not a physical
+> phone. Historical sections below are retained unchanged.
+
+## P38 — signup email OTP + RailMate user reset (historical)
 
 Timestamp: 2026-11-04 (Asia/Dhaka).
 Code pushed to `main`: `5ebbf70f13509c0f5e86ed7668630264b40276b5`.

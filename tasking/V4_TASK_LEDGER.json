@@ -1008,6 +1008,45 @@
       "started_at": "2026-11-04T06:00:00Z",
       "updated_at": "2026-11-08T15:10:00Z",
       "verified_commit": "17d4bb37614df1761240c87be263acac63f9463b"
+    },
+    {
+      "id": "P40",
+      "title": "Course closure: bundled guide video, realtime ratings, map defect, releases +16..+26",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": [
+        "P39"
+      ],
+      "objective": "Close the teacher's two failing demo items (embedded video, interactive rating) and verify all 24 requirements with dated evidence, then ship signed releases and public documentation.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [
+        "lib/",
+        "test/",
+        "web-guide/",
+        "assets/",
+        "supabase/migrations/",
+        "coordination/",
+        "governance/",
+        "qa/",
+        "tasking/"
+      ],
+      "evidence": [
+        "Ratings (R-07): hosted migration 20261114142438 added public.post_ratings to the supabase_realtime publication and was verified in pg_publication_tables; the app shares one public:board-ratings channel with an 80 ms debounce and a RatingState load token; two signed-in clients observed insert,update,delete without refresh and the rows were deleted afterwards",
+        "Video attempt 1: the YouTube iframe is genuinely embeddable (oEmbed 200, playableInEmbed=true) but the page runs from file:///android_asset, so the player receives no Referer and refused with 'Error 153' on the emulator (+16)",
+        "Video attempt 2: streaming the licensed Wikimedia Commons clip from the WebView was answered with HTTP 403 + text/html, which Chromium blocks as net::ERR_BLOCKED_BY_ORB (CDP on a debuggable build of 1fb40b4); an identical instrumented run 20 minutes earlier had reached readyState 4 and played, so the failure was server-side",
+        "Video fix f20bed2: the CC BY-SA 4.0 clip is bundled at web-guide/media/coxsbazar-express-480p.webm (4,039,910 B, unmodified 480p VP9 transcode) with its poster and a licence README; guide.js recovers NETWORK_NO_SOURCE with load(), budgets two automatic retries and makes every tap a real recovery attempt; test/guide_f15_test.dart guards bundle path, on-disk size, licence and the absence of remote media hosts",
+        "Video device proof: debug build of f20bed2 via CDP showed currentSrc=file:///android_asset/.../media/coxsbazar-express-480p.webm, networkState 1, readyState 4, duration 20.374 with currentTime advancing; the installed signed +25 showed real frames (four consecutive screenshots differing) and pause/play labels following the element state; +26 native controls read 0:20 / 0:20",
+        "Map defect: every build up to +25 rendered an empty grey #map box with no tiles, controls or attribution. The Flutter screen injects RailMateGuide.showStation(code) after the asset loads, so renderMap() ran twice and the second call cleared the container while reusing the Leaflet instance, deleting its panes. Reproduced in Chromium against the same asset (7 panes/6 tiles/2 controls -> 0/0/0, no exception)",
+        "Map fix 6e3ce42: the container is cleared only when the map is created, a torn-down container forces a rebuild, and invalidateSize() runs twice for late WebView layout; a new regression test in test/guide_f15_test.dart asserts the single clear site sits inside the init branch",
+        "Map device proof: on the installed signed +26 the Dhaka map renders OSM tiles with zoom controls, marker, attribution and the 'Dhaka (DAC) DEMONSTRATION ONLY' popup, and tapping the CGP chip re-renders Chattogram tiles without blanking",
+        "Releases +16 (43607854945) through +26 (44676107796) were published from main only; +26 is commit 6e3ce42, versionCode 26, signed, 8 assets, x86_64 40,240,680 B with SHA256 1f77e51b83395d273723bf6420a3464694ab6295d21bfb3f3729a0f5a685e7c5 matching SHA256SUMS.txt; +25 x86_64 40,240,392 B SHA256 60cf5ff8cd1cdc9e5c992861f143575ec74c287057012a0c6bc93a3e70cb11f1 also matched",
+        "CI: 44676098450 (Flutter CI) and 44676107796 (release) green on 6e3ce42; suite 583/583 locally with dart format --set-exit-if-changed clean and flutter analyze reporting no issues on Flutter 3.47.5",
+        "Hosted state after the packet: public tables 12, stations 24, demo horizon to 2026-12-10; the synthetic device account used for captures and its one comment, one reaction and one rating were deleted (auth.users 2, profiles 2, posts 2, comments 2, reactions 2, ratings 0)"
+      ],
+      "blocker": "Owner-side only: SMS OTP needs a provider, a consented recipient and a spend cap; Google Maps needs an API key and billing (R-10 stays a DEVIATION on Leaflet/OSM); a real R-23 rewrite needs the owner's BYOK OpenRouter key; physical-phone captures and privileged key rotation are owner actions.",
+      "started_at": "2026-11-14T06:00:00Z",
+      "updated_at": "2026-11-20T05:30:00Z",
+      "verified_commit": "6e3ce4267eebc1877bad3e29e32030dc65a17cc1"
     }
   ]
 }
