@@ -1,6 +1,58 @@
 # V4 CURRENT — living status
 
-> **LATEST — P40 course-closure pass, 2026-11-14 → 2026-11-20.** App `main`
+> **PUBLICATION EXECUTED — 2026-11-23.** Source `a3d2c305dc0a96bd952abffd8eaec3349be87f5b`
+> carries exactly the 18 reviewed app paths; CI 45212454835 passed and
+> committed-HEAD reruns (Flutter639, Deno33, Node11, format214/0, analyzer
+> clean, deno fmt4) exited0. Signed release `v1.0.0+28`, workflow run
+> 45213896700, is published on that commit with eight verified assets; `+27`
+> is preserved with unchanged digests. All five APKs/AAB contain
+> `map-provider.js` byte-identical to the committed blob. On an Android 15
+> x86_64 AVD the signed APK installs, launches and reaches the login gate; the
+> Station Guide needs an authenticated session, so `+28` map rendering is NOT
+> observed. Hosted Telegram deployment/teacher acceptance, Google secure
+> origin, live BYOK, physical-phone acceptance and legacy-credential retirement
+> remain owner gates. Details: `coordination/P41_FINAL_CLOSURE_2026-11-21.md`
+> publication addendum.
+
+> **PUBLICATION AUTHORIZED / PREPARING — 2026-11-21.** Owner approved controlled
+> publication and signed +28, without hosted/provider/rotation/visibility actions.
+> Original 18 app/nine docs changes reviewed. Public publication copies withhold
+> account details, machine paths and session IDs; local originals preserved.
+> Source targets 1.0.0+28 (the former source +1 was overridden to +27 in CI).
+> No committed-HEAD, new CI/release or runtime result is yet claimed. The LOCAL
+> PATCH and PRE-FIX blocks below are historical, not outstanding authorization.
+
+> **LATEST — P41 LOCAL CORRECTIVE PATCH, 2026-11-21.** Base app8df1654/docs230c774;
+> repairs uncommitted/unreleased. +27 is the defective original: map-provider.js
+> absent from APK and Telegram account/lifecycle/redelivery defects identified.
+> Local repairs have RED→GREEN asset, account/future, retry and digits-only
+> tests; full639 Flutter, Deno29 mocked updates+4 mocked-handler, Node11,
+> format214/0 and analyzer clean (exit0). Final bounded reviewer: safe as LOCAL
+> PATCH, no Critical/Important; Minor restore-failure fixture corrected. No corrected
+> signed release or CI/device/provider proof; new build-number/publication
+> decision required, never overwrite+27. Hosted/bot/teacher/Google/BYOK/physical
+> and urgent credential-retirement owner gates remain. See final closure record.
+
+> **HISTORICAL PRE-FIX — P41, 2026-11-21.** Runtime source `8df1654`, signed release
+> `v1.0.0+27`; Flutter CI `44871742168` and release `44871752519` succeeded on
+> that SHA. Fresh local gates: format 0 changed, analyze clean, 630 Flutter
+> tests, 21 mocked Telegram-update tests, 11 Node provider tests; exit 0.
+> Downloaded x86_64 APK: 40,307,452 B, SHA256
+> `adae4fefe37332de08661db92f8a61548a9cf81a33239faa22acfcf72541c2a5`;
+> signature verifies (v2), package `bd.railmate.railmate_bd`, Android versionCode
+> 4027 (published manifest build number 27), eight release assets.
+> Telegram is code-complete but migration/deployment/bot/live contact and
+> teacher acceptance are pending. Google Maps stays a deviation (no key,
+> billing or secure JS referrer origin); OSM remains delivered. R-23 live
+> BYOK demonstration and physical-phone testing remain owner-side. No connected
+> adb device, so +27 install/runtime NOT VERIFIED. Historical +25/+26 emulator
+> video/maps and two-client LIVE API ratings proof remain correctly scoped.
+> Urgent owner task: retire the historical exposed service-role credential;
+> neither rotation nor visibility change was performed. README and setup/
+> rotation guides corrected; see `P41_FINAL_CLOSURE_2026-11-21.md` for the
+> packet checklist, commands, files, rulings and owner actions.
+
+> **HISTORICAL — P40 course-closure pass, 2026-11-14 → 2026-11-20.** App `main`
 > HEAD `6e3ce42` (`v1.0.0+26`); docs `main` includes
 > `coordination/COURSE_CLOSURE_2026-11-14.md` and
 > `qa/COURSE_ACCEPTANCE_2026-11-14.md`. Eleven signed releases were published
@@ -57,7 +109,7 @@ Release: https://github.com/sa-mahi12/RailMate-BD/releases/tag/v1.0.0%2B11
   password. Inbox/provider delivery and hosted OTP acceptance are NOT VERIFIED.
 - Owner then requested an immediate demo account and authorised deleting a
   conflicting account. Provisioned 2026-11-04 11:55 +06:00 via Auth Admin API:
-  `sanjidamahi2005@gmail.com`, username `sanjidamahi2005`,
+  owner-approved demonstration account (address and handle withheld for public publication),
   administrator-approved email status, normal `authenticated` role. Owner chose
   the password; it is stored in neither repo. Conflict scan found 0 accounts and
   deleted 0. Independent rerun: password grant succeeds, own profile and username
@@ -117,12 +169,12 @@ Coordinator-run. App HEAD `17d4bb3` after the `v1.0.0+14` auth UX fixes (section
      held-seat count unchanged afterwards, so the declined path truly writes
      nothing.
    - 2-passenger booking -> `CONFIRMED`, booking
-     `cddd66e6-2520-4e06-98f2-150dadeb7577`, fare 1080, seats `A9`/`B1`,
+      identifier withheld in public copy, fare 1080, seats `A9`/`B1`,
      `booking_seats=2`, held seats `2`.
    - Cancel -> `CANCELLED`, held seats back to `0`, seats no longer tied to the
      booking, passenger + seat audit rows retained.
-   - Final demo booking left in place: `f463cead-2a63-4a48-a1a0-1656a23e2ebf`,
-     `CONFIRMED`, 2 passengers (Sanjida Mahi / Demo Companion), seats `A2`,`A3`,
+    - Final demo booking left in place (identifier withheld in public copy),
+      `CONFIRMED`, 2 passengers (names withheld in public copy), seats `A2`,`A3`,
      fare 1250, Dhaka -> Chattogram departing 2026-11-06 07:00 Asia/Dhaka.
      Hosted totals: 2 booking rows (1 CONFIRMED + 1 CANCELLED history), 2 held
      seats.
@@ -168,7 +220,7 @@ Coordinator-run. App HEAD `17d4bb3` after the `v1.0.0+14` auth UX fixes (section
 
 6b. **Owner-reported "signup fails": root cause found, fixed in `v1.0.0+12`.**
    - Reproduced on the device with the published `+11` build: a 6-character
-     password (`qwerty`, the same shape as the demo password) is rejected by the
+      synthetic validation input (`qwerty`) is rejected by the
      **local** validator and the form shows only *"Registration failed. Please
      try again."* Nothing reaches Supabase - the auth log records no signup
      event at all for that attempt - so the user sees what looks like a server
@@ -196,8 +248,8 @@ Coordinator-run. App HEAD `17d4bb3` after the `v1.0.0+14` auth UX fixes (section
 6c. **Owner-reported "error in username": the typed name rendered invisible, fixed
    in `v1.0.0+13`.**
    - Reproduced on the emulator with the published `+12` APK. Typing
-     `sanjida_mahu` did reach the widget (the accessibility tree carried
-     `text="sanjida_mahu"`), but nothing was painted and the green *Available*
+      the user-entered handle did reach the widget (the accessibility tree carried
+      its text; personal identifier withheld), but nothing was painted and the green *Available*
      pill sat across the middle of the box. Root cause: the pill was wrapped in a
      plain `Center` inside `InputDecoration.suffixIcon`; `Center` expands to the
      width it is given, so the suffix consumed the input row and the editable

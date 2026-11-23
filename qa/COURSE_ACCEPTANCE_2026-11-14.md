@@ -1,9 +1,23 @@
 # Course acceptance — 24 teacher requirements (2026-11-14)
 
-Final revision 2026-11-20: releases `+16`…`+26`, the bundled guide video and
-the map re-render fix are folded in below; every status in this file is
-re-checked against the installed signed `+26` APK rather than an earlier
-build.
+Owner authorized controlled publication and signed +28 on 2026-11-21.
+Publication is in preparation; no new CI/artifact/runtime evidence is inferred.
+Historical requirement evidence below remains dated to its original source.
+
+**LATEST CORRECTIVE STATUS (2026-11-21):** +27 remains the original8df1654
+artifact, now known to omit map-provider.js and contain reviewed Telegram
+account/lifecycle/delivery defects. Local uncommitted repairs passed639 Flutter,
+Deno29 mocked updates+4 mocked actual-handler and Node11, format214/0/analyzer
+clean. No corrected CI/build/release/hosted/device result. R-05 PARTIAL and R-10
+DEVIATION remain; current closure record supersedes pre-fix wording below.
+
+P41 revision 2026-11-21: source `8df1654`, signed release `+27`, 630 Flutter
+tests, 21 mocked Telegram-update tests and 11 Node tests (exit 0). Artifact
+hash/signature/version checked; +27 install/runtime not verified (no device
+connected). Historical LIVE API and signed +25/+26 EMULATOR observations below
+remain attached to their original builds/dates. Telegram alternative is staged,
+not deployed/live-verified; Google and live BYOK remain owner-blocked. Details:
+`coordination/P41_FINAL_CLOSURE_2026-11-21.md`.
 
 Scope: the original 24 numbered teacher requirements, the later six-item
 announcement, and the audit pack in
@@ -28,8 +42,8 @@ No row is marked PASS on the strength of a checkbox or an unverified claim.
 | R-01 | Scalable ERD PDF | PASS | STATIC: `docs/erd/railmate.mmd` declares 12 entities and their cardinalities; the PDF (`docs/erd/railmate.pdf`, 1 page) text-extracts all 12 with PK/FK/unique/cascade notes. HOSTED SCHEMA: exactly those 12 `public` base tables. The earlier "13 tables" count included `auth.users`, which is outside `public`; the ERD header now matches the applied schema. |
 | R-02 | Real-time comments | PASS (LIVE API) + EMULATOR UI | LIVE API: two signed-in clients, client A subscribed to Postgres Changes on `post_comments`; client B inserted then deleted a comment and A observed `insert,delete` with no refresh (`tool/live_board_probe.dart`). UNIT: `test/board/comment_section_realtime_test.dart`. Emulator: see device section. |
 | R-03 | Live like/dislike | PASS (LIVE API) + EMULATOR UI | LIVE API: same probe, `post_reactions` delivered `insert,update,delete` (LIKE → DISLIKE → removed). Aggregates in the app are always recomputed from rows (`ReactionState`), so an echo cannot double count. UNIT: `test/board/post_engagement_realtime_test.dart`. |
-| R-04 | Live unique username | PASS (code + schema); UI EMULATOR | HOSTED SCHEMA: `usernames` has `PRIMARY KEY (username)`, `UNIQUE (user_id)` and `UNIQUE INDEX usernames_normalized_unique ON lower(username)`, so two concurrent claims of one handle cannot both commit; RLS policies `usernames_claim`, `usernames_read`, `usernames_release` are intact. UNIT: `test/username_field_test.dart` (right-edge badge, taken/invalid, timeout). Verified-email repeat signup routes to Login with prefilled email (`v1.0.0+15`). |
-| R-05 | Email + phone verification | PARTIAL / BLOCKED_OWNER (phone) | LIVE API 2026-11-08: fresh signup to a disposable inbox received the Mailjet 6-digit OTP mail in ~10 s; confirmed addresses deliberately get no second mail (that is what the owner saw as "no message"). EMULATOR: `/verify` screen reachable. Phone SMS: BLOCKED_OWNER — no approved SMS provider, recipient or spend cap; no fake OTP is used. |
+| R-04 | Live unique username | CODE-COMPLETE (UNIT + HOSTED SCHEMA); UI EMULATOR | Historical schema inspection: normalized unique index, username PK and unique user_id protect claims; RLS recorded intact. UNIT: username validation/availability/timeout tests. A live concurrent registration race was not run; P41 corrects the earlier PASS wording rather than inferring that observation from a constraint. |
+| R-05 | Email + phone verification | PARTIAL / BLOCKED_OWNER | Historical email proof retained. +27 Telegram account/lifecycle/redelivery defects repaired only locally with focused23 lifecycle/account and Deno29+4 mocked tests. Full639 Flutter. Corrected schema not applied/functions not deployed or release published; no bot/contact/teacher proof. Method telegram_contact, no phone_confirmed_at write; full number protected, display masked. Legacy SMS still requires provider approval. |
 | R-06 | Text boxes and dropdowns | PASS | UNIT: registration (phone/email/username/display name) and search (station fields, date) validation tests in `test/auth/*`, `test/home/home_search_screen_test.dart`; EMULATOR: forms render and validate. |
 | R-07 | Interactive real-time rating | PASS (LIVE API) + EMULATOR UI | LIVE API: probe inserted 5 stars, updated to 2, deleted, and the second client observed `insert,update,delete`, rows 0 after cleanup. SOURCE: new `post_ratings` publication migration, `RatingRealtimeEvent`, shared `public:board-ratings` channel, 80 ms debounce/coalescing, `RatingState` stale-load token. UNIT: `test/board/rating_realtime_test.dart` (9), stale-load test in `test/board_f13_test.dart`. |
 | R-08 | Five-item pagination | PASS (UNIT) + EMULATOR | UNIT: cursor paginator tests (`test/board_f11_test.dart`, `board_f13_test.dart`) prove page size 5, stable cursor, no duplicates. EMULATOR: Journey Board lists posts and loads the next page. |
@@ -45,12 +59,22 @@ No row is marked PASS on the strength of a checkbox or an unverified claim.
 | R-18 | GraphQL | PASS (LIVE API) | Live 2026-11-14: `POST /graphql/v1 { stationsCollection(first:5) }` returned 5 station nodes with the anon key. |
 | R-19 | REST / SOAP | PASS (LIVE API) | Live 2026-11-14: `GET /rest/v1/stations?select=code,name` returned 24 demo stations; the same request without a key returned 401, so RLS + key gating are real. |
 | R-20 | Crystal Reports | EXEMPT | The teacher's own sheet exempts it; nothing is fabricated. |
-| R-21 | Modern frontend | PASS (EMULATOR) | Signed release APK installs and launches on the emulator; Home, Station Guide, the guide WebView (map, animation, bundled video) and the Journey Board render and respond (device section). |
+| R-21 | Modern frontend | EMULATOR PASS (historical); PHYSICAL PENDING | Signed +25/+26 emulator evidence retained; +27 hash/signature/version checked, no connected device and no +27 install/runtime proof. Physical checklist has 26 unperformed checks. |
 | R-22 | CI / containerization | PASS | GitHub Actions runs format, analyze, tests, debug APK and a signed release workflow on `main` only. Every commit in this pass is green: Flutter CI `43606864828`, `44352520137`, `44676098450`; release `43607854945`, `43612411501`, `43619639479`, `43623485003`, `43660496831`, `43663662668`, `43665603777`, `43667412762`, `43669859460`, `44352608469`, `44676107796`. The tree under test is the tree that ships: release and CI runs are dispatched from the same `main` SHA. |
-| R-23 | Generative AI | CODE-COMPLETE / BLOCKED_OWNER (key) | BYOK OpenRouter rewrite: the key is entered in-app, kept in secure storage and sent only on explicit action; no key → honest failure, nothing sent. A real rewrite needs the owner's key. |
+| R-23 | Generative AI | CODE-COMPLETE / LIVE PROVIDER DEMONSTRATION PENDING | P41 12 audit tests at 8df1654: key removal, logout, short-key masking, errors, timeout, explicit-key gate, no logs/key literals, source-level booking independence. Existing HTTP tests are mocked; no real OpenRouter success. Owner procedure: app docs/owner/openrouter-demo.md. |
 | R-24 | Additional TBD | NOT ANNOUNCED | No new item was announced; recorded as pending, nothing invented. |
 
 ## The teacher's later six-item announcement
+
+P41 R-10 addendum: optional Google JS rendering code now exists but is
+unverified and was not bundled correctly in +27 (map-provider.js absent).
+Actual-bundle regression RED→GREEN proves the local declaration repair only;
+corrected signed APK remains pending. 11 Node provider tests and 6 Flutter configuration tests do not
+prove Google authorization or tiles. +27 has no Google key; an approved secure
+HTTPS referrer origin, key/billing and live verification are prerequisites.
+The original R-10 OSM deviation and +26 emulator proof above remain in force.
+P41 R-22: CI `44871742168` and signed release `44871752519` succeeded at
+`8df1654` (2026-11-21); local suite 630/630, format/analyze exit 0.
 
 1. Embedded video (R-09) — fixed and device-proven above.
 2. Mapping (R-10) — interactive OSM map; Google Maps is the recorded deviation.
@@ -76,6 +100,7 @@ matched against the release's own `SHA256SUMS.txt`.
 | `v1.0.0+24` | `43669859460` | — | x86_64 `7127949454a6ae68b302ffa7562389648f413854f78d0ad448a45ea410ef1400`, device versionCode 4024 |
 | `v1.0.0+25` | `44352608469` | `f20bed2` | x86_64 40,240,392 B, `60cf5ff8cd1cdc9e5c992861f143575ec74c287057012a0c6bc93a3e70cb11f1`, manifest versionCode 25 / device 4025, signed, 8 assets, bundled guide clip |
 | `v1.0.0+26` | `44676107796` | `6e3ce42` | x86_64 40,240,680 B, `1f77e51b83395d273723bf6420a3464694ab6295d21bfb3f3729a0f5a685e7c5`, manifest versionCode 26 / device 4026, signed, 8 assets, map fix |
+| `v1.0.0+27` | `44871752519` | `8df1654` | x86_64 40,307,452 B, `adae4fefe37332de08661db92f8a61548a9cf81a33239faa22acfcf72541c2a5`, published manifest build 27 / APK versionCode 4027 (aapt), v2 signature verifies, 8 assets; no install/runtime check |
 
 ## Defects found and fixed in this pass
 
@@ -106,3 +131,14 @@ flutter analyze
 flutter test
 dart run tool/live_board_probe.dart   # RM_URL / RM_ANON / RM_SERVICE from env
 ```
+
+## 2026-11-23 publication note
+
+Nothing in this acceptance record changes status through publication. The
+reviewed P41 repairs are now committed as `a3d2c30` and shipped in signed
+`v1.0.0+28` (run 45213896700), with CI 45212454835 green and committed-HEAD
+tests Flutter639/Deno33/Node11 plus clean format/analyze. Those are unit,
+static and artifact results: they do not add hosted, two-device, provider or
+physical-phone evidence, so no row above is re-graded. The urgent owner action
+remains retiring the historical exposed service-role credential, followed by
+Telegram hosted setup with real contact and instructor acceptance.

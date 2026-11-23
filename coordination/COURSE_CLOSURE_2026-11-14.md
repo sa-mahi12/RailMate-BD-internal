@@ -4,6 +4,24 @@ Written by the coordinator while executing
 `RailMateBD_Full_Course_Closure_Autonomous_Agent_Handoff_2026-11-14.zip`.
 This is the resume point: read the live governance first, then this file.
 
+> Owner authorized controlled publication and signed +28 on 2026-11-21.
+> Follow the P41 closure publication block for current gates; older statements
+> requiring release authorization are historical. +27 stays unchanged.
+
+> **Superseded resume point (P41, 2026-11-21):** read
+> `P41_FINAL_CLOSURE_2026-11-21.md` and the latest V4_CURRENT block. Runtime
+> source `8df1654` shipped as +27; CI/release green, 630 Flutter tests plus
+> 21 mocked Telegram-update and 11 Node tests. Telegram is staged/not deployed,
+> Google remains a deviation, live BYOK and physical-device work owner-side.
+> +27 artifact/hash/signature/version verified, not installation/runtime.
+> P40 facts below are historical and retain their original source/evidence.
+
+> **P41 correction:** the +27 asset inspection and review subsequently found
+> missing map-provider.js and Telegram account/lifecycle/delivery bugs. Local
+> uncommitted fixes pass639 Flutter/Deno29+4 mocked/Node11; no corrected release,
+> CI, hosted or device proof. Follow P41 current corrective handoff rather than
+> treating the original code-complete snapshot as closure.
+
 ## Snapshot
 
 - Packet opened 2026-11-14 (Asia/Dhaka); last device work 2026-11-20.
@@ -153,6 +171,19 @@ no Google iframe was added untested.
 
 ## Next safe command
 
-`gh run list --limit 3` to confirm nothing is queued, then
-`gh workflow run release.yml -f build_number=27 --ref main` only after a new
-`main` commit that changes the app or the bundled guide assets.
+Historical P40 recommendation below has already been executed by P41; **do not
+dispatch another +27 run**. `v1.0.0+27` is preserved and `v1.0.0+28` was
+published once from `a3d2c30` on 2026-11-23 (run 45213896700). The current next
+action is the consolidated owner checklist in the P41 handoff, starting with
+exposed-credential retirement.
+
+## 2026-11-23 publication result
+
+Source `a3d2c305dc0a96bd952abffd8eaec3349be87f5b` (18 reviewed paths), CI
+45212454835 green, committed-HEAD Flutter639/Deno33/Node11 with clean
+format/analyze. Signed `v1.0.0+28` published with eight verified assets, v2
+signatures and the historical certificate; all APKs/AAB carry
+`map-provider.js`. The signed APK installs and launches on an Android 15
+emulator to the login gate, but the Station Guide requires authentication, so
+map rendering on `+28` remains unobserved. Physical-phone acceptance, hosted
+Telegram proof, Google, live BYOK and credential retirement remain owner work.

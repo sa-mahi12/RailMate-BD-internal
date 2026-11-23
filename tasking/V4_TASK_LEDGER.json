@@ -978,8 +978,8 @@
         "Live flow verification exit 0 against RailMate with the seeded demo account: login OK; post-media upload 200 + public read 200 (70 bytes) + own delete; own post+comment+reaction accepted under RLS then removed; global logout rejected the refresh token (HTTP 400); recovery request HTTP 200",
         "Access JWTs remain valid until expiry after logout (standard Supabase behaviour); no instant-JWT-death claim made",
         "Owner-side observation: a 645 KB jpg appeared in post-media at 11:58 +06:00, indicating app photo upload was exercised",
-        "Remaining WARNs intentional: pg_graphql table exposure (needed by R-18, RLS-gated) and leaked-password protection disabled by owner decision (would reject the current demo password)",
-        "Live booking E2E via deployed Edge Functions: simulateSuccess=false returned PAYMENT_SIMULATION_FAILED with zero writes (SQL counts unchanged: 1 booking, 2 held seats); 2-passenger booking cddd66e6-2520-4e06-98f2-150dadeb7577 CONFIRMED, fare 1080, seats A9/B1, booking_seats=2, held seats=2; cancel returned CANCELLED with held seats back to 0 and audit rows retained; final demo booking f463cead-2a63-4a48-a1a0-1656a23e2ebf CONFIRMED, seats A2/A3, fare 1250, Dhaka->Chattogram 2026-11-06 07:00 Asia/Dhaka (hosted totals: 2 booking rows, 2 held seats)",
+        "Historical advisor review recorded pg_graphql exposure as needed by R-18 and RLS-gated; private account/password-related operational details are withheld from the publication copy and not revalidated here",
+        "Live booking E2E via deployed Edge Functions: simulateSuccess=false returned PAYMENT_SIMULATION_FAILED with zero writes (SQL counts unchanged: 1 booking, 2 held seats); 2-passenger booking (identifier withheld) CONFIRMED, fare 1080, seats A9/B1, booking_seats=2, held seats=2; cancel returned CANCELLED with held seats back to 0 and audit rows retained; final demo booking (identifier withheld) CONFIRMED, seats A2/A3, fare 1250, Dhaka->Chattogram 2026-11-06 07:00 Asia/Dhaka (hosted totals: 2 booking rows, 2 held seats)",
         "Note: PowerShell @(Invoke-RestMethod ...) wraps a JSON array as one element (an empty array reports Count=1), so booking evidence was read back with authoritative SQL instead of array counts",
         "Signup + OTP proven on-device with the published +11 APK (x86_64, SHA256 matches SHA256SUMS.txt): cleared app data -> onboarding -> Create Account -> form -> 'Verify your account' -> 6-digit code -> Home; Profile shows 'Email verified' plus the chosen username, the live username checker showed 'Available', and the home date picker lists days through 2026-11-24 (refreshed horizon visible in the shipped build)",
         "Backend contract replay of the same path: POST /auth/v1/signup -> 200 with confirmation_sent_at; six-digit OTP verified with type=email returns a session with email_confirmed_at set; bootstrap trigger still creates the profile + normalised username",
@@ -1047,6 +1047,52 @@
       "started_at": "2026-11-14T06:00:00Z",
       "updated_at": "2026-11-20T05:30:00Z",
       "verified_commit": "6e3ce4267eebc1877bad3e29e32030dc65a17cc1"
+    },
+    {
+      "id": "P41",
+      "title": "Final closure: Telegram contact alternative, map provider, BYOK audit, owner/security handoff and +27",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": ["P40"],
+      "objective": "Ship code-complete Telegram contact verification and defensible map/BYOK closure; publish signed +27 and reconcile documents without fabricating live/provider/physical evidence.",
+      "status": "BLOCKED_OWNER",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [
+        "README.md", "docs/owner/", "docs/qa/", "docs/security/",
+        "lib/features/auth/telegram/", "lib/app/", "lib/features/profile/",
+        "lib/features/station_guide/", "lib/features/ai/key/byok_vault.dart",
+        "android/app/src/main/AndroidManifest.xml", "pubspec.yaml", "pubspec.lock",
+        "supabase/functions/_shared/", "supabase/functions/telegram-challenge/",
+        "supabase/functions/telegram-webhook/", "supabase/migrations/20261120000001_telegram_phone_verification.sql",
+        "test/", "web-guide/", "coordination/", "governance/", "qa/", "tasking/", "operations/"
+      ],
+      "evidence": [
+        "Runtime code pushed 8df16542093f4a6cabb7efa86497cd2eced551e1 on main, 34 files; generated .flutter-plugins-dependencies and .serena left untouched",
+        "Telegram challenge/webhook/pure rules/migration/profile hydration implemented; 29 Flutter tests and 21 mocked-update Deno tests. Migration not applied, functions not deployed, no bot/webhook/live contact; method telegram_contact, no phone_confirmed_at writes",
+        "OSM remains default and +27 has no Google key. Optional GOOGLE_MAPS_KEY injection + Google renderer exists; 11 Node provider and 6 Flutter config tests. Google live authorization/rendering not verified; current file origin lacks reliable HTTP referrer; Google JS needs Website restrictions, not Android-app restrictions",
+        "R-23 12 audit tests: key removal/logout/masking/request errors/timeout/explicit-key gate/no logging/no key literal/source-level booking independence; existing provider tests mocked, live BYOK demonstration pending",
+        "Fresh continuation 2026-11-21: dart format 212 files/0 changed; flutter analyze --no-pub No issues found; flutter test --no-pub --reporter expanded +630 All tests passed; node tests 11/0; npx deno@2 tests 21/0; all exit 0",
+        "Flutter CI 44871742168 and signed release 44871752519 success at 8df1654; v1.0.0+27 published 2026-11-21T05:44:15Z with 8 assets",
+        "Downloaded x86_64 APK 40,307,452 B; SHA256 adae4fefe37332de08661db92f8a61548a9cf81a33239faa22acfcf72541c2a5 matches published checksum/digest. apksigner verify exit 0/v2 true; aapt versionCode 4027, package bd.railmate.railmate_bd; manifest build 27/signed true. No connected adb device, no +27 installation/runtime evidence",
+        "Owner guides and 26-row physical checklist prepared; historical service-role JWT in public app.env.json history flagged, no values recorded. Rotation/visibility unchanged; runbook corrected against official new API-key/legacy retirement docs and reserved SUPABASE_ secret rules",
+        "README/matrix/acceptance/current/closure/operations/ledger reconciled; R-04 narrowed to code/schema evidence, R-07 historical LIVE API verified, R-05 Telegram alternative pending, R-10 deviation, R-21 physical pending, R-23 live pending, R-20 EXEMPT, R-24 NOT ANNOUNCED. Full handoff coordination/P41_FINAL_CLOSURE_2026-11-21.md",
+        "CORRECTIVE STATUS 2026-11-21: evidence630/21 above is historical pre-fix. +27 APK lacks map-provider.js; actual generated-bundle regression RED missing asset/exit1 then GREEN+1/exit0 after pubspec declaration. Corrected source not published and no new APK/CI/runtime proof",
+        "Initial independent read-only verdict NOT SAFE: 4 Important Telegram findings plus privacy disclosure. Eight account/lifecycle REDs reproduced, then focused23/exit0 using real AuthState/dependencies with deferred Telegram boundary; identity-bound hydration/generation/challenge guards/nonoverlap/disposal repair",
+        "Delivery RED5 plus completion-ack RED and actual-handler expected503 got200 RED; then Deno29 mocked-update+4 actual-handler mocked-HTTP tests pass/exit0. Claims processing/completed, 2min lease/release/reclaim, conditional ownership complete, transient/busy HTTP503, verification_update_id consume recovery; protected writes unchanged. Staged migration corrected but not applied",
+        "Digits-only own contact and typed-number cases RED then GREEN; canonical E.164 only in own-contact path, typed inputs never proof. UI/bot full number protected/display masked disclosure corrected; no false masked-only storage promise",
+        "Repaired-tree full flutter test --no-pub --reporter expanded +639 All tests passed/exit0; dart format214/0/exit0; initial analyzer curly_braces info/exit1 fixed then No issues found/exit0; Node11/0. Uncommitted diff against8df1654; initial test-authoring cascade compile error excluded from true RED proof. No closure inferred",
+        "Final bounded reviewer (session ID withheld for public publication) SAFE TO HAND OFF AS LOCAL PATCH, no Critical/Important; not release/closure/deployment approval. Independently read saved639 stdout, inspected named corrective paths, exact git diff inventory not independently executed. Minor restore-failure fake ignored fetchError; fixture corrected to explicitly throw via restoreResponse and validate retry, no production change",
+        "Fresh full suite after final minor fixture correction +639 All tests passed/exit0, log p41-flutter-test-corrective-reviewed.log. Fresh format214/0/analyze clean/Deno format4/0/Deno33/0/Node11/0; no corrected CI or APK inferred",
+        "Local exact-path post-pass: 18 app/9 internal paths allowed, main-only branch lists, bounded secret scan0, README links, JSON unique task IDs, 24 matrix rows/R20+R24 unchanged, 12 report sections, both diff-check0. Generated/local paths unstaged; HEAD8df1654/docs230c774 unchanged; no commit/push/release/deploy",
+        "PUBLICATION 2026-11-23: exactly the 18 reviewed app paths committed as a3d2c305dc0a96bd952abffd8eaec3349be87f5b on main under owner identity sa-mahi12 and pushed; .flutter-plugins-dependencies and .serena unstaged; reviewed-path content SHA256 unchanged",
+        "Committed-HEAD 2026-11-23 exit0 for all: flutter test639, deno33 (29 mocked update + 4 actual-handler mocked-HTTP), node11, dart format214/0, deno fmt4, flutter analyze no issues; final publishable-tree Gitleaks8.30.1 rescans0 in both repos; Flutter CI 45212454835 success on a3d2c30",
+        "Signed release v1.0.0+28 published by run 45213896700 from a3d2c30 with 8 assets; downloaded bytes/SHA256 match GitHub API digests and SHA256SUMS; apksigner v2 true and certificate 37c67c4c119d3adea7dcbeaae99ae69d8ab14e231ca2fecee9b6134190f2f155 on all four APKs; aapt2 versionCode4028 versionName1.0.0 package bd.railmate.railmate_bd; manifest commit/version/signed match. v1.0.0+27 release id and all 8 asset digests re-checked unchanged",
+        "Artifact asset equality: web-guide/map-provider.js (4240 B) plus index.html, guide.js, styles.css, bundled video, poster and ranker.tflite byte-identical to committed blobs in universal, three split APKs and AAB; +27 had 5 web-guide files without map-provider.js, +28 has 6",
+        "Emulator 2026-11-23 (AVD railmate_pixel, Android15 x86_64): +28 installs as 4028, installed base.apk byte-identical to the release asset (13bdd890...), app launches with no RailMate BD crash entry and reaches the login gate. Station Guide requires an authenticated session, so +28 map rendering is NOT observed; no hosted account was created and no owner credential used"
+      ],
+      "blocker": "Source/docs publication and one signed +28 are complete for 2026-11-23; remaining owner gates are unchanged. No overwrite of +27. Public publication copies omit account/machine/session details; originals preserved locally, older public metadata/history remains. Owner: urgent exposed-credential retirement with reviewed compatible-key migration; Telegram migration/deploy/private bot/webhook/live contact and teacher acceptance; OSM acceptance or secure Google origin/key/billing/live proof; private BYOK demonstration; physical-device acceptance. No hosted/provider/rotation/visibility action authorized.",
+      "started_at": "2026-11-20T00:00:00Z",
+      "updated_at": "2026-11-23T00:00:00Z",
+      "verified_commit": "a3d2c305dc0a96bd952abffd8eaec3349be87f5b"
     }
   ]
 }
