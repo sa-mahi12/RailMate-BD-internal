@@ -1,6 +1,91 @@
 # CURRENT — live status
 
-## Latest — P41 publication, 2026-11-23
+## Latest — P42 social web publication, 2026-11-24/25
+
+PUBLIC WEB P42 PUBLISHED; HOSTED SCHEMA APPLIED; SIGNED +29 PUBLISHED AND
+VERIFIED. The owner asked for a genuinely working academic social prototype: a
+live public site backed by Supabase, real cross-account posts with permanent
+links, multi-format attachments in Storage, public author identity, preserved
+comments/likes/dislikes/ratings and reporting, verified with two independent
+accounts.
+
+Published on `main` (owner identity `sa-mahi12`, direct commits, no branch or
+PR): `c8565cd` the P42 feature (55 files), then `96754ab` avatar initials,
+`02273bb` no feed rebuild during video playback, `ad64f65` deploy-time asset
+cache stamping, `84dd332` deployed-page evidence docs, `140d14c` `1 post`
+inflection, `c556e5d` public-profile screenshot, `057909d` release evidence.
+`.serena/` left untracked.
+
+Hosted project `psuzlyingfmstnyfvlnj` received migration
+`20261124000001_p42_social_web.sql` through the Management API on 2026-11-24
+(HTTP 201, recorded in `supabase_migrations.schema_migrations`): typed
+`post_attachments` with CHECK constraints (kind, https-only links, owner-folder
+paths, 25 MiB, ten rows per post, owner must own the post), the
+`public_profile_cards` and `public_post_stats` views, `post_reports` /
+`user_reports` (one per reporter, no self-report, reporter-only read), board
+rate-limit triggers, `post_attachments` added to the realtime publication, and
+an explicit size/MIME allowlist on `post-media`.
+
+Gates at the published tree: `flutter analyze` clean, `dart format` 229/0,
+**675 Flutter tests** pass (639 pre-P42 + 36 new), 10 site `node --test` pass,
+`npm run build:css` clean. Flutter CI success on the pushed SHAs (e.g.
+`45451672940` at c8565cd, `45451935841` at 96754ab). Two CI/deploy failures were
+real and fixed, not re-run: the site unit test caught `initialsFor('P42 Amina
+(demo)')` returning `PD`, and the workflow token could not create the Pages
+site ("Resource not accessible by integration") so the owner identity enabled
+it with `gh api -X POST repos/…/pages`.
+
+Live site: https://sa-mahi12.github.io/RailMate-BD/ (deploy-pages runs
+`45452161331`, `45452629320`, `45453214538`, `45454328891`, success). Verified in
+real Chrome, not by test alone: the feed shows three real posts with images,
+an HTML5 video player, a PDF card, a click-to-load YouTube button and a link
+card; `post.html?id=…` shows the post, `Comments (1)` by the second account and
+`1 like / 5.0 ★ (1) / 1 comment`; `profile.html?id=…` shows
+`P42 Amina (demo) · @p42_amina_7s16e9 · Joined Nov 24 · 1 post`; the uploaded
+WebM was measured playing (`paused=false`, 848x480) and still playing 37.7 s
+later across a refresh boundary. Screenshots and measurements are in
+`docs/qa/p42/`.
+
+Cross-account evidence (real REST/Storage, two throw-away demo accounts, never
+the owner's two accounts) run `mwv0r1ce33dd`, 22 checks: A publishes a post with
+image + video + PDF + YouTube link + plain link; an anonymous reader and B see
+all five; B comments/likes/rates; public stats show it; B's cross-account delete
+removes nothing; B's report is stored and hidden from A; a non-HTTPS link, a
+foreign owned attachment, a foreign storage path and a self-report are rejected;
+a repeat report updates in place; a client-supplied `created_at` is replaced by
+the server clock. `docs/qa/p42/cross-account-evidence.json`.
+
+An independent read-only review of the live schema and client code found **no
+Critical** issue and one Important one: `storage_path` only had to *look* like
+`<uuid>/…`, so a user could point their own attachment row at another user's
+object. Fixed in `20261125000001_p42_hardening.sql` (prefix must equal
+`owner_id`), which also applies the ten-attachment cap on UPDATE, stamps
+`posts`/`post_comments.created_at` from the server clock, adds own-row report
+UPDATE policies and blocks self-reporting a post.
+`20261125000002_p42_report_upsert.sql` resolves a repeat report inside the
+database, because the shipped `+29` client upserts without naming the conflict
+target (PostgREST answered 409). Both migrations are applied to the hosted
+project and recorded in `supabase_migrations.schema_migrations`; the 22-check run
+passes after them.
+
+Accepted follow-ups that need a Dart change (therefore the next app release, not
+this packet): the link parser accepts `http://` (ids are still uuid-validated, no
+open redirect), `attachments_read` is `using (true)` and must be revisited if
+post moderation is ever added, and a pre-existing recovery-link double-handling
+path in the auth gate predates P42. No Android device run of the composer,
+attachment renderers or the deep links was performed — those are unit-tested
+only.
+
+Signed `v1.0.0+29` published by release run `45453959869` from `84dd332` with
+eight assets; the universal APK SHA256 `e2d67d17…e608eac6` matches the GitHub
+asset digest and `SHA256SUMS.txt`, `aapt2 dump badging` reports `versionCode 29`,
+`versionName 1.0.0`, `bd.railmate.railmate_bd`, `apksigner verify
+--min-sdk-version 24` exits 0 with the same release certificate as `+28`
+(`37c67c4c…`), and the extracted `libapp.so` contains the P42 symbols
+`post_attachments`, `public_profile_cards` and `post_reports`. `v1.0.0+28` and
+its eight assets are unchanged.
+
+## P41 — publication, 2026-11-23 (previous)
 
 PUBLICATION EXECUTED (source); DOCS AND ARTIFACT GATES IN PROGRESS. The owner
 authorized controlled publication on 2026-11-21; execution happened 2026-11-23.

@@ -1093,6 +1093,38 @@
       "started_at": "2026-11-20T00:00:00Z",
       "updated_at": "2026-11-23T00:00:00Z",
       "verified_commit": "a3d2c305dc0a96bd952abffd8eaec3349be87f5b"
+    },
+    {
+      "id": "P42",
+      "title": "Real social sharing: live public web view, multi-format attachments, permanent links, reporting",
+      "preferred_owner": "COORDINATOR",
+      "dependencies": ["P20", "P21", "P22", "P30"],
+      "objective": "Turn Journey Board into a shareable social feature: a live GitHub Pages view of the hosted data, posts with up to ten typed attachments (image, uploaded video, document, external link), permanent post/profile links usable in a browser and in the app, safe public author identity, preserved comments/likes/dislikes/ratings/realtime, and post/profile reporting - verified with two independent accounts and real browser evidence.",
+      "status": "VERIFIED",
+      "current_owner": "COORDINATOR",
+      "allowed_paths": [
+        "README.md", "docs/P42_SOCIAL_WEB.md", "docs/moderation/", "docs/qa/p42/",
+        "lib/app/", "lib/features/board/", "android/app/src/main/AndroidManifest.xml",
+        "pubspec.yaml", "pubspec.lock", "test/", "site/", "scripts/",
+        "supabase/migrations/20261124000001_p42_social_web.sql", ".github/workflows/deploy-pages.yml",
+        ".gitignore", "coordination/", "governance/", "qa/", "tasking/", "operations/"
+      ],
+      "evidence": [
+        "Published on main under owner identity sa-mahi12 as seven direct commits: c8565cd (feature, 55 files), 96754ab (avatar initials), 02273bb (no feed rebuild during video playback), ad64f65 (deploy-time asset cache stamp), 84dd332 (evidence docs), 140d14c (1 post inflection), c556e5d (profile screenshot). .serena/ untracked; no branch, PR or worktree",
+        "Hosted migration 20261124000001_p42_social_web.sql applied to psuzlyingfmstnyfvlnj via Management API query endpoint (HTTP 201) and recorded in supabase_migrations.schema_migrations: post_attachments with CHECK constraints, limit_post_attachments and guard_post_attachment triggers, public_profile_cards and public_post_stats views, post_reports/user_reports with no-self-report, board rate limits, post-media bucket size/MIME allowlist, post_attachments added to supabase_realtime",
+        "Cross-account HOSTED run mwuyl77s16e9 with two throw-away demo accounts (not the owner's accounts): A uploads PNG + WebM + hand-built PDF through the Storage API and inserts five attachment rows; anonymous reader and B see all five; B comments/likes/rates; public_post_stats reports 1/1/1; B cross-delete removes 0 rows and the post survives; B's report is stored and invisible to A; non-HTTPS link, foreign-owned attachment and self-report rejected. Earlier run mwuyl77s16e9 predecessor mwuykdp96f00 failed on a real client bug (PGRST102 identical-keys bulk insert) and was fixed, not retried blindly",
+        "Live site https://sa-mahi12.github.io/RailMate-BD/ deployed by .github/workflows/deploy-pages.yml; Pages had to be enabled by the owner identity because the workflow token got 'Resource not accessible by integration'. BROWSER evidence on the deployed URL: feed with image/video/PDF/provider-button/link attachments, post permalink with Comments (1) from the second account and 1 like / 5.0 stars (1) / 1 comment, public profile with @username and 1 post, uploaded WebM measured playing 848x480 and still playing 37.7 s later across a 20 s refresh boundary (docs/qa/p42/video-playback.txt, site-live-*.png)",
+        "Two defects were found by the evidence and fixed: the 20 s poll replaced the video element mid-watch, and GitHub Pages max-age=600 served the pre-fix app.js after deploy (deploy now stamps ?v=<commit> onto asset URLs). A site unit test also caught initialsFor('P42 Amina (demo)') returning PD; the deploy workflow failed on it and it was fixed to PA in both the site and the app",
+        "Gates at the published tree: flutter analyze clean, dart format 229 files/0 changed, flutter test 675 pass (639 pre-P42 + 36 new), site node --test 10 pass, npm run build:css clean; Flutter CI success 45451672940 (c8565cd) and 45451935841 (96754ab); deploy-pages success 45454328891 (140d14c)",
+        "Signed v1.0.0+29 dispatched by release run 45453959869 from 84dd332; +28 release and assets left untouched",
+        "RELEASE VERIFIED 2026-11-25: v1.0.0+29 published with eight assets; downloaded universal APK SHA256 e2d67d17415393b1403b07d60e0e8984a237669537ce83a5a7aa5e890608eac6 equals the GitHub asset digest and SHA256SUMS.txt; aapt2 dump badging versionCode 29 versionName 1.0.0 package bd.railmate.railmate_bd minSdk 24 targetSdk 36; apksigner verify --min-sdk-version 24 exit 0 with certificate 37c67c4c119d3adea7dcbeaae99ae69d8ab14e231ca2fecee9b6134190f2f155 (same as +28); extracted lib/arm64-v8a/libapp.so contains post_attachments, public_profile_cards and post_reports; v1.0.0+28 release id and its eight assets unchanged",
+        "INDEPENDENT READ-ONLY REVIEW 2026-11-25 (static, no command/device/hosted query by the reviewer): no Critical; Important - storage_path was only shape-checked, so a user could reference another user's object (fixed); Minor - 10-row cap only on INSERT (fixed on UPDATE), client-writable created_at bypassed rate limits (fixed by server stamp), report upsert had no UPDATE policy (fixed), no self-report guard for posts (fixed), attachments_read using(true) (accepted follow-up), http:// accepted by the link parser (accepted, ids still uuid-validated), recovery-link double handling predates P42 (accepted follow-up for the next release). Reviewer verdict: ship-able with follow-ups",
+        "HOSTED HARDENING APPLIED + RE-VERIFIED: 20261125000001_p42_hardening.sql and 20261125000002_p42_report_upsert.sql applied through the Management API, post_attachments_path_owner_chk validated on existing rows, triggers post_attachments_limit (insert+update), posts/post_comments_server_created_at, post_reports_no_self, post_reports/user_reports_update_own policies granted; cross-account run mwv0r1ce33dd passes all 22 checks including foreign storage path rejection, repeat report update-in-place, self-report rejection and server-clock created_at; both versions recorded in supabase_migrations.schema_migrations"
+      ],
+      "blocker": "No Android device run of the new composer, attachment renderers or the railmatebd://post|profile deep links (unit-tested only); per-post Open Graph previews are not generated and the website is read-only/polling by design; teacher acceptance of the website lane and of OSM vs Google Maps is still pending; owner still owes the exposed-credential retirement and Telegram gates recorded under P41.",
+      "started_at": "2026-11-24T00:00:00Z",
+      "updated_at": "2026-11-25T00:00:00Z",
+      "verified_commit": "f058afc"
     }
   ]
 }

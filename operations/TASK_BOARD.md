@@ -1,6 +1,26 @@
-# Task board — coordinator updates this each pass
+# Task board - coordinator updates this each pass
 
-## Latest — P41 publication (2026-11-23)
+## Latest - P42 social web publication (2026-11-24/25)
+
+Owner asked for a genuinely functional academic social transport prototype: a
+live site backed by Supabase, real cross-account posts with permanent links,
+multi-format attachments in Storage, public author identity, preserved
+comments/likes/dislikes/ratings and reporting, proven with two independent
+accounts. Published on `main` in seven direct commits (`c8565cd` … `c556e5d`).
+
+| Task | State | Evidence / next gate |
+|---|---|---|
+| P42 hosted schema (`20261124000001_p42_social_web.sql`) | APPLIED | Management API HTTP 201 on `psuzlyingfmstnyfvlnj`; recorded in `supabase_migrations.schema_migrations`; attachments/views/reports/rate limits/bucket allowlist/realtime membership |
+| P42 app feature (attachments, permalinks, profile, reporting, share) | PUBLISHED | 675 Flutter tests, analyze clean, format 229/0; CI success 45451672940 / 45451935841 |
+| P42 public website | LIVE | https://sa-mahi12.github.io/RailMate-BD/ by deploy-pages; feed, post and profile pages verified in real Chrome with real data |
+| P42 cross-account evidence | HOSTED PASS | run `mwv0r1ce33dd`, 22 checks: A publishes image+video+PDF+2 links, B reads/comments/likes/rates, cross-delete denied, report hidden from A, foreign storage path and self-report rejected, repeat report updates in place |
+| P42 independent review | NO CRITICAL; IMPORTANT FIXED | storage_path was shape-only checked (fixed by `post_attachments_path_owner_chk`); cap-on-update, server-clock created_at, report upsert and self-report guard also fixed; three Dart-level follow-ups accepted for the next release |
+| P42 uploaded-video playback | BROWSER PASS | deployed page, 848x480, `paused=false`, same element still playing after 37.7 s across a 20 s refresh boundary |
+| Signed +29 with the P42 app changes | PUBLISHED + VERIFIED | release run 45453959869 from 84dd332; universal APK SHA256 matches the GitHub digest and SHA256SUMS, versionCode 29, apksigner exit 0 on the +28 certificate, P42 symbols inside libapp.so, `+28` untouched |
+| Android device run of composer/attachments/deep links | BLOCKED_NO_DEVICE | Unit-tested only; no phone or emulator tap-through in this packet |
+| Per-post Open Graph previews | NOT CLAIMED | Static hosting has no per-post HTML; documented in `docs/P42_SOCIAL_WEB.md` |
+
+## Previous - P41 publication (2026-11-23)
 
 Owner authorized controlled publication and one new signed +28 on 2026-11-21;
 execution was 2026-11-23. The 18 reviewed app paths are committed and pushed as
