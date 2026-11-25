@@ -1,6 +1,29 @@
 # Task board - coordinator updates this each pass
 
-## Latest - P42 social web publication (2026-11-24/25)
+## Latest - P43 official timetable + community completion (started 2026-11-25)
+
+Revised handoff: coherent UI, source-backed official timetable as the default
+discovery mode, completed Journey Board (post edit/delete + media cleanup,
+comment replies/edit/delete/report, blocks, receipts), a real staff moderation
+console, Norfold as reference only, and **no hosted database change** until the
+owner approves the gate. Baseline app `f058afc`, docs `3b3812b`, release
+`v1.0.0+29` preserved.
+
+| Task | State | Evidence / next gate |
+|---|---|---|
+| Official timetable dataset | DONE | Both PDFs SHA-256 hashed; 130 intercity rows transcribed with page+serial; 4 ambiguous printed rows excluded; mail/express + commuter tables recorded as not imported; builder validates times/stations/serials |
+| Official timetable app mode | DONE | `lib/features/timetable` models/repository/query/list/detail/station screens + home entry; analyze clean; 21 new tests in `test/timetable` |
+| Official timetable public page | LIVE | `timetable.html` on Pages, 126 published rows rendered from `site/data/official-timetable.json`; 10 Node tests; deploy run 45562642693 success at `0e8c495` |
+| Post edit/delete + My Posts | IN PROGRESS | worker packet: edited_at, attachment position, cleanup table, draft migration (not applied) |
+| Comment replies/edit/delete/report | IN PROGRESS | worker packet: one-level threading, realtime update/delete, draft migration (not applied) |
+| Moderation console + roles + blocks + receipts | IN PROGRESS | worker packet: staff_roles/capabilities, audit, visibility, sanctions, blocks, RPCs (draft only) |
+| Hosted database | FROZEN | `D-021`; no DDL/DML/Storage/auth/secret change in P43 before owner approval |
+| New Android release | NOT STARTED | Owner approval required; `+29` preserved |
+| UI polish + before/after screenshots | PENDING | needs the board/admin screens to land first |
+| Full CI + release candidate | PENDING | after integration and the UI pass |
+| Owner database gate | BLOCKED_OWNER_APPROVAL | present migration set, rollback, data impact, recovery point, post-apply checks |
+
+## P42 social web publication (2026-11-24/25)
 
 Owner asked for a genuinely functional academic social transport prototype: a
 live site backed by Supabase, real cross-account posts with permanent links,

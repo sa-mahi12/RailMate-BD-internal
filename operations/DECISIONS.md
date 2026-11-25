@@ -72,3 +72,29 @@ and reaches the login gate. Because the Station Guide requires an authenticated
 session, +28 map rendering and all physical-phone checks remain unobserved and
 are not claimed. Publication of the nine documents is the only remaining P41
 action; hosted/owner gates are unchanged.
+
+D-019 (2026-11-25): Revised P43 adopts an official published timetable as the
+default discovery mode and keeps the academic demo booking as a clearly
+separated mode. Only published fields are stored (train number, published name,
+weekly off day, origin/destination and their printed times, source document,
+page, printed serial, timetable number 54, effective 2025-03-10). Intermediate
+stops, fare, platform, delay, ETA, occupancy and live status are never inferred;
+the only external action is the official e-ticket portal. 130 intercity rows are
+imported; the mail/express and commuter tables are explicitly not imported yet
+and both the manifest and the UI state that gap. APPROVED by the handoff scope;
+dataset expansion is a follow-up, not a silent omission.
+
+D-020 (2026-11-25): Norfold is reference-only for P43. Its LICENSE.md is
+PolyForm Noncommercial with a named copyright holder and the handoff requires a
+rights-holder authority check before copying, so no Norfold file, identifier,
+branding, SQL migration or asset is copied. Behavioural patterns (queue, case
+review, audit, block, receipts) informed independent Dart and SQL. The Norfold
+repository is not modified.
+
+D-021 (2026-11-25): Production Supabase is frozen for P43 implementation. No
+hosted DDL/DML, Storage write, auth change, RLS/grant/trigger/Realtime change,
+Edge Function deploy or secret change until the full release candidate passes and
+the project owner approves the database gate. Draft migrations may be committed
+but not applied; the gate packet must list exact objects, rollback/forward repair,
+data impact, recovery point and post-apply checks. No new Android release is
+published before owner approval; v1.0.0+29 is preserved.

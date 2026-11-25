@@ -1,6 +1,37 @@
 # CURRENT — live status
 
-## Latest — P42 social web publication, 2026-11-24/25
+## Latest — P43 official timetable + community completion, started 2026-11-25
+
+IN PROGRESS; PRODUCTION DATABASE FROZEN. The revised P43 handoff asks for a
+coherent UI, a source-backed official timetable, a completed Journey Board
+(post edit/delete, comment replies/edit/delete/report, blocks, report receipts)
+and a real staff moderation console, with Norfold used only as reference and no
+hosted database change until the owner approves the gate.
+
+Baseline: app `f058afc`, docs `3b3812b`; release `v1.0.0+29` preserved.
+
+Done and pushed on `main` (owner identity, direct commits):
+- `bf3f347` official timetable mode: both Bangladesh Railway PDFs hashed, 130
+  intercity rows transcribed with page+serial provenance, 4 ambiguous printed
+  rows excluded, coverage gaps recorded, Dart models/repository/query/list/
+  detail/station screens, home entry card, 21 new Flutter tests.
+- `0e8c495` public `timetable.html` with a pure filter module (10 new Node
+  tests) reading `site/data/official-timetable.json`.
+- `bd00b49` `docs/P43_PLAN.md` + deployed-page screenshot.
+
+Data honesty: the Eastern PDF is a scan and the Western text layer extracts as
+legacy-font mojibake, so rows were read from the rendered page images. Only
+origin/destination, published times, weekly off day and provenance are stored;
+intermediate stops, fare, platform and frequency are never inferred. The
+mail/express and commuter tables (Eastern pages 3–8, Western pages 2–15) are
+explicitly not imported yet and the manifest/UI say so.
+
+Still open in this phase: post edit/delete + media cleanup, comment threading,
+moderation console with roles/audit/blocks/receipts, draft migrations (not
+applied), UI polish with screenshots, full CI, release candidate, then the owner
+database gate. No new Android release and no hosted DDL/DML happened in P43.
+
+## P42 — social web publication, 2026-11-24/25
 
 PUBLIC WEB P42 PUBLISHED; HOSTED SCHEMA APPLIED; SIGNED +29 PUBLISHED AND
 VERIFIED. The owner asked for a genuinely working academic social prototype: a
